@@ -1,0 +1,57 @@
+.main{
+    display: flex;
+    flex: 1;
+    background-image: url("photos/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    justify-content: center;
+    
+}
+.contain{
+    display: flex;
+    flex: 1;
+    max-width: 70%;
+    flex-direction: column;
+    height: 33rem;
+    align-items:center;
+}
+.c-row{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+    border: outset;
+    width:55%;
+    background-color: white;
+}
+.footer{
+    display: flex;
+    flex-direction: column;
+    margin-top: 0%;
+    background-color:black;
+}
+
+.giris{
+    display: flex;
+}
+
+.d-row{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 0.2rem;
+    margin-bottom: 1rem;
+    border: outset;
+    width:55%;
+    background-color: white;
+
+}
+
+.e-row{
+    display:flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+

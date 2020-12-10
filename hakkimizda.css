@@ -1,0 +1,49 @@
+.main{
+    display: flex;
+    flex: 1;
+    background-color: white;
+    justify-content: center;
+}
+.contain{
+    display: flex;
+    flex: 1;
+    max-width: 70%;
+    flex-direction: column;
+    height: 57rem;
+}
+.c-row{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: outset;
+    border-radius: 5rem;
+    background-color: whitesmoke;
+    border-color:rgba(0, 128, 128, 0.678);
+}
+.row{
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    padding: 1%;
+}
+.info{
+    display: flex;
+}
+.d-row{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: outset;
+    height: 85%;
+}
+.image{
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    height: 35%;
+    margin-top: 1rem;
+}
