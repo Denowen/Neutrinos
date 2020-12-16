@@ -22,12 +22,6 @@
     background-color: whitesmoke;
     border-color:rgba(0, 128, 128, 0.678);
 }
-.row{
-    display: flex;
-    flex: 1;
-    flex-direction: row;
-    padding: 1%;
-}
 
 .row{
     display: flex;
