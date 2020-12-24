@@ -55,7 +55,6 @@
 .footer{
     display: flex;
     flex-direction: column;
-    margin-top: 1%;
     background-color:black;
 }
 .f-img{
