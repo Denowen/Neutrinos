@@ -88,7 +88,7 @@ passengerNumber INT(10) REFERENCES Buy(passengerNumber));
 
 /*Administrators in System*/
 INSERT INTO Administrators VALUES('21474836471','Elif','Akar','elif.akar@isik.edu.tr','123elif');
-INSERT INTO Administrators VALUES('31249826713','Hilal','Yavuz','hilal.yavuz@isik.edu.tr','123hilal');
+INSERT INTO Administrators VALUES('31249826713','Hilal','Yavuz','218cs2112@isik.edu.tr','123hilal');
 INSERT INTO Administrators VALUES('21354689271','Görkem Deniz','Seyhan','gorkem.seyhan@isik.edu.tr','123gork');
 INSERT INTO Administrators VALUES('51286932143','Doğukan','Doğanay','dogukan.doganay@isik.edu.tr','123doğu');
 
