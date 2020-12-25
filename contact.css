@@ -5,6 +5,7 @@
     background-image: url(photos/background.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    padding-bottom: 1rem;
 }
 .contain{
     display: flex;
@@ -16,6 +17,9 @@
     border-color: rgba(0, 128, 128, 0.678);
     margin-top: 1rem;
     border-width: 0.3rem;
+    background-color: whitesmoke;
+    filter: opacity(0.95);
+    border-radius: 4rem;
 }
 .head{
     display: flex;
