@@ -22,7 +22,9 @@
     border: outset;
     border-radius: 5rem;
     background-color: whitesmoke;
-    border-color:rgba(0, 128, 128, 0.678);
+    border-color: rgb(232 66 66 / 51%);
+    filter: invert(1);
+    width: 33rem;
 }
 .row{
     display: flex;
@@ -39,8 +41,8 @@
     align-items: center;
     margin-top: 1rem;
     margin-bottom: 1rem;
-    border: outset;
     height: 85%;
+    filter: invert;
 }
 .image{
     display: flex;
@@ -48,4 +50,5 @@
     width: 75%;
     height: 35%;
     margin-top: 1rem;
+    filter: invert;
 }
