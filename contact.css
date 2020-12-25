@@ -1,8 +1,10 @@
 .main{
     display: flex;
     flex: 1;
-    background-color: white;
     justify-content: center;
+    background-image: url(photos/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .contain{
     display: flex;
