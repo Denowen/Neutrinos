@@ -25,6 +25,7 @@
     border-color:rgba(0, 128, 128, 0.678);
     width: 28rem;
     border-width: 0.3rem;
+    filter: opacity(0.9);
 }
 
 .row{
@@ -39,6 +40,7 @@
     border-color:rgba(0, 128, 128, 0.678);
     width: 43rem;
     border-width: 0.3rem;
+    filter: opacity(0.9);
 }
 
 .d-row{
