@@ -27,12 +27,14 @@
     border-radius: 2rem;
     border-color: rgba(0, 128, 128, 0.678);
     filter: opacity(0.9);
+    border-width: 0.3rem;
 }
 .footer{
     display: flex;
     flex-direction: column;
     margin-top: 0%;
     background-color:black;
+    border-width: 0.3rem;
 }
 
 .giris{
