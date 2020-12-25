@@ -36,88 +36,87 @@
                 </div>
                 
                 <div class="c-row">
-                    <form class="a-row">
-                        <div class="ticket">
-                            <div class="s">
-                                Satış
+                    <form class="a-row" action="filteredticket.html">
+                        <div class="div1">
+                            <div class="ticket">
+                                <div class="s">
+                                    Satış
+                                </div>
+                                <div class="s1">
+                                    <input type="radio" name="ticket" value="Satış" />
+                                </div>
+                                <div class="s">
+                                    Rezervasyon
+                                </div>
+                                <div class="s1">
+                                    <input type="radio" name="ticket" value="Rezervasyon" />
+                                </div>
                             </div>
-                            <div class="s1">
-                                <input type="radio" name="ticket" value="Satış" />
-                            </div>
-                            <div class="s">
-                                Rezervasyon
-                            </div>
-                            <div class="s1">
-                                <input type="radio" name="ticket" value="Rezervasyon" />
-                            </div>
-                        </div>
-                        <div class="way">
-                            <div class="s">
-                                Tek yön
-                            </div>
-                            <div class="s1">
-                                <input type="radio" name="way" value="tek" />
-                            </div>
-                            <div class="s">
-                                Gidiş dönüş
-                            </div>
-                            <div class="s1">
-                                <input type="radio" name="way" value="çift" />
-                            </div>
-                        </div>
-                        
-                    </form>
-                    <form class="a-row">
-                        <div class="start">
-                            <div class="s1">
-                                Nereden
-                            </div>
-                            <div class="s">
-                                <select name="nereden" id="nereden" style="width: 160%;">
-                                    <option value="34">İstanbul</option>
-                                    <option value="35">İzmir</option>
-                                </select>
+                            <div class="way">
+                                <div class="s">
+                                    Tek yön
+                                </div>
+                                <div class="s1">
+                                    <input type="radio" name="way" value="tek" />
+                                </div>
+                                <div class="s">
+                                    Gidiş dönüş
+                                </div>
+                                <div class="s1">
+                                    <input type="radio" name="way" value="çift" />
+                                </div>
                             </div>
                         </div>
-                        <div class="end">
-                            <div class="s1">
-                                Nereye
+                        <div class="div1">
+                            <div class="start">
+                                <div class="s1">
+                                    Nereden
+                                </div>
+                                <div class="s">
+                                    <select name="nereden" id="nereden" style="width: 160%;">
+                                        <option value="34">İstanbul</option>
+                                        <option value="35">İzmir</option>
+                                    </select>
+                                </div>
                             </div>
-                            <div class="s">
-                                <select name="nereye" id="nereye" style="width: 160%;">
-                                    <option value="34">İstanbul</option>
-                                    <option value="35">İzmir</option>
-                                </select>
-                            </div>
-                        </div>
-                    </form>
-
-                    <form class="a-row">
-                        <div class="sdate">
-                            <div class="s1">
-                                <label for="sdate">Gidiş Tarihi</label>
-                            </div>
-                            <div class="s">
-                                <input type="date" id="sdate" name="sdate" />
-                            </div>
-                        </div>
-                        <div class="edate">
-                            <div class="s1">
-                                <label for="edate">Dönüş Tarihi</label>
-                            </div>
-                            <div class="s">
-                                <input type="date" id="edate" name="edate" />
+                            <div class="end">
+                                <div class="s1">
+                                    Nereye
+                                </div>
+                                <div class="s">
+                                    <select name="nereye" id="nereye" style="width: 160%;">
+                                        <option value="34">İstanbul</option>
+                                        <option value="35">İzmir</option>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                    </form>
-
-                    <form class="a-row">
-                        <div class="search">
-                            <input type="submit" value="Ara" style="background-color: #E5FFCC;
-                            border-radius: 1rem;
-                            border-color: green;
-                            width: 6rem;
-                            height: 2rem;"/>
+                        <div class="div1">
+                            <div class="sdate">
+                                <div class="s1">
+                                    <label for="sdate">Gidiş Tarihi</label>
+                                </div>
+                                <div class="s">
+                                    <input type="date" id="sdate" name="sdate" />
+                                </div>
+                            </div>
+                            <div class="edate">
+                                <div class="s1">
+                                    <label for="edate">Dönüş Tarihi</label>
+                                </div>
+                                <div class="s">
+                                    <input type="date" id="edate" name="edate" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="div1">
+                            <div class="search">
+                                <input type="submit" value="Ara" style="background-color: #E5FFCC;
+                                border-radius: 1rem;
+                                border-color: green;
+                                width: 6rem;
+                                height: 2rem;"/>
+                            </div>
                         </div>
                     </form>
                 </div>
