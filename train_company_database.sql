@@ -1,0 +1,1637 @@
+use train_company_database;
+
+/*Represents all users*/
+CREATE TABLE Users(
+userName VARCHAR(100),
+userSurname VARCHAR(100),
+userSsn VARCHAR(12) PRIMARY KEY);
+
+/*Registered User Table(Possible customer)*/
+CREATE TABLE RegisteredUsers(
+regUserName VARCHAR(100) REFERENCES Users(userName),
+regUserSurname VARCHAR(100) REFERENCES Users(userSurname),
+regUserSsn VARCHAR(12) PRIMARY KEY REFERENCES Users(userSsn) ,
+regUserEmail VARCHAR(100) UNIQUE,
+regUserPassword VARCHAR(10) UNIQUE,
+regUserBirthdate DATE,
+regUserTelephoneNumber INT(20));
+
+/*Administrators Table*/
+CREATE TABLE Administrators(
+adminSsn VARCHAR(12) PRIMARY KEY REFERENCES Users(userSsn),
+adminName VARCHAR(100) REFERENCES Users(userName) ,
+adminSurname VARCHAR(100) REFERENCES Users(userSurname),
+adminEmail VARCHAR(100) UNIQUE,
+adminPassword VARCHAR(10) UNIQUE);
+
+/*Payment Table*/
+CREATE TABLE Payment(
+creditCardNumber INT(30) PRIMARY KEY,
+CVV INT(5),
+expirationDate DATE,
+cardOwnerNameAndSurname VARCHAR(100));
+
+/*Reservation Table*/
+CREATE TABLE Reserve(
+reservationId INT(200) AUTO_INCREMENT PRIMARY KEY,
+regUserSsn VARCHAR(12) REFERENCES RegisteredUsers(regUserSsn),
+routeId INT(20) REFERENCES Route(routeId),
+isDropped INT(1) DEFAULT 0,
+classType VARCHAR(2),
+passengerNumber INT(20));
+
+/*Buy Table*/
+CREATE TABLE Buy(
+purchasedId INT(200) AUTO_INCREMENT PRIMARY KEY,
+PNR VARCHAR(200) REFERENCES Ticket(PNR),
+creditCardNumber INT(30) REFERENCES Payment(creditCardNumber),
+reguserSsn VARCHAR(12) REFERENCES RegisteredUser(reguserSsn),
+routeId INT(20) REFERENCES Route(routeId),
+totalPrice INT(200) REFERENCES Route(price),
+isCancelled INT(1) DEFAULT 0,
+classType VARCHAR(2),
+seatNumber INT(100),
+passengerNumber INT(10));
+
+/*Train Table*/
+CREATE TABLE Train(
+trainNumber VARCHAR(20) PRIMARY KEY,
+capacity INT(20));
+
+/*Station Table*/
+CREATE TABLE Station(
+stationLocation VARCHAR(50),
+stationName VARCHAR(50) PRIMARY KEY);
+
+/*Route Table*/
+CREATE TABLE Route(
+routeId INT(20) PRIMARY KEY,
+startingStationTerminal VARCHAR(50) REFERENCES Station(stationName),
+destinationStationTerminal VARCHAR(50) REFERENCES Station(stationName),
+arrivelTime VARCHAR(20),
+departureTime VARCHAR(20),
+dateOfRoute DATE,
+trainNumber VARCHAR(20) REFERENCES Train(trainNumber),
+price FLOAT(6,3));
+
+/*Ticket Table*/
+CREATE TABLE Ticket(
+PNR INT(200) AUTO_INCREMENT PRIMARY KEY,
+reguserSsn VARCHAR(12) REFERENCES RegisteredUser(reguserSsn),
+purchasedId INT(200) REFERENCES Buy(purchasedId),
+startingRouteId INT(20) REFERENCES Route(routeId),
+departureRouteId INT(20) REFERENCES Route(routeId),
+totalPrice INT(200) REFERENCES Route(price),
+classType VARCHAR(2) REFERENCES Buy(classType),
+seatNumber INT(100) REFERENCES Buy(seatNumber),
+passengerNumber INT(10) REFERENCES Buy(passengerNumber));
+
+/*Administrators in System*/
+INSERT INTO Administrators VALUES('21474836471','Elif','Akar','elif.akar@isik.edu.tr','123elif');
+INSERT INTO Administrators VALUES('31249826713','Hilal','Yavuz','hilal.yavuz@isik.edu.tr','123hilal');
+INSERT INTO Administrators VALUES('21354689271','Görkem Deniz','Seyhan','gorkem.seyhan@isik.edu.tr','123gork');
+INSERT INTO Administrators VALUES('51286932143','Doğukan','Doğanay','dogukan.doganay@isik.edu.tr','123doğu');
+
+
+/*Trains in System*/
+INSERT INTO Train VALUES('100 6 September Express', 483); 
+INSERT INTO Train VALUES('101 17 September Express', 483);
+INSERT INTO Train VALUES('102 East Express',483);
+INSERT INTO Train VALUES('103 Aegean Express', 483);
+INSERT INTO Train VALUES('106 South Kurtulan Express',483);
+INSERT INTO Train VALUES('107 İzmir Blue Train', 483);
+INSERT INTO Train VALUES('111 Toros Express', 483);
+INSERT INTO Train VALUES('112 Van Lake Express', 483);
+INSERT INTO Train VALUES('113 High Speed Train', 483);
+
+
+/*Stations in System*/
+INSERT INTO Station VALUES('İzmir', 'IZMIR');
+INSERT INTO Station VALUES('Balıkesir','BALIKESIR');
+INSERT INTO Station VALUES('Ankara', 'ANKARA');
+INSERT INTO Station VALUES('Kayseri','KAYSERI');
+INSERT INTO Station VALUES('Sivas','SIVAS');
+INSERT INTO Station VALUES('Erzincan','ERZINCAN');
+INSERT INTO Station VALUES('Kars','KARS');
+INSERT INTO Station VALUES('Malatya','MALATYA');
+INSERT INTO Station VALUES('Adana','ADANA');
+INSERT INTO Station VALUES('Diyarbakır','DIYARBAKIR');
+INSERT INTO Station VALUES('Eskişehir','ESKISEHIR');
+INSERT INTO Station VALUES('Konya','KONYA');
+INSERT INTO Station VALUES('Van','VAN');
+INSERT INTO Station VALUES('İstanbul','ISTANBUL');
+
+/*Routes in System*/
+/*1. Hafta*/
+/*Route: İzmir-Balıkesir*/
+INSERT INTO Route VALUES (1,'IZMIR','BALIKESIR','07:00 ','09:00 ','2020-12-01','100 6 September Express',50.00);
+INSERT INTO Route VALUES (2,'IZMIR','BALIKESIR','13:00','15:00','2020-12-01','100 6 September Express',50.00);
+INSERT INTO Route VALUES (3,'IZMIR','BALIKESIR','09:00','11:00','2020-12-06','101 17 September Express',50.00);
+INSERT INTO Route VALUES (4,'IZMIR','BALIKESIR','15:00','17:00','2020-12-06','101 17 September Express',50.00);
+INSERT INTO Route VALUES (5,'IZMIR','BALIKESIR','12:00','14:00','2020-12-03', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (6,'IZMIR','BALIKESIR','18:00','20:00','2020-12-03', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (7,'IZMIR','BALIKESIR','08:00','09:00','2020-12-05','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (8,'IZMIR','BALIKESIR','20:00','21:00','2020-12-05','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (9,'IZMIR','BALIKESIR','08:00','09:00','2020-12-03','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (10,'IZMIR','BALIKESIR','20:00','21:00','2020-12-03','105 İzmir Blue Train',50.00);
+/*Route: Balıkesir-İzmir*/
+INSERT INTO Route VALUES (11,'BALIKESIR', 'IZMIR', '10:00','12:00','2020-12-01','100 6 September Express',50.00);
+INSERT INTO Route VALUES (12,'BALIKESIR', 'IZMIR', '16:00','18:00','2020-12-01','100 6 September Express',50.00);
+INSERT INTO Route VALUES (13,'BALIKESIR', 'IZMIR', '12:00', '14:00','2020-12-06','101 17 September Express',50.00);
+INSERT INTO Route VALUES (14,'BALIKESIR', 'IZMIR', '18:00', '20:00','2020-12-06','101 17 September Express',50.00);
+INSERT INTO Route VALUES (15,'BALIKESIR', 'IZMIR',' 15:00', '17:00','2020-12-03', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (16,'BALIKESIR', 'IZMIR',' 21:00', '23:00','2020-12-03','103 Aegean Express',50.00);
+INSERT INTO Route VALUES (17,'BALIKESIR', 'IZMIR','06:00','07:00','2020-12-05','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (18,'BALIKESIR', 'IZMIR','18:00','19:00','2020-12-05','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (19,'BALIKESIR', 'IZMIR','06:00','07:00','2020-12-03','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (20,'BALIKESIR', 'IZMIR','18:00','19:00','2020-12-03','105 İzmir Blue Train',50.00);
+/*Route: Eskişehir-Balıkesir*/
+INSERT INTO Route VALUES (21,'IZMIR','BALIKESIR','04:00','05:00 ','2020-12-05','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (22,'IZMIR','BALIKESIR','16:00','17:00 ','2020-12-05','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (23,'IZMIR','BALIKESIR','04:00','05:00 ','2020-12-03','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (24,'IZMIR','BALIKESIR','16:00','17:00 ','2020-12-03','105 İzmir Blue Train',40.00);
+/*Route: Balıkesir-Eskişehir*/
+INSERT INTO Route VALUES (25,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2020-12-05','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (26,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2020-12-05','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (27,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2020-12-03','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (28,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2020-12-03','105 İzmir Blue Train',40.00);
+/*Route: İstanbul-Eskişehir*/
+INSERT INTO Route VALUES(29,'ISTANBUL','ESKISEHIR','02:00','03:00','2020-12-05','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(30,'ISTANBUL','ESKISEHIR','14:00','15:00','2020-12-05','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(31,'ISTANBUL','ESKISEHIR','02:00','03:00','2020-12-03','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(32,'ISTANBUL','ESKISEHIR','14:00','15:00','2020-12-03','113 High Speed Train',30.00);
+/*Route: Eskişehir-İstanbul*/
+INSERT INTO Route VALUES(33,'ESKISEHIR','ISTANBUL','12:00','13:00','2020-12-05','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(34,'ESKISEHIR','ISTANBUL','24:00','01:00','2020-12-05','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(35,'ESKISEHIR','ISTANBUL','12:00','13:00','2020-12-03','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(36,'ESKISEHIR','ISTANBUL','24:00','01:00','2020-12-03','113 High Speed Train',30.00);
+/*Route: Ankara-Kayseri*/
+INSERT INTO Route VALUES (37,'ANKARA','KAYSERI','06:00', '07:00','2020-12-01','110 East Express',30.00);
+INSERT INTO Route VALUES (38,'ANKARA','KAYSERI','22:00', '23:00','2020-12-01','110 East Express',30.00);
+INSERT INTO Route VALUES (39,'ANKARA','KAYSERI','06:00', '07:00','2020-12-03','110 East Express',30.00);
+INSERT INTO Route VALUES (40,'ANKARA','KAYSERI','22:00', '23:00','2020-12-03','110 East Express',30.00);
+INSERT INTO Route VALUES (41,'ANKARA','KAYSERI','06:00','07:00','2020-12-04','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (42,'ANKARA','KAYSERI','22:00','23:00','2020-12-04','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (43,'ANKARA','KAYSERI','06:00','07:00','2020-12-02','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (44,'ANKARA','KAYSERI','22:00','23:00','2020-12-02','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (45,'ANKARA','KAYSERI','10:00','11:00','2020-12-02','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (46,'ANKARA','KAYSERI','18:00','19:00','2020-12-02','112 Van Lake Express',30.00);
+/*Route: Kayseri-Ankara*/
+INSERT INTO Route VALUES (47,'KAYSERI','ANKARA','20:00', '21:00','2020-12-01','110 East Express',30.00);
+INSERT INTO Route VALUES (48,'KAYSERI','ANKARA','12:00', '13:00','2020-12-02','110 East Express',30.00);
+INSERT INTO Route VALUES (49,'KAYSERI','ANKARA','20:00', '21:00','2020-12-03','110 East Express',30.00);
+INSERT INTO Route VALUES (50,'KAYSERI','ANKARA','12:00', '13:00','2020-12-04','110 East Express',30.00);
+INSERT INTO Route VALUES (51,'KAYSERI','ANKARA','20:00', '21:00','2020-12-04','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (52,'KAYSERI','ANKARA','12:00', '13:00','2020-12-05','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (53,'KAYSERI','ANKARA','20:00', '21:00','2020-12-02','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (54,'KAYSERI','ANKARA','12:00', '13:00','2020-12-03','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (55,'KAYSERI','ANKARA','16:00', '17:00','2020-12-02','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (56,'KAYSERI','ANKARA','24:00', '01:00', '2020-12-02','112 Van Lake Express',30.00);
+/*Route: Kayseri-Sivas*/
+INSERT INTO Route VALUES (57,'KAYSERI','SIVAS','08:00','09:00','2020-12-01','110 East Express',30.00);
+INSERT INTO Route VALUES (58,'KAYSERI','SIVAS','24:00','01:00','2020-12-01','110 East Express',30.00);
+INSERT INTO Route VALUES (59,'KAYSERI','SIVAS','08:00','09:00', '2020-12-03','110 East Express',30.00);
+INSERT INTO Route VALUES (60,'KAYSERI','SIVAS','24:00','01:00', '2020-12-03','110 East Express',30.00);
+INSERT INTO Route VALUES (61,'KAYSERI','SIVAS','08:00','09:00','2020-12-04','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (62,'KAYSERI','SIVAS','24:00','01:00','2020-12-04','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (63,'KAYSERI','SIVAS','08:00','09:00','2020-12-02','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (64,'KAYSERI','SIVAS','24:00','01:00','2020-12-02','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (65,'KAYSERI','SIVAS','12:00','13:00','2020-12-02','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (66,'KAYSERI','SIVAS','20:00','21:00','2020-12-02','112 Van Lake Express',30.00);
+/*Route: Sivas-Kayseri*/
+INSERT INTO Route VALUES (67,'SIVAS','KAYSERI','18:00','19:00','2020-12-01','110 East Express',30.00);
+INSERT INTO Route VALUES (68,'SIVAS','KAYSERI','10:00','11:00','2020-12-02','110 East Express',30.00);
+INSERT INTO Route VALUES (69,'SIVAS','KAYSERI','18:00','19:00','2020-12-03','110 East Express',30.00);
+INSERT INTO Route VALUES (70,'SIVAS','KAYSERI','10:00','11:00','2020-12-04','110 East Express',30.00);
+INSERT INTO Route VALUES (71,'SIVAS','KAYSERI','18:00','19:00','2020-12-04','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (72,'SIVAS','KAYSERI','10:00','11:00','2020-12-05','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (73,'SIVAS','KAYSERI','18:00','19:00','2020-12-02','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (74,'SIVAS','KAYSERI','10:00','11:00','2020-12-03','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (75,'SIVAS','KAYSERI','14:00','15:00','2020-12-02','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (76,'SIVAS','KAYSERI','22:00','23:00','2020-12-02','112 Van Lake Express',30.00);
+/*Route: Sivas-Malatya*/
+INSERT INTO Route VALUES (77,'SIVAS','MALATYA','10:00','11:00','2020-12-04','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (78,'SIVAS','MALATYA','02:00','03:00','2020-12-05','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (79,'SIVAS','MALATYA','10:00','11:00', '2020-12-02','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (80,'SIVAS','MALATYA','02:00','03:00','2020-12-03','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Sivas*/
+INSERT INTO Route VALUES (81,'MALATYA','SIVAS','16:00','17:00','2020-12-04','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (82,'MALATYA','SIVAS','08:00','09:00','2020-12-05','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (83,'MALATYA','SIVAS','16:00','17:00','2020-12-02','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (84,'MALATYA','SIVAS','08:00','09:00','2020-12-03','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Diyarbakır*/
+INSERT INTO Route VALUES (85,'MALATYA','DIYARBAKIR','12:00','13:00','2020-12-04','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (86,'MALATYA','DIYARBAKIR','04:00','05:00','2020-12-05','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (87,'MALATYA','DIYARBAKIR','12:00','13:00','2020-12-02','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (88,'MALATYA','DIYARBAKIR','04:00','05:00','2020-12-03','106 South Kurtulan Express',20.00);
+/*Diyarbakır-Malatya*/
+INSERT INTO Route VALUES (89,'DIYARBAKIR','MALATYA','14:00','15:00', '2020-12-04','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (90,'DIYARBAKIR','MALATYA','06:00','07:00','2020-12-05','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (91,'DIYARBAKIR','MALATYA','14:00','15:00','2020-12-02','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (92,'DIYARBAKIR','MALATYA','06:00','07:00','2020-12-03','106 South Kurtulan Express',20.00);
+/*Route: Sivas-Erzincan*/
+INSERT INTO Route VALUES (93,'SIVAS','ERZINCAN','10:00','11:00','2020-12-01','110 East Express',45.00);
+INSERT INTO Route VALUES (94,'SIVAS','ERZINCAN','02:00','03:00', '2020-12-02','110 East Express',45.00);
+INSERT INTO Route VALUES (95,'SIVAS','ERZINCAN','10:00','11:00', '2020-12-03','110 East Express',45.00);
+INSERT INTO Route VALUES (96,'SIVAS','ERZINCAN','02:00','03:00','2020-12-04','110 East Express',45.00);
+/*Route: Erzincan-Sivas*/
+INSERT INTO Route VALUES (97,'ERZINCAN','SIVAS','16:00','17:00','2020-12-01','110 East Express',45.00);
+INSERT INTO Route VALUES (98,'ERZINCAN','SIVAS','08:00','09:00','2020-12-02','110 East Express',45.00);
+INSERT INTO Route VALUES (99,'ERZINCAN','SIVAS','16:00','17:00','2020-12-03','110 East Express',45.00);
+INSERT INTO Route VALUES (100,'ERZINCAN','SIVAS','08:00','09:00','2020-12-04','110 East Express',45.00);
+/*Route: Erzincan-Kars*/
+INSERT INTO Route VALUES (101,'ERZINCAN','KARS','12:00','13:00','2020-12-01','110 East Express',35.00);
+INSERT INTO Route VALUES (102,'ERZINCAN','KARS','04:00','05:00', '2020-12-02','110 East Express',35.00);
+INSERT INTO Route VALUES (103,'ERZINCAN','KARS','12:00','13:00','2020-12-03','110 East Express',35.00);
+INSERT INTO Route VALUES (104,'ERZINCAN','KARS','04:00','05:00','2020-12-04','110 East Express',35.00);
+/*Route: Kars-Erzincan*/
+INSERT INTO Route VALUES (105,'KARS','ERZINCAN','14:00','15:00','2020-12-01','110 East Express',35.00);
+INSERT INTO Route VALUES (106,'KARS','ERZINCAN','06:00','07:00','2020-12-02','110 East Express',35.00);
+INSERT INTO Route VALUES (107,'KARS','ERZINCAN','14:00','15:00','2020-12-03','110 East Express',35.00);
+INSERT INTO Route VALUES (108,'KARS','ERZINCAN','06:00','07:00','2020-12-04','110 East Express',35.00);
+/*Route: Adana-Konya*/
+INSERT INTO Route VALUES (109,'ADANA','KONYA','11:00','12:00', '2020-12-02','111 Toros Express',55.00);
+INSERT INTO Route VALUES (110,'ADANA','KONYA','19:00','20:00', '2020-12-02','111 Toros Express',55.00);
+INSERT INTO Route VALUES (111,'ADANA','KONYA','11:00','12:00', '2020-12-04','111 Toros Express',55.00);
+INSERT INTO Route VALUES (112,'ADANA','KONYA','19:00','20:00','2020-12-04','111 Toros Express',55.00);
+/*Route: Konya-Adana*/
+INSERT INTO Route VALUES (113,'KONYA','ADANA','09:00','10:00', '2020-12-02','111 Toros Express',55.00);
+INSERT INTO Route VALUES (114,'KONYA','ADANA','17:00','18:00','2020-12-02','111 Toros Express',55.00);
+INSERT INTO Route VALUES (115,'KONYA','ADANA','09:00','10:00', '2020-12-04','111 Toros Express',55.00);
+INSERT INTO Route VALUES (116,'KONYA','ADANA','17:00','18:00', '2020-12-04','111 Toros Express',55.00);
+/*Route: Konya-İstanbul*/
+INSERT INTO Route VALUES (117,'KONYA','ISTANBUL','13:00','14:00','2020-12-02','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (118,'KONYA','ISTANBUL','21:00','22:00','2020-12-02','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (119,'KONYA','ISTANBUL','13:00','14:00','2020-12-04','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (120,'KONYA','ISTANBUL','21:00','22:00', '2020-12-04','113 High Speed Train',60.00);
+/*Route: İstanbul-Konya*/
+INSERT INTO Route VALUES (121,'ISTANBUL','KONYA','07:00','08:00','2020-12-02','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (122,'ISTANBUL','KONYA','15:00','16:00','2020-12-02','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (123,'ISTANBUL','KONYA','07:00','08:00','2020-12-04','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (124,'ISTANBUL','KONYA','15:00','16:00', '2020-12-04','113 High Speed Train',60.00);
+/*Route: Ankara-Van*/
+INSERT INTO Route VALUES (125,'ANKARA','VAN','11:00','12:00','2020-12-01','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (126,'ANKARA','VAN','19:00','20:00','2020-12-01','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (127,'ANKARA','VAN','11:00','12:00','2020-12-06','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (128,'ANKARA','VAN','19:00','20:00', '2020-12-06','112 Van Lake Express',100.00);
+/*Route: Van-Ankara*/
+INSERT INTO Route VALUES (129,'VAN','ANKARA','13:00','14:00','2020-12-01','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (130,'VAN','ANKARA','21:00','22:00','2020-12-01','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (131,'VAN','ANKARA','13:00','14:00','2020-12-06','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (132,'VAN','ANKARA','21:00','22:00','2020-12-06','112 Van Lake Express',100.00);
+/*Route: İstanbul-Ankara*/
+INSERT INTO Route VALUES (133,'ISTANBUL','ANKARA','09:00','10:00','2020-12-01','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (134,'ISTANBUL','ANKARA','17:00','18:00','2020-12-01','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (135,'ISTANBUL','ANKARA','09:00','10:00', '2020-12-06','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (136,'ISTANBUL','ANKARA','17:00','18:00','2020-12-06','113 High Speed Train',40.00);
+/*Route: Ankara- İstanbul*/
+INSERT INTO Route VALUES (137,'ANKARA','ISTANBUL','15:00','16:00','2020-12-01','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (138,'ANKARA','ISTANBUL','23:00','24:00','2020-12-01','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (139,'ANKARA','ISTANBUL','15:00','16:00', '2020-12-06','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (140,'ANKARA','ISTANBUL','23:00','24:00','2020-12-06','113 High Speed Train',40.00);
+
+/*2. Hafta*/
+/*Route: İzmir- Balıkesir*/
+INSERT INTO Route VALUES (141,'IZMIR','BALIKESIR','07:00 ','09:00 ','2020-12-08','100 6 September Express',50.00);
+INSERT INTO Route VALUES (142,'IZMIR','BALIKESIR','13:00','15:00','2020-12-08','100 6 September Express',50.00);
+INSERT INTO Route VALUES (143,'IZMIR','BALIKESIR','09:00','11:00', '2020-12-13','101 17 September Express',50.00);
+INSERT INTO Route VALUES (144,'IZMIR','BALIKESIR','15:00','17:00',  '2020-12-13','101 17 September Express',50.00);
+INSERT INTO Route VALUES (145,'IZMIR','BALIKESIR','12:00','14:00','2020-12-10', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (146,'IZMIR','BALIKESIR','18:00','20:00', '2020-12-10', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (147,'IZMIR','BALIKESIR','08:00','09:00', '2020-12-12','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (148,'IZMIR','BALIKESIR','20:00','21:00', '2020-12-12','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (149,'IZMIR','BALIKESIR','08:00','09:00','2020-12-10','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (150,'IZMIR','BALIKESIR','20:00','21:00','2020-12-10','105 İzmir Blue Train',50.00);
+/*Route: Balıkesir-İzmir*/
+INSERT INTO Route VALUES (151,'BALIKESIR', 'IZMIR', '10:00','12:00','2020-12-08','100 6 September Express',50.00);
+INSERT INTO Route VALUES (152,'BALIKESIR', 'IZMIR', '16:00','18:00','2020-12-08','100 6 September Express',50.00);
+INSERT INTO Route VALUES (153,'BALIKESIR', 'IZMIR', '12:00', '14:00',  '2020-12-13','101 17 September Express',50.00);
+INSERT INTO Route VALUES (154,'BALIKESIR', 'IZMIR', '18:00', '20:00', '2020-12-13','101 17 September Express',50.00);
+INSERT INTO Route VALUES (155,'BALIKESIR', 'IZMIR',' 15:00', '17:00', '2020-12-10', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (156,'BALIKESIR', 'IZMIR',' 21:00', '23:00', '2020-12-10', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (157,'BALIKESIR', 'IZMIR','06:00','07:00','2020-12-12','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (158,'BALIKESIR', 'IZMIR','18:00','19:00', '2020-12-12','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (159,'BALIKESIR', 'IZMIR','06:00','07:00','2020-12-10','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (160,'BALIKESIR', 'IZMIR','18:00','19:00','2020-12-10','105 İzmir Blue Train',50.00);
+/*Route: Eskişehir-Balıkesir*/
+INSERT INTO Route VALUES (161,'IZMIR','BALIKESIR','04:00','05:00 ','2020-12-12','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (162,'IZMIR','BALIKESIR','16:00','17:00 ', '2020-12-12','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (163,'IZMIR','BALIKESIR','04:00','05:00 ','2020-12-10','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (164,'IZMIR','BALIKESIR','16:00','17:00 ','2020-12-10','105 İzmir Blue Train',40.00);
+/*Route: Balıkesir-Eskişehir*/
+INSERT INTO Route VALUES (165,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2020-12-12','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (166,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2020-12-12','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (167,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2020-12-10','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (168,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2020-12-10','105 İzmir Blue Train',40.00);
+/*Route: İstanbul-Eskişehir*/
+INSERT INTO Route VALUES(169,'ISTANBUL','ESKISEHIR','02:00','03:00','2020-12-12','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(170,'ISTANBUL','ESKISEHIR','14:00','15:00','2020-12-12','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(171,'ISTANBUL','ESKISEHIR','02:00','03:00','2020-12-10','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(172,'ISTANBUL','ESKISEHIR','14:00','15:00','2020-12-10','113 High Speed Train',30.00);
+/*Route: Eskişehir-İstanbul*/
+INSERT INTO Route VALUES(173,'ESKISEHIR','ISTANBUL','12:00','13:00','2020-12-12','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(174,'ESKISEHIR','ISTANBUL','24:00','01:00','2020-12-12','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(175,'ESKISEHIR','ISTANBUL','12:00','13:00','2020-12-10','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(176,'ESKISEHIR','ISTANBUL','24:00','01:00','2020-12-10','113 High Speed Train',30.00);
+/*Route: Ankara-Kayseri*/
+INSERT INTO Route VALUES (177,'ANKARA','KAYSERI','06:00', '07:00','2020-12-08','110 East Express',30.00);
+INSERT INTO Route VALUES (178,'ANKARA','KAYSERI','22:00', '23:00', '2020-12-08','110 East Express',30.00);
+INSERT INTO Route VALUES (179,'ANKARA','KAYSERI','06:00', '07:00','2020-12-10','110 East Express',30.00);
+INSERT INTO Route VALUES (180,'ANKARA','KAYSERI','22:00', '23:00','2020-12-10','110 East Express',30.00);
+INSERT INTO Route VALUES (181,'ANKARA','KAYSERI','06:00','07:00', '2020-12-11','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (182,'ANKARA','KAYSERI','22:00','23:00', '2020-12-11','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (183,'ANKARA','KAYSERI','06:00','07:00','2020-12-09','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (184,'ANKARA','KAYSERI','22:00','23:00', '2020-12-09','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (185,'ANKARA','KAYSERI','10:00','11:00', '2020-12-09','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (186,'ANKARA','KAYSERI','18:00','19:00','2020-12-09','112 Van Lake Express',30.00);
+/*Route: Kayseri-Ankara*/
+INSERT INTO Route VALUES (187,'KAYSERI','ANKARA','20:00', '21:00','2020-12-08','110 East Express',30.00);
+INSERT INTO Route VALUES (188,'KAYSERI','ANKARA','12:00', '13:00', '2020-12-08','110 East Express',30.00);
+INSERT INTO Route VALUES (189,'KAYSERI','ANKARA','20:00', '21:00', '2020-12-10','110 East Express',30.00);
+INSERT INTO Route VALUES (190,'KAYSERI','ANKARA','12:00', '13:00', '2020-12-11','110 East Express',30.00);
+INSERT INTO Route VALUES (191,'KAYSERI','ANKARA','20:00', '21:00', '2020-12-11','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (192,'KAYSERI','ANKARA','12:00', '13:00', '2020-12-12','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (193,'KAYSERI','ANKARA','20:00', '21:00', '2020-12-09','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (194,'KAYSERI','ANKARA','12:00', '13:00', '2020-12-10','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (195,'KAYSERI','ANKARA','16:00', '17:00', '2020-12-09','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (196,'KAYSERI','ANKARA','24:00', '01:00', '2020-12-09','112 Van Lake Express',30.00);
+/*Route: Kayseri-Sivas*/
+INSERT INTO Route VALUES (197,'KAYSERI','SIVAS','08:00','09:00','2020-12-08','110 East Express',30.00);
+INSERT INTO Route VALUES (198,'KAYSERI','SIVAS','24:00','01:00', '2020-12-08','110 East Express',30.00);
+INSERT INTO Route VALUES (199,'KAYSERI','SIVAS','08:00','09:00','2020-12-10','110 East Express',30.00);
+INSERT INTO Route VALUES (200,'KAYSERI','SIVAS','24:00','01:00', '2020-12-10','110 East Express',30.00);
+INSERT INTO Route VALUES (201,'KAYSERI','SIVAS','08:00','09:00','2020-12-11','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (202,'KAYSERI','SIVAS','24:00','01:00','2020-12-11','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (203,'KAYSERI','SIVAS','08:00','09:00', '2020-12-09','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (204,'KAYSERI','SIVAS','24:00','01:00','2020-12-09','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (205,'KAYSERI','SIVAS','12:00','13:00', '2020-12-09','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (206,'KAYSERI','SIVAS','20:00','21:00','2020-12-09','112 Van Lake Express',30.00);
+/*Route: Sivas-Kayseri*/
+INSERT INTO Route VALUES (207,'SIVAS','KAYSERI','18:00','19:00','2020-12-08','110 East Express',30.00);
+INSERT INTO Route VALUES (208,'SIVAS','KAYSERI','10:00','11:00', '2020-12-09','110 East Express',30.00);
+INSERT INTO Route VALUES (209,'SIVAS','KAYSERI','18:00','19:00', '2020-12-10','110 East Express',30.00);
+INSERT INTO Route VALUES (210,'SIVAS','KAYSERI','10:00','11:00','2020-12-11','110 East Express',30.00);
+INSERT INTO Route VALUES (211,'SIVAS','KAYSERI','18:00','19:00','2020-12-11','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (212,'SIVAS','KAYSERI','10:00','11:00', '2020-12-12','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (213,'SIVAS','KAYSERI','18:00','19:00', '2020-12-09','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (214,'SIVAS','KAYSERI','10:00','11:00', '2020-12-10','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (215,'SIVAS','KAYSERI','14:00','15:00', '2020-12-09','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (216,'SIVAS','KAYSERI','22:00','23:00','2020-12-09','112 Van Lake Express',30.00);
+/*Route: Sivas-Malatya*/
+INSERT INTO Route VALUES (217,'SIVAS','MALATYA','10:00','11:00', '2020-12-11','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (218,'SIVAS','MALATYA','02:00','03:00','2020-12-12','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (219,'SIVAS','MALATYA','10:00','11:00', '2020-12-09','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (220,'SIVAS','MALATYA','02:00','03:00','2020-12-10','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Sivas*/
+INSERT INTO Route VALUES (221,'MALATYA','SIVAS','16:00','17:00','2020-12-11','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (222,'MALATYA','SIVAS','08:00','09:00','2020-12-12','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (223,'MALATYA','SIVAS','16:00','17:00','2020-12-09','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (224,'MALATYA','SIVAS','08:00','09:00','2020-12-10','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Diyarbakır*/
+INSERT INTO Route VALUES (225,'MALATYA','DIYARBAKIR','12:00','13:00','2020-12-11','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (226,'MALATYA','DIYARBAKIR','04:00','05:00','2020-12-12','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (227,'MALATYA','DIYARBAKIR','12:00','13:00','2020-12-09','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (228,'MALATYA','DIYARBAKIR','04:00','05:00','2020-12-10','106 South Kurtulan Express',20.00);
+/*Diyarbakır-Malatya*/
+INSERT INTO Route VALUES (229,'DIYARBAKIR','MALATYA','14:00','15:00', '2020-12-11','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (230,'DIYARBAKIR','MALATYA','06:00','07:00','2020-12-12','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (231,'DIYARBAKIR','MALATYA','14:00','15:00','2020-12-09','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (232,'DIYARBAKIR','MALATYA','06:00','07:00', '2020-12-10','106 South Kurtulan Express',20.00);
+/*Route: Sivas-Erzincan*/
+INSERT INTO Route VALUES (233,'SIVAS','ERZINCAN','10:00','11:00','2020-12-08','110 East Express',45.00);
+INSERT INTO Route VALUES (234,'SIVAS','ERZINCAN','02:00','03:00', '2020-12-09','110 East Express',45.00);
+INSERT INTO Route VALUES (235,'SIVAS','ERZINCAN','10:00','11:00', '2020-12-10','110 East Express',45.00);
+INSERT INTO Route VALUES (236,'SIVAS','ERZINCAN','02:00','03:00', '2020-12-12','110 East Express',45.00);
+/*Route: Erzincan-Sivas*/
+INSERT INTO Route VALUES (237,'ERZINCAN','SIVAS','16:00','17:00', '2020-12-08','110 East Express',45.00);
+INSERT INTO Route VALUES (238,'ERZINCAN','SIVAS','08:00','09:00', '2020-12-09','110 East Express',45.00);
+INSERT INTO Route VALUES (239,'ERZINCAN','SIVAS','16:00','17:00','2020-12-10','110 East Express',45.00);
+INSERT INTO Route VALUES (240,'ERZINCAN','SIVAS','08:00','09:00', '2020-12-11','110 East Express',45.00);
+/*Route: Erzincan-Kars*/
+INSERT INTO Route VALUES (241,'ERZINCAN','KARS','12:00','13:00','2020-12-08','110 East Express',35.00);
+INSERT INTO Route VALUES (242,'ERZINCAN','KARS','04:00','05:00', '2020-12-09','110 East Express',35.00);
+INSERT INTO Route VALUES (243,'ERZINCAN','KARS','12:00','13:00', '2020-12-10','110 East Express',35.00);
+INSERT INTO Route VALUES (244,'ERZINCAN','KARS','04:00','05:00','2020-12-11','110 East Express',35.00);
+/*Route: Kars-Erzincan*/
+INSERT INTO Route VALUES (245,'KARS','ERZINCAN','14:00','15:00','2020-12-08','110 East Express',35.00);
+INSERT INTO Route VALUES (246,'KARS','ERZINCAN','06:00','07:00', '2020-12-09','110 East Express',35.00);
+INSERT INTO Route VALUES (247,'KARS','ERZINCAN','14:00','15:00','2020-12-10','110 East Express',35.00);
+INSERT INTO Route VALUES (248,'KARS','ERZINCAN','06:00','07:00', '2020-12-11','110 East Express',35.00);
+/*Route: Adana-Konya*/
+INSERT INTO Route VALUES (249,'ADANA','KONYA','11:00','12:00', '2020-12-09','111 Toros Express',55.00);
+INSERT INTO Route VALUES (250,'ADANA','KONYA','19:00','20:00','2020-12-09','111 Toros Express',55.00);
+INSERT INTO Route VALUES (251,'ADANA','KONYA','11:00','12:00', '2020-12-11','111 Toros Express',55.00);
+INSERT INTO Route VALUES (252,'ADANA','KONYA','19:00','20:00', '2020-12-11','111 Toros Express',55.00);
+/*Route: Konya-Adana*/
+INSERT INTO Route VALUES (253,'KONYA','ADANA','09:00','10:00', '2020-12-09','111 Toros Express',55.00);
+INSERT INTO Route VALUES (254,'KONYA','ADANA','17:00','18:00', '2020-12-09','111 Toros Express',55.00);
+INSERT INTO Route VALUES (255,'KONYA','ADANA','09:00','10:00', '2020-12-11','111 Toros Express',55.00);
+INSERT INTO Route VALUES (256,'KONYA','ADANA','17:00','18:00', '2020-12-11','111 Toros Express',55.00);
+/*Route: Konya-İstanbul*/
+INSERT INTO Route VALUES (257,'KONYA','ISTANBUL','13:00','14:00', '2020-12-09','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (258,'KONYA','ISTANBUL','21:00','22:00', '2020-12-09','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (259,'KONYA','ISTANBUL','13:00','14:00', '2020-12-11','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (260,'KONYA','ISTANBUL','21:00','22:00', '2020-12-11','113 High Speed Train',60.00);
+/*Route: İstanbul-Konya*/
+INSERT INTO Route VALUES (261,'ISTANBUL','KONYA','07:00','08:00', '2020-12-09','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (262,'ISTANBUL','KONYA','15:00','16:00','2020-12-09','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (263,'ISTANBUL','KONYA','07:00','08:00', '2020-12-11','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (264,'ISTANBUL','KONYA','15:00','16:00', '2020-12-11','113 High Speed Train',60.00);
+/*Route: Ankara-Van*/
+INSERT INTO Route VALUES (265,'ANKARA','VAN','11:00','12:00', '2020-12-08','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (266,'ANKARA','VAN','19:00','20:00', '2020-12-08','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (267,'ANKARA','VAN','11:00','12:00', '2020-12-13','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (268,'ANKARA','VAN','19:00','20:00', '2020-12-13','112 Van Lake Express',100.00);
+/*Route: Van-Ankara*/
+INSERT INTO Route VALUES (269,'VAN','ANKARA','13:00','14:00', '2020-12-08','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (270,'VAN','ANKARA','21:00','22:00','2020-12-08','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (271,'VAN','ANKARA','13:00','14:00', '2020-12-13','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (272,'VAN','ANKARA','21:00','22:00', '2020-12-13','112 Van Lake Express',100.00);
+/*Route: İstanbul-Ankara*/
+INSERT INTO Route VALUES (273,'ISTANBUL','ANKARA','09:00','10:00','2020-12-08','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (274,'ISTANBUL','ANKARA','17:00','18:00', '2020-12-08','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (275,'ISTANBUL','ANKARA','09:00','10:00','2020-12-13','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (276,'ISTANBUL','ANKARA','17:00','18:00', '2020-12-13','113 High Speed Train',40.00);
+/*Route: Ankara- İstanbul*/
+INSERT INTO Route VALUES (277,'ANKARA','ISTANBUL','15:00','16:00', '2020-12-08','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (278,'ANKARA','ISTANBUL','23:00','24:00', '2020-12-08','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (279,'ANKARA','ISTANBUL','15:00','16:00', '2020-12-13','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (280,'ANKARA','ISTANBUL','23:00','24:00','2020-12-13','113 High Speed Train',40.00);
+
+/*3. Hafta*/
+/*Route: İzmir- Balıkesir*/
+INSERT INTO Route VALUES (281,'IZMIR','BALIKESIR','07:00','09:00','2020-12-15','100 6 September Express',50.00);
+INSERT INTO Route VALUES (282,'IZMIR','BALIKESIR','13:00','15:00','2020-12-15','100 6 September Express',50.00);
+INSERT INTO Route VALUES (283,'IZMIR','BALIKESIR','09:00','11:00',  '2020-12-20','101 17 September Express',50.00);
+INSERT INTO Route VALUES (284,'IZMIR','BALIKESIR','15:00','17:00',  '2020-12-20','101 17 September Express',50.00);
+INSERT INTO Route VALUES (285,'IZMIR','BALIKESIR','12:00','14:00','2020-12-17', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (286,'IZMIR','BALIKESIR','18:00','20:00','2020-12-17','103 Aegean Express',50.00);
+INSERT INTO Route VALUES (287,'IZMIR','BALIKESIR','08:00','09:00','2020-12-19','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (288,'IZMIR','BALIKESIR','20:00','21:00','2020-12-19','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (289,'IZMIR','BALIKESIR','08:00','09:00', '2020-12-17','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (290,'IZMIR','BALIKESIR','20:00','21:00','2020-12-17','105 İzmir Blue Train',50.00);
+/*Route: Balıkesir-İzmir*/
+INSERT INTO Route VALUES (291,'BALIKESIR', 'IZMIR', '10:00','12:00','2020-12-15','100 6 September Express',50.00);
+INSERT INTO Route VALUES (292,'BALIKESIR', 'IZMIR', '16:00','18:00', '2020-12-15','100 6 September Express',50.00);
+INSERT INTO Route VALUES (293,'BALIKESIR', 'IZMIR', '12:00', '14:00',  '2020-12-20','101 17 September Express',50.00);
+INSERT INTO Route VALUES (294,'BALIKESIR', 'IZMIR', '18:00', '20:00', '2020-12-20','101 17 September Express',50.00);
+INSERT INTO Route VALUES (295,'BALIKESIR', 'IZMIR',' 15:00', '17:00', '2020-12-17', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (296,'BALIKESIR', 'IZMIR',' 21:00', '23:00', '2020-12-17', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (297,'BALIKESIR', 'IZMIR','06:00','07:00', '2020-12-19','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (298,'BALIKESIR', 'IZMIR','18:00','19:00', '2020-12-19','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (299,'BALIKESIR', 'IZMIR','06:00','07:00', '2020-12-17','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (300,'BALIKESIR', 'IZMIR','18:00','19:00', '2020-12-17','105 İzmir Blue Train',50.00);
+/*Route: Eskişehir-Balıkesir*/
+INSERT INTO Route VALUES (301,'IZMIR','BALIKESIR','04:00','05:00 ', '2020-12-19','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (302,'IZMIR','BALIKESIR','16:00','17:00 ','2020-12-19','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (303,'IZMIR','BALIKESIR','04:00','05:00 ','2020-12-17','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (304,'IZMIR','BALIKESIR','16:00','17:00 ', '2020-12-17','105 İzmir Blue Train',40.00);
+/*Route: Balıkesir-Eskişehir*/
+INSERT INTO Route VALUES (305,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2020-12-19','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (306,'BALIKESIR', 'ESKISEHIR','22:01','23:00', '2020-12-19','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (307,'BALIKESIR', 'ESKISEHIR','10:00','11:00', '2020-12-17','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (308,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2020-12-17','105 İzmir Blue Train',40.00);
+/*Route: İstanbul-Eskişehir*/
+INSERT INTO Route VALUES(309,'ISTANBUL','ESKISEHIR','02:00','03:00','2020-12-19','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(310,'ISTANBUL','ESKISEHIR','14:00','15:00','2020-12-19','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(311,'ISTANBUL','ESKISEHIR','02:00','03:00', '2020-12-17','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(312,'ISTANBUL','ESKISEHIR','14:00','15:00','2020-12-17','113 High Speed Train',30.00);
+/*Route: Eskişehir-İstanbul*/
+INSERT INTO Route VALUES(313,'ESKISEHIR','ISTANBUL','12:00','13:00', '2020-12-19','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(314,'ESKISEHIR','ISTANBUL','24:00','01:00','2020-12-19','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(315,'ESKISEHIR','ISTANBUL','12:00','13:00', '2020-12-17','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(316,'ESKISEHIR','ISTANBUL','24:00','01:00','2020-12-17','113 High Speed Train',30.00);
+/*Route: Ankara-Kayseri*/
+INSERT INTO Route VALUES (317,'ANKARA','KAYSERI','06:00', '07:00','2020-12-15','110 East Express',30.00);
+INSERT INTO Route VALUES (318,'ANKARA','KAYSERI','22:00', '23:00','2020-12-15','110 East Express',30.00);
+INSERT INTO Route VALUES (319,'ANKARA','KAYSERI','06:00', '07:00', '2020-12-17','110 East Express',30.00);
+INSERT INTO Route VALUES (320,'ANKARA','KAYSERI','22:00', '23:00','2020-12-17','110 East Express',30.00);
+INSERT INTO Route VALUES (321,'ANKARA','KAYSERI','06:00','07:00', '2020-12-18','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (322,'ANKARA','KAYSERI','22:00','23:00','2020-12-18','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (323,'ANKARA','KAYSERI','06:00','07:00', '2020-12-16','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (324,'ANKARA','KAYSERI','22:00','23:00', '2020-12-16','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (325,'ANKARA','KAYSERI','10:00','11:00', '2020-12-16','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (326,'ANKARA','KAYSERI','18:00','19:00', '2020-12-16','112 Van Lake Express',30.00);
+/*Route: Kayseri-Ankara*/
+INSERT INTO Route VALUES (327,'KAYSERI','ANKARA','20:00', '21:00', '2020-12-15','110 East Express',30.00);
+INSERT INTO Route VALUES (328,'KAYSERI','ANKARA','12:00', '13:00', '2020-12-15','110 East Express',30.00);
+INSERT INTO Route VALUES (329,'KAYSERI','ANKARA','20:00', '21:00', '2020-12-17','110 East Express',30.00);
+INSERT INTO Route VALUES (330,'KAYSERI','ANKARA','12:00', '13:00', '2020-12-18','110 East Express',30.00);
+INSERT INTO Route VALUES (331,'KAYSERI','ANKARA','20:00', '21:00','2020-12-18','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (332,'KAYSERI','ANKARA','12:00', '13:00', '2020-12-19','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (333,'KAYSERI','ANKARA','20:00', '21:00', '2020-12-16','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (334,'KAYSERI','ANKARA','12:00', '13:00', '2020-12-17','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (335,'KAYSERI','ANKARA','16:00', '17:00', '2020-12-16','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (336,'KAYSERI','ANKARA','24:00', '01:00', '2020-12-16','112 Van Lake Express',30.00);
+/*Route: Kayseri-Sivas*/
+INSERT INTO Route VALUES (337,'KAYSERI','SIVAS','08:00','09:00', '2020-12-15','110 East Express',30.00);
+INSERT INTO Route VALUES (338,'KAYSERI','SIVAS','24:00','01:00', '2020-12-15','110 East Express',30.00);
+INSERT INTO Route VALUES (339,'KAYSERI','SIVAS','08:00','09:00', '2020-12-17','110 East Express',30.00);
+INSERT INTO Route VALUES (340,'KAYSERI','SIVAS','24:00','01:00', '2020-12-17','110 East Express',30.00);
+INSERT INTO Route VALUES (341,'KAYSERI','SIVAS','08:00','09:00', '2020-12-18','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (342,'KAYSERI','SIVAS','24:00','01:00','2020-12-18','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (343,'KAYSERI','SIVAS','08:00','09:00','2020-12-16','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (344,'KAYSERI','SIVAS','24:00','01:00', '2020-12-16','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (345,'KAYSERI','SIVAS','12:00','13:00','2020-12-16','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (346,'KAYSERI','SIVAS','20:00','21:00', '2020-12-16','112 Van Lake Express',30.00);
+/*Route: Sivas-Kayseri*/
+INSERT INTO Route VALUES (347,'SIVAS','KAYSERI','18:00','19:00','2020-12-15','110 East Express',30.00);
+INSERT INTO Route VALUES (348,'SIVAS','KAYSERI','10:00','11:00','2020-12-16','110 East Express',30.00);
+INSERT INTO Route VALUES (349,'SIVAS','KAYSERI','18:00','19:00', '2020-12-17','110 East Express',30.00);
+INSERT INTO Route VALUES (350,'SIVAS','KAYSERI','10:00','11:00', '2020-12-18','110 East Express',30.00);
+INSERT INTO Route VALUES (351,'SIVAS','KAYSERI','18:00','19:00', '2020-12-18','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (352,'SIVAS','KAYSERI','10:00','11:00', '2020-12-19','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (353,'SIVAS','KAYSERI','18:00','19:00', '2020-12-16','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (354,'SIVAS','KAYSERI','10:00','11:00','2020-12-17','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (355,'SIVAS','KAYSERI','14:00','15:00','2020-12-16','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (356,'SIVAS','KAYSERI','22:00','23:00', '2020-12-16','112 Van Lake Express',30.00);
+/*Route: Sivas-Malatya*/
+INSERT INTO Route VALUES (357,'SIVAS','MALATYA','10:00','11:00','2020-12-18','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (358,'SIVAS','MALATYA','02:00','03:00','2020-12-19','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (359,'SIVAS','MALATYA','10:00','11:00', '2020-12-16','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (360,'SIVAS','MALATYA','02:00','03:00', '2020-12-17','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Sivas*/
+INSERT INTO Route VALUES (361,'MALATYA','SIVAS','16:00','17:00','2020-12-18','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (362,'MALATYA','SIVAS','08:00','09:00', '2020-12-19','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (363,'MALATYA','SIVAS','16:00','17:00','2020-12-16','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (364,'MALATYA','SIVAS','08:00','09:00','2020-12-17','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Diyarbakır*/
+INSERT INTO Route VALUES (365,'MALATYA','DIYARBAKIR','12:00','13:00','2020-12-18','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (366,'MALATYA','DIYARBAKIR','04:00','05:00', '2020-12-19','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (367,'MALATYA','DIYARBAKIR','12:00','13:00', '2020-12-16','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (368,'MALATYA','DIYARBAKIR','04:00','05:00', '2020-12-17','106 South Kurtulan Express',20.00);
+/*Diyarbakır-Malatya*/
+INSERT INTO Route VALUES (369,'DIYARBAKIR','MALATYA','14:00','15:00', '2020-12-18','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (370,'DIYARBAKIR','MALATYA','06:00','07:00','2020-12-19','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (371,'DIYARBAKIR','MALATYA','14:00','15:00', '2020-12-16','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (372,'DIYARBAKIR','MALATYA','06:00','07:00', '2020-12-17','106 South Kurtulan Express',20.00);
+/*Route: Sivas-Erzincan*/
+INSERT INTO Route VALUES (373,'SIVAS','ERZINCAN','10:00','11:00','2020-12-15','110 East Express',45.00);
+INSERT INTO Route VALUES (374,'SIVAS','ERZINCAN','02:00','03:00', '2020-12-16','110 East Express',45.00);
+INSERT INTO Route VALUES (375,'SIVAS','ERZINCAN','10:00','11:00','2020-12-17','110 East Express',45.00);
+INSERT INTO Route VALUES (376,'SIVAS','ERZINCAN','02:00','03:00', '2020-12-18','110 East Express',45.00);
+/*Route: Erzincan-Sivas*/
+INSERT INTO Route VALUES (377,'ERZINCAN','SIVAS','16:00','17:00', '2020-12-15','110 East Express',45.00);
+INSERT INTO Route VALUES (378,'ERZINCAN','SIVAS','08:00','09:00', '2020-12-16','110 East Express',45.00);
+INSERT INTO Route VALUES (379,'ERZINCAN','SIVAS','16:00','17:00', '2020-12-17','110 East Express',45.00);
+INSERT INTO Route VALUES (380,'ERZINCAN','SIVAS','08:00','09:00', '2020-12-18','110 East Express',45.00);
+/*Route: Erzincan-Kars*/
+INSERT INTO Route VALUES (381,'ERZINCAN','KARS','12:00','13:00','2020-12-15','110 East Express',35.00);
+INSERT INTO Route VALUES (382,'ERZINCAN','KARS','04:00','05:00','2020-12-16','110 East Express',35.00);
+INSERT INTO Route VALUES (383,'ERZINCAN','KARS','12:00','13:00', '2020-12-17','110 East Express',35.00);
+INSERT INTO Route VALUES (384,'ERZINCAN','KARS','04:00','05:00','2020-12-18','110 East Express',35.00);
+/*Route: Kars-Erzincan*/
+INSERT INTO Route VALUES (385,'KARS','ERZINCAN','14:00','15:00','2020-12-15','110 East Express',35.00);
+INSERT INTO Route VALUES (386,'KARS','ERZINCAN','06:00','07:00', '2020-12-16','110 East Express',35.00);
+INSERT INTO Route VALUES (387,'KARS','ERZINCAN','14:00','15:00', '2020-12-17','110 East Express',35.00);
+INSERT INTO Route VALUES (388,'KARS','ERZINCAN','06:00','07:00', '2020-12-18','110 East Express',35.00);
+/*Route: Adana-Konya*/
+INSERT INTO Route VALUES (389,'ADANA','KONYA','11:00','12:00', '2020-12-16','111 Toros Express',55.00);
+INSERT INTO Route VALUES (390,'ADANA','KONYA','19:00','20:00','2020-12-16','111 Toros Express',55.00);
+INSERT INTO Route VALUES (391,'ADANA','KONYA','11:00','12:00','2020-12-18','111 Toros Express',55.00);
+INSERT INTO Route VALUES (392,'ADANA','KONYA','19:00','20:00', '2020-12-18','111 Toros Express',55.00);
+/*Route: Konya-Adana*/
+INSERT INTO Route VALUES (393,'KONYA','ADANA','09:00','10:00','2020-12-16','111 Toros Express',55.00);
+INSERT INTO Route VALUES (394,'KONYA','ADANA','17:00','18:00', '2020-12-16','111 Toros Express',55.00);
+INSERT INTO Route VALUES (395,'KONYA','ADANA','09:00','10:00', '2020-12-18','111 Toros Express',55.00);
+INSERT INTO Route VALUES (396,'KONYA','ADANA','17:00','18:00','2020-12-18','111 Toros Express',55.00);
+/*Route: Konya-İstanbul*/
+INSERT INTO Route VALUES (397,'KONYA','ISTANBUL','13:00','14:00', '2020-12-16','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (398,'KONYA','ISTANBUL','21:00','22:00', '2020-12-16','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (399,'KONYA','ISTANBUL','13:00','14:00', '2020-12-18','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (400,'KONYA','ISTANBUL','21:00','22:00','2020-12-18','113 High Speed Train',60.00);
+/*Route: İstanbul-Konya*/
+INSERT INTO Route VALUES (401,'ISTANBUL','KONYA','07:00','08:00', '2020-12-16','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (402,'ISTANBUL','KONYA','15:00','16:00', '2020-12-16','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (403,'ISTANBUL','KONYA','07:00','08:00','2020-12-18','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (404,'ISTANBUL','KONYA','15:00','16:00','2020-12-18','113 High Speed Train',60.00);
+/*Route: Ankara-Van*/
+INSERT INTO Route VALUES (405,'ANKARA','VAN','11:00','12:00', '2020-12-15','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (406,'ANKARA','VAN','19:00','20:00', '2020-12-15','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (407,'ANKARA','VAN','11:00','12:00','2020-12-20','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (408,'ANKARA','VAN','19:00','20:00','2020-12-20','112 Van Lake Express',100.00);
+/*Route: Van-Ankara*/
+INSERT INTO Route VALUES (409,'VAN','ANKARA','13:00','14:00', '2020-12-15','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (410,'VAN','ANKARA','21:00','22:00','2020-12-15','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (411,'VAN','ANKARA','13:00','14:00', '2020-12-20','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (412,'VAN','ANKARA','21:00','22:00','2020-12-20','112 Van Lake Express',100.00);
+/*Route: İstanbul-Ankara*/
+INSERT INTO Route VALUES (413,'ISTANBUL','ANKARA','09:00','10:00','2020-12-15','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (414,'ISTANBUL','ANKARA','17:00','18:00', '2020-12-15','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (415,'ISTANBUL','ANKARA','09:00','10:00', '2020-12-20','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (416,'ISTANBUL','ANKARA','17:00','18:00','2020-12-20','113 High Speed Train',40.00);
+/*Route: Ankara- İstanbul*/
+INSERT INTO Route VALUES (417,'ANKARA','ISTANBUL','15:00','16:00', '2020-12-15','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (418,'ANKARA','ISTANBUL','23:00','24:00', '2020-12-15','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (419,'ANKARA','ISTANBUL','15:00','16:00', '2020-12-20','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (420,'ANKARA','ISTANBUL','23:00','24:00', '2020-12-20','113 High Speed Train',40.00);
+
+/*4. Hafta*/
+/*Route: İzmir- Balıkesir*/
+INSERT INTO Route VALUES (421,'IZMIR','BALIKESIR','07:00 ','09:00 ', '2020-12-22','100 6 September Express',50.00);
+INSERT INTO Route VALUES (422,'IZMIR','BALIKESIR','13:00','15:00', '2020-12-22','100 6 September Express',50.00);
+INSERT INTO Route VALUES (423,'IZMIR','BALIKESIR','09:00','11:00','2020-12-27','101 17 September Express',50.00);
+INSERT INTO Route VALUES (424,'IZMIR','BALIKESIR','15:00','17:00',  '2020-12-27','101 17 September Express',50.00);
+INSERT INTO Route VALUES (425,'IZMIR','BALIKESIR','12:00','14:00','2020-12-24', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (426,'IZMIR','BALIKESIR','18:00','20:00', '2020-12-24', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (427,'IZMIR','BALIKESIR','08:00','09:00','2020-12-26','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (428,'IZMIR','BALIKESIR','20:00','21:00', '2020-12-26','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (429,'IZMIR','BALIKESIR','08:00','09:00', '2020-12-24','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (430,'IZMIR','BALIKESIR','20:00','21:00', '2020-12-24','105 İzmir Blue Train',50.00);
+/*Route: Balıkesir-İzmir*/
+INSERT INTO Route VALUES (431,'BALIKESIR', 'IZMIR', '10:00','12:00','2020-12-22','100 6 September Express',50.00);
+INSERT INTO Route VALUES (432,'BALIKESIR', 'IZMIR', '16:00','18:00','2020-12-22','100 6 September Express',50.00);
+INSERT INTO Route VALUES (433,'BALIKESIR', 'IZMIR', '12:00', '14:00',  '2020-12-27','101 17 September Express',50.00);
+INSERT INTO Route VALUES (434,'BALIKESIR', 'IZMIR', '18:00', '20:00', '2020-12-27','101 17 September Express',50.00);
+INSERT INTO Route VALUES (435,'BALIKESIR', 'IZMIR',' 15:00', '17:00',  '2020-12-24', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (436,'BALIKESIR', 'IZMIR',' 21:00', '23:00',  '2020-12-24', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (437,'BALIKESIR', 'IZMIR','06:00','07:00', '2020-12-26','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (438,'BALIKESIR', 'IZMIR','18:00','19:00','2020-12-26','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (439,'BALIKESIR', 'IZMIR','06:00','07:00', '2020-12-24','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (440,'BALIKESIR', 'IZMIR','18:00','19:00', '2020-12-24','105 İzmir Blue Train',50.00);
+/*Route: Eskişehir-Balıkesir*/
+INSERT INTO Route VALUES (441,'IZMIR','BALIKESIR','04:00','05:00 ', '2020-12-26','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (442,'IZMIR','BALIKESIR','16:00','17:00 ', '2020-12-26','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (443,'IZMIR','BALIKESIR','04:00','05:00 ', '2020-12-24','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (444,'IZMIR','BALIKESIR','16:00','17:00 ', '2020-12-24','105 İzmir Blue Train',40.00);
+/*Route: Balıkesir-Eskişehir*/
+INSERT INTO Route VALUES (445,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2020-12-26','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (446,'BALIKESIR', 'ESKISEHIR','22:01','23:00', '2020-12-26','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (447,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2020-12-24','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (448,'BALIKESIR', 'ESKISEHIR','22:01','23:00', '2020-12-24','105 İzmir Blue Train',40.00);
+/*Route: İstanbul-Eskişehir*/
+INSERT INTO Route VALUES(449,'ISTANBUL','ESKISEHIR','02:00','03:00','2020-12-26','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(450,'ISTANBUL','ESKISEHIR','14:00','15:00', '2020-12-26','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(451,'ISTANBUL','ESKISEHIR','02:00','03:00','2020-12-24','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(452,'ISTANBUL','ESKISEHIR','14:00','15:00', '2020-12-24','113 High Speed Train',30.00);
+/*Route: Eskişehir-İstanbul*/
+INSERT INTO Route VALUES(453,'ESKISEHIR','ISTANBUL','12:00','13:00', '2020-12-26','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(454,'ESKISEHIR','ISTANBUL','24:00','01:00','2020-12-26','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(455,'ESKISEHIR','ISTANBUL','12:00','13:00', '2020-12-24','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(456,'ESKISEHIR','ISTANBUL','24:00','01:00','2020-12-24','113 High Speed Train',30.00);
+/*Route: Ankara-Kayseri*/
+INSERT INTO Route VALUES (457,'ANKARA','KAYSERI','06:00', '07:00', '2020-12-22','110 East Express',30.00);
+INSERT INTO Route VALUES (458,'ANKARA','KAYSERI','22:00', '23:00', '2020-12-22','110 East Express',30.00);
+INSERT INTO Route VALUES (459,'ANKARA','KAYSERI','06:00', '07:00', '2020-12-24','110 East Express',30.00);
+INSERT INTO Route VALUES (460,'ANKARA','KAYSERI','22:00', '23:00','2020-12-24','110 East Express',30.00);
+INSERT INTO Route VALUES (461,'ANKARA','KAYSERI','06:00','07:00', '2020-12-25','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (462,'ANKARA','KAYSERI','22:00','23:00','2020-12-25','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (463,'ANKARA','KAYSERI','06:00','07:00','2020-12-23','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (464,'ANKARA','KAYSERI','22:00','23:00','2020-12-23','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (465,'ANKARA','KAYSERI','10:00','11:00', '2020-12-23','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (466,'ANKARA','KAYSERI','18:00','19:00', '2020-12-23','112 Van Lake Express',30.00);
+/*Route: Kayseri-Ankara*/
+INSERT INTO Route VALUES (467,'KAYSERI','ANKARA','20:00', '21:00', '2020-12-22','110 East Express',30.00);
+INSERT INTO Route VALUES (468,'KAYSERI','ANKARA','12:00', '13:00', '2020-12-22','110 East Express',30.00);
+INSERT INTO Route VALUES (469,'KAYSERI','ANKARA','20:00', '21:00', '2020-12-24','110 East Express',30.00);
+INSERT INTO Route VALUES (470,'KAYSERI','ANKARA','12:00', '13:00', '2020-12-25','110 East Express',30.00);
+INSERT INTO Route VALUES (471,'KAYSERI','ANKARA','20:00', '21:00', '2020-12-25','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (472,'KAYSERI','ANKARA','12:00', '13:00', '2020-12-26','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (473,'KAYSERI','ANKARA','20:00', '21:00', '2020-12-23','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (474,'KAYSERI','ANKARA','12:00', '13:00','2020-12-23','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (475,'KAYSERI','ANKARA','16:00', '17:00', '2020-12-23','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (476,'KAYSERI','ANKARA','24:00', '01:00','2020-12-23','112 Van Lake Express',30.00);
+/*Route: Kayseri-Sivas*/
+INSERT INTO Route VALUES (477,'KAYSERI','SIVAS','08:00','09:00', '2020-12-22','110 East Express',30.00);
+INSERT INTO Route VALUES (478,'KAYSERI','SIVAS','24:00','01:00', '2020-12-22','110 East Express',30.00);
+INSERT INTO Route VALUES (479,'KAYSERI','SIVAS','08:00','09:00','2020-12-24','110 East Express',30.00);
+INSERT INTO Route VALUES (480,'KAYSERI','SIVAS','24:00','01:00', '2020-12-24','110 East Express',30.00);
+INSERT INTO Route VALUES (481,'KAYSERI','SIVAS','08:00','09:00','2020-12-25','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (482,'KAYSERI','SIVAS','24:00','01:00','2020-12-25','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (483,'KAYSERI','SIVAS','08:00','09:00', '2020-12-23','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (484,'KAYSERI','SIVAS','24:00','01:00', '2020-12-23','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (485,'KAYSERI','SIVAS','12:00','13:00', '2020-12-23','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (486,'KAYSERI','SIVAS','20:00','21:00', '2020-12-23','112 Van Lake Express',30.00);
+/*Route: Sivas-Kayseri*/
+INSERT INTO Route VALUES (487,'SIVAS','KAYSERI','18:00','19:00','2020-12-22','110 East Express',30.00);
+INSERT INTO Route VALUES (488,'SIVAS','KAYSERI','10:00','11:00', '2020-12-23','110 East Express',30.00);
+INSERT INTO Route VALUES (489,'SIVAS','KAYSERI','18:00','19:00', '2020-12-24','110 East Express',30.00);
+INSERT INTO Route VALUES (490,'SIVAS','KAYSERI','10:00','11:00','2020-12-25','110 East Express',30.00);
+INSERT INTO Route VALUES (491,'SIVAS','KAYSERI','18:00','19:00', '2020-12-25','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (492,'SIVAS','KAYSERI','10:00','11:00','2020-12-26','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (493,'SIVAS','KAYSERI','18:00','19:00', '2020-12-23','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (494,'SIVAS','KAYSERI','10:00','11:00', '2020-12-24','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (495,'SIVAS','KAYSERI','14:00','15:00', '2020-12-23','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (496,'SIVAS','KAYSERI','22:00','23:00', '2020-12-24','112 Van Lake Express',30.00);
+/*Route: Sivas-Malatya*/
+INSERT INTO Route VALUES (497,'SIVAS','MALATYA','10:00','11:00','2020-12-25','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (498,'SIVAS','MALATYA','02:00','03:00', '2020-12-26','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (499,'SIVAS','MALATYA','10:00','11:00', '2020-12-23','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (500,'SIVAS','MALATYA','02:00','03:00','2020-12-24','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Sivas*/
+INSERT INTO Route VALUES (501,'MALATYA','SIVAS','16:00','17:00', '2020-12-25','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (502,'MALATYA','SIVAS','08:00','09:00', '2020-12-26','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (503,'MALATYA','SIVAS','16:00','17:00','2020-12-23','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (504,'MALATYA','SIVAS','08:00','09:00','2020-12-24','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Diyarbakır*/
+INSERT INTO Route VALUES (505,'MALATYA','DIYARBAKIR','12:00','13:00','2020-12-25','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (506,'MALATYA','DIYARBAKIR','04:00','05:00','2020-12-26','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (507,'MALATYA','DIYARBAKIR','12:00','13:00', '2020-12-23','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (508,'MALATYA','DIYARBAKIR','04:00','05:00', '2020-12-24','106 South Kurtulan Express',20.00);
+/*Diyarbakır-Malatya*/
+INSERT INTO Route VALUES (509,'DIYARBAKIR','MALATYA','14:00','15:00', '2020-12-25','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (510,'DIYARBAKIR','MALATYA','06:00','07:00','2020-12-26','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (511,'DIYARBAKIR','MALATYA','14:00','15:00', '2020-12-23','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (512,'DIYARBAKIR','MALATYA','06:00','07:00','2020-12-24','106 South Kurtulan Express',20.00);
+/*Route: Sivas-Erzincan*/
+INSERT INTO Route VALUES (513,'SIVAS','ERZINCAN','10:00','11:00','2020-12-22','110 East Express',45.00);
+INSERT INTO Route VALUES (514,'SIVAS','ERZINCAN','02:00','03:00','2020-12-23','110 East Express',45.00);
+INSERT INTO Route VALUES (515,'SIVAS','ERZINCAN','10:00','11:00','2020-12-24','110 East Express',45.00);
+INSERT INTO Route VALUES (516,'SIVAS','ERZINCAN','02:00','03:00','2020-12-25','110 East Express',45.00);
+/*Route: Erzincan-Sivas*/
+INSERT INTO Route VALUES (517,'ERZINCAN','SIVAS','16:00','17:00','2020-12-22','110 East Express',45.00);
+INSERT INTO Route VALUES (518,'ERZINCAN','SIVAS','08:00','09:00','2020-12-23','110 East Express',45.00);
+INSERT INTO Route VALUES (519,'ERZINCAN','SIVAS','16:00','17:00','2020-12-24','110 East Express',45.00);
+INSERT INTO Route VALUES (520,'ERZINCAN','SIVAS','08:00','09:00','2020-12-25','110 East Express',45.00);
+/*Route: Erzincan-Kars*/
+INSERT INTO Route VALUES (521,'ERZINCAN','KARS','12:00','13:00','2020-12-22','110 East Express',35.00);
+INSERT INTO Route VALUES (522,'ERZINCAN','KARS','04:00','05:00','2020-12-23','110 East Express',35.00);
+INSERT INTO Route VALUES (523,'ERZINCAN','KARS','12:00','13:00','2020-12-24','110 East Express',35.00);
+INSERT INTO Route VALUES (524,'ERZINCAN','KARS','04:00','05:00','2020-12-25','110 East Express',35.00);
+/*Route: Kars-Erzincan*/
+INSERT INTO Route VALUES (525,'KARS','ERZINCAN','14:00','15:00', '2020-12-22','110 East Express',35.00);
+INSERT INTO Route VALUES (526,'KARS','ERZINCAN','06:00','07:00', '2020-12-23','110 East Express',35.00);
+INSERT INTO Route VALUES (527,'KARS','ERZINCAN','14:00','15:00','2020-12-24','110 East Express',35.00);
+INSERT INTO Route VALUES (528,'KARS','ERZINCAN','06:00','07:00', '2020-12-25','110 East Express',35.00);
+/*Route: Adana-Konya*/
+INSERT INTO Route VALUES (529,'ADANA','KONYA','11:00','12:00', '2020-12-23','111 Toros Express',55.00);
+INSERT INTO Route VALUES (530,'ADANA','KONYA','19:00','20:00', '2020-12-23','111 Toros Express',55.00);
+INSERT INTO Route VALUES (531,'ADANA','KONYA','11:00','12:00', '2020-12-25','111 Toros Express',55.00);
+INSERT INTO Route VALUES (532,'ADANA','KONYA','19:00','20:00','2020-12-25','111 Toros Express',55.00);
+/*Route: Konya-Adana*/
+INSERT INTO Route VALUES (533,'KONYA','ADANA','09:00','10:00','2020-12-23','111 Toros Express',55.00);
+INSERT INTO Route VALUES (534,'KONYA','ADANA','17:00','18:00', '2020-12-23','111 Toros Express',55.00);
+INSERT INTO Route VALUES (535,'KONYA','ADANA','09:00','10:00','2020-12-25','111 Toros Express',55.00);
+INSERT INTO Route VALUES (536,'KONYA','ADANA','17:00','18:00','2020-12-25','111 Toros Express',55.00);
+/*Route: Konya-İstanbul*/
+INSERT INTO Route VALUES (537,'KONYA','ISTANBUL','13:00','14:00', '2020-12-23','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (538,'KONYA','ISTANBUL','21:00','22:00', '2020-12-23','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (539,'KONYA','ISTANBUL','13:00','14:00', '2020-12-25','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (540,'KONYA','ISTANBUL','21:00','22:00', '2020-12-25','113 High Speed Train',60.00);
+/*Route: İstanbul-Konya*/
+INSERT INTO Route VALUES (541,'ISTANBUL','KONYA','07:00','08:00','2020-12-23','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (542,'ISTANBUL','KONYA','15:00','16:00','2020-12-23','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (543,'ISTANBUL','KONYA','07:00','08:00', '2020-12-25','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (544,'ISTANBUL','KONYA','15:00','16:00', '2020-12-25','113 High Speed Train',60.00);
+/*Route: Ankara-Van*/
+INSERT INTO Route VALUES (545,'ANKARA','VAN','11:00','12:00','2020-12-22','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (546,'ANKARA','VAN','19:00','20:00','2020-12-22','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (547,'ANKARA','VAN','11:00','12:00', '2020-12-27','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (548,'ANKARA','VAN','19:00','20:00','2020-12-27','112 Van Lake Express',100.00);
+/*Route: Van-Ankara*/
+INSERT INTO Route VALUES (549,'VAN','ANKARA','13:00','14:00', '2020-12-22','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (550,'VAN','ANKARA','21:00','22:00','2020-12-22','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (551,'VAN','ANKARA','13:00','14:00', '2020-12-27','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (552,'VAN','ANKARA','21:00','22:00', '2020-12-27','112 Van Lake Express',100.00);
+/*Route: İstanbul-Ankara*/
+INSERT INTO Route VALUES (553,'ISTANBUL','ANKARA','09:00','10:00', '2020-12-22','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (554,'ISTANBUL','ANKARA','17:00','18:00','2020-12-22','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (555,'ISTANBUL','ANKARA','09:00','10:00', '2020-12-27','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (556,'ISTANBUL','ANKARA','17:00','18:00','2020-12-27','113 High Speed Train',40.00);
+/*Route: Ankara- İstanbul*/
+INSERT INTO Route VALUES (557,'ANKARA','ISTANBUL','15:00','16:00', '2020-12-22','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (558,'ANKARA','ISTANBUL','23:00','24:00','2020-12-22','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (559,'ANKARA','ISTANBUL','15:00','16:00','2020-12-27','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (560,'ANKARA','ISTANBUL','23:00','24:00','2020-12-27','113 High Speed Train',40.00);
+
+/*5. Hafta*/
+/*Route: İzmir- Balıkesir*/
+INSERT INTO Route VALUES (561,'IZMIR','BALIKESIR','07:00 ','09:00 ','2020-12-29','100 6 September Express',50.00);
+INSERT INTO Route VALUES (562,'IZMIR','BALIKESIR','13:00','15:00', '2020-12-29','100 6 September Express',50.00);
+INSERT INTO Route VALUES (563,'IZMIR','BALIKESIR','09:00','11:00', '2021-01-03','101 17 September Express',50.00);
+INSERT INTO Route VALUES (564,'IZMIR','BALIKESIR','15:00','17:00', '2021-01-03','101 17 September Express',50.00);
+INSERT INTO Route VALUES (565,'IZMIR','BALIKESIR','12:00','14:00','2020-12-31', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (566,'IZMIR','BALIKESIR','18:00','20:00','2020-12-31', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (567,'IZMIR','BALIKESIR','08:00','09:00', '2021-01-02','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (568,'IZMIR','BALIKESIR','20:00','21:00','2021-01-01','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (569,'IZMIR','BALIKESIR','08:00','09:00','2020-12-31','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (570,'IZMIR','BALIKESIR','20:00','21:00','2020-12-31','105 İzmir Blue Train',50.00);
+/*Route: Balıkesir-İzmir*/
+INSERT INTO Route VALUES (571,'BALIKESIR', 'IZMIR', '10:00','12:00', '2020-12-29','100 6 September Express',50.00);
+INSERT INTO Route VALUES (572,'BALIKESIR', 'IZMIR', '16:00','18:00', '2020-12-29','100 6 September Express',50.00);
+INSERT INTO Route VALUES (573,'BALIKESIR', 'IZMIR', '12:00', '14:00', '2021-01-03','101 17 September Express',50.00);
+INSERT INTO Route VALUES (574,'BALIKESIR', 'IZMIR', '18:00', '20:00', '2021-01-03','101 17 September Express',50.00);
+INSERT INTO Route VALUES (575,'BALIKESIR', 'IZMIR',' 15:00', '17:00',  '2020-12-31', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (576,'BALIKESIR', 'IZMIR',' 21:00', '23:00', '2020-12-31', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (577,'BALIKESIR', 'IZMIR','06:00','07:00', '2021-01-02','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (578,'BALIKESIR', 'IZMIR','18:00','19:00', '2021-01-02','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (579,'BALIKESIR', 'IZMIR','06:00','07:00', '2020-12-31','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (580,'BALIKESIR', 'IZMIR','18:00','19:00','2020-12-31','105 İzmir Blue Train',50.00);
+/*Route: Eskişehir-Balıkesir*/
+INSERT INTO Route VALUES (581,'IZMIR','BALIKESIR','04:00','05:00 ','2021-01-02','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (582,'IZMIR','BALIKESIR','16:00','17:00 ','2021-01-02','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (583,'IZMIR','BALIKESIR','04:00','05:00 ', '2020-12-31','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (584,'IZMIR','BALIKESIR','16:00','17:00 ', '2020-12-31','105 İzmir Blue Train',40.00);
+/*Route: Balıkesir-Eskişehir*/
+INSERT INTO Route VALUES (585,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2021-01-02','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (586,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2021-01-02','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (587,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2020-12-31','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (588,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2020-12-31','105 İzmir Blue Train',40.00);
+/*Route: İstanbul-Eskişehir*/
+INSERT INTO Route VALUES(589,'ISTANBUL','ESKISEHIR','02:00','03:00', '2021-01-02','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(590,'ISTANBUL','ESKISEHIR','14:00','15:00', '2021-01-02','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(591,'ISTANBUL','ESKISEHIR','02:00','03:00', '2020-12-31','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(592,'ISTANBUL','ESKISEHIR','14:00','15:00','2020-12-31','113 High Speed Train',30.00);
+/*Route: Eskişehir-İstanbul*/
+INSERT INTO Route VALUES(593,'ESKISEHIR','ISTANBUL','12:00','13:00', '2021-01-02','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(594,'ESKISEHIR','ISTANBUL','24:00','01:00', '2021-01-02','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(595,'ESKISEHIR','ISTANBUL','12:00','13:00','2020-12-31','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(596,'ESKISEHIR','ISTANBUL','24:00','01:00','2020-12-31','113 High Speed Train',30.00);
+/*Route: Ankara-Kayseri*/
+INSERT INTO Route VALUES (597,'ANKARA','KAYSERI','06:00', '07:00','2020-12-29','110 East Express',30.00);
+INSERT INTO Route VALUES (598,'ANKARA','KAYSERI','22:00', '23:00','2020-12-29','110 East Express',30.00);
+INSERT INTO Route VALUES (599,'ANKARA','KAYSERI','06:00', '07:00','2020-12-31','110 East Express',30.00);
+INSERT INTO Route VALUES (600,'ANKARA','KAYSERI','22:00', '23:00','2020-12-31','110 East Express',30.00);
+INSERT INTO Route VALUES (601,'ANKARA','KAYSERI','06:00','07:00','2021-01-01','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (602,'ANKARA','KAYSERI','22:00','23:00','2021-01-01','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (603,'ANKARA','KAYSERI','06:00','07:00','2020-12-30','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (604,'ANKARA','KAYSERI','22:00','23:00','2020-12-30','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (605,'ANKARA','KAYSERI','10:00','11:00', '2020-12-30','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (606,'ANKARA','KAYSERI','18:00','19:00','2020-12-30','112 Van Lake Express',30.00);
+/*Route: Kayseri-Ankara*/
+INSERT INTO Route VALUES (607,'KAYSERI','ANKARA','20:00', '21:00','2020-12-29','110 East Express',30.00);
+INSERT INTO Route VALUES (608,'KAYSERI','ANKARA','12:00', '13:00','2020-12-29','110 East Express',30.00);
+INSERT INTO Route VALUES (609,'KAYSERI','ANKARA','20:00', '21:00','2020-12-31','110 East Express',30.00);
+INSERT INTO Route VALUES (610,'KAYSERI','ANKARA','12:00', '13:00','2021-01-01','110 East Express',30.00);
+INSERT INTO Route VALUES (611,'KAYSERI','ANKARA','20:00', '21:00', '2021-01-01','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (612,'KAYSERI','ANKARA','12:00', '13:00','2021-01-02','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (613,'KAYSERI','ANKARA','20:00', '21:00','2020-12-30','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (614,'KAYSERI','ANKARA','12:00', '13:00','2020-12-30','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (615,'KAYSERI','ANKARA','16:00', '17:00','2020-12-30','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (616,'KAYSERI','ANKARA','24:00', '01:00','2020-12-30','112 Van Lake Express',30.00);
+/*Route: Kayseri-Sivas*/
+INSERT INTO Route VALUES (617,'KAYSERI','SIVAS','08:00','09:00','2020-12-29','110 East Express',30.00);
+INSERT INTO Route VALUES (618,'KAYSERI','SIVAS','24:00','01:00','2020-12-29','110 East Express',30.00);
+INSERT INTO Route VALUES (619,'KAYSERI','SIVAS','08:00','09:00','2020-12-31','110 East Express',30.00);
+INSERT INTO Route VALUES (620,'KAYSERI','SIVAS','24:00','01:00', '2020-12-31','110 East Express',30.00);
+INSERT INTO Route VALUES (621,'KAYSERI','SIVAS','08:00','09:00','2021-01-01','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (622,'KAYSERI','SIVAS','24:00','01:00', '2021-01-01','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (623,'KAYSERI','SIVAS','08:00','09:00', '2020-12-30','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (624,'KAYSERI','SIVAS','24:00','01:00','2020-12-30','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (625,'KAYSERI','SIVAS','12:00','13:00','2020-12-30','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (626,'KAYSERI','SIVAS','20:00','21:00', '2020-12-30','112 Van Lake Express',30.00);
+/*Route: Sivas-Kayseri*/
+INSERT INTO Route VALUES (627,'SIVAS','KAYSERI','18:00','19:00','2020-12-29','110 East Express',30.00);
+INSERT INTO Route VALUES (628,'SIVAS','KAYSERI','10:00','11:00','2020-12-30','110 East Express',30.00);
+INSERT INTO Route VALUES (629,'SIVAS','KAYSERI','18:00','19:00','2020-12-31','110 East Express',30.00);
+INSERT INTO Route VALUES (630,'SIVAS','KAYSERI','10:00','11:00', '2021-01-01','110 East Express',30.00);
+INSERT INTO Route VALUES (631,'SIVAS','KAYSERI','18:00','19:00','2021-01-01','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (632,'SIVAS','KAYSERI','10:00','11:00','2021-01-02','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (633,'SIVAS','KAYSERI','18:00','19:00', '2020-12-30','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (634,'SIVAS','KAYSERI','10:00','11:00', '2020-12-31','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (635,'SIVAS','KAYSERI','14:00','15:00','2020-12-30','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (636,'SIVAS','KAYSERI','22:00','23:00','2020-12-30','112 Van Lake Express',30.00);
+/*Route: Sivas-Malatya*/
+INSERT INTO Route VALUES (637,'SIVAS','MALATYA','10:00','11:00','2021-01-01','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (638,'SIVAS','MALATYA','02:00','03:00', '2021-01-02','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (639,'SIVAS','MALATYA','10:00','11:00','2020-12-30','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (640,'SIVAS','MALATYA','02:00','03:00','2020-12-31','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Sivas*/
+INSERT INTO Route VALUES (641,'MALATYA','SIVAS','16:00','17:00', '2021-01-01','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (642,'MALATYA','SIVAS','08:00','09:00', '2021-01-02','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (643,'MALATYA','SIVAS','16:00','17:00','2020-12-30','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (644,'MALATYA','SIVAS','08:00','09:00','2020-12-31','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Diyarbakır*/
+INSERT INTO Route VALUES (645,'MALATYA','DIYARBAKIR','12:00','13:00', '2021-01-01','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (646,'MALATYA','DIYARBAKIR','04:00','05:00','2021-01-02','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (647,'MALATYA','DIYARBAKIR','12:00','13:00','2020-12-30','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (648,'MALATYA','DIYARBAKIR','04:00','05:00', '2020-12-31','106 South Kurtulan Express',20.00);
+/*Diyarbakır-Malatya*/
+INSERT INTO Route VALUES (649,'DIYARBAKIR','MALATYA','14:00','15:00','2021-01-01','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (650,'DIYARBAKIR','MALATYA','06:00','07:00','2021-01-02','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (651,'DIYARBAKIR','MALATYA','14:00','15:00','2020-12-30','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (652,'DIYARBAKIR','MALATYA','06:00','07:00','2020-12-31','106 South Kurtulan Express',20.00);
+/*Route: Sivas-Erzincan*/
+INSERT INTO Route VALUES (653,'SIVAS','ERZINCAN','10:00','11:00', '2020-12-29','110 East Express',45.00);
+INSERT INTO Route VALUES (654,'SIVAS','ERZINCAN','02:00','03:00','2020-12-30','110 East Express',45.00);
+INSERT INTO Route VALUES (655,'SIVAS','ERZINCAN','10:00','11:00', '2020-12-31','110 East Express',45.00);
+INSERT INTO Route VALUES (656,'SIVAS','ERZINCAN','02:00','03:00', '2021-01-01','110 East Express',45.00);
+/*Route: Erzincan-Sivas*/
+INSERT INTO Route VALUES (657,'ERZINCAN','SIVAS','16:00','17:00','2020-12-29','110 East Express',45.00);
+INSERT INTO Route VALUES (658,'ERZINCAN','SIVAS','08:00','09:00','2020-12-30','110 East Express',45.00);
+INSERT INTO Route VALUES (659,'ERZINCAN','SIVAS','16:00','17:00', '2020-12-31','110 East Express',45.00);
+INSERT INTO Route VALUES (660,'ERZINCAN','SIVAS','08:00','09:00','2021-01-01','110 East Express',45.00);
+/*Route: Erzincan-Kars*/
+INSERT INTO Route VALUES (661,'ERZINCAN','KARS','12:00','13:00','2020-12-29','110 East Express',35.00);
+INSERT INTO Route VALUES (662,'ERZINCAN','KARS','04:00','05:00','2020-12-30','110 East Express',35.00);
+INSERT INTO Route VALUES (663,'ERZINCAN','KARS','12:00','13:00','2020-12-31','110 East Express',35.00);
+INSERT INTO Route VALUES (664,'ERZINCAN','KARS','04:00','05:00','2021-01-01','110 East Express',35.00);
+/*Route: Kars-Erzincan*/
+INSERT INTO Route VALUES (665,'KARS','ERZINCAN','14:00','15:00','2020-12-29','110 East Express',35.00);
+INSERT INTO Route VALUES (666,'KARS','ERZINCAN','06:00','07:00', '2020-12-30','110 East Express',35.00);
+INSERT INTO Route VALUES (667,'KARS','ERZINCAN','14:00','15:00','2020-12-31','110 East Express',35.00);
+INSERT INTO Route VALUES (668,'KARS','ERZINCAN','06:00','07:00','2021-01-01','110 East Express',35.00);
+/*Route: Adana-Konya*/
+INSERT INTO Route VALUES (669,'ADANA','KONYA','11:00','12:00','2020-12-30','111 Toros Express',55.00);
+INSERT INTO Route VALUES (670,'ADANA','KONYA','19:00','20:00','2020-12-30','111 Toros Express',55.00);
+INSERT INTO Route VALUES (671,'ADANA','KONYA','11:00','12:00','2021-01-01','111 Toros Express',55.00);
+INSERT INTO Route VALUES (672,'ADANA','KONYA','19:00','20:00','2021-01-01','111 Toros Express',55.00);
+/*Route: Konya-Adana*/
+INSERT INTO Route VALUES (673,'KONYA','ADANA','09:00','10:00','2020-12-30','111 Toros Express',55.00);
+INSERT INTO Route VALUES (674,'KONYA','ADANA','17:00','18:00', '2020-12-30','111 Toros Express',55.00);
+INSERT INTO Route VALUES (675,'KONYA','ADANA','09:00','10:00', '2021-01-01','111 Toros Express',55.00);
+INSERT INTO Route VALUES (676,'KONYA','ADANA','17:00','18:00','2021-01-01','111 Toros Express',55.00);
+/*Route: Konya-İstanbul*/
+INSERT INTO Route VALUES (677,'KONYA','ISTANBUL','13:00','14:00','2020-12-30','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (678,'KONYA','ISTANBUL','21:00','22:00', '2020-12-30','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (679,'KONYA','ISTANBUL','13:00','14:00','2021-01-01','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (680,'KONYA','ISTANBUL','21:00','22:00','2021-01-01','113 High Speed Train',60.00);
+/*Route: İstanbul-Konya*/
+INSERT INTO Route VALUES (681,'ISTANBUL','KONYA','07:00','08:00','2020-12-30','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (682,'ISTANBUL','KONYA','15:00','16:00', '2020-12-30','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (683,'ISTANBUL','KONYA','07:00','08:00','2021-01-01','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (684,'ISTANBUL','KONYA','15:00','16:00','2021-01-01','113 High Speed Train',60.00);
+/*Route: Ankara-Van*/
+INSERT INTO Route VALUES (685,'ANKARA','VAN','11:00','12:00','2020-12-29','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (686,'ANKARA','VAN','19:00','20:00','2020-12-29','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (687,'ANKARA','VAN','11:00','12:00', '2021-01-03','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (688,'ANKARA','VAN','19:00','20:00','2021-01-03','112 Van Lake Express',100.00);
+/*Route: Van-Ankara*/
+INSERT INTO Route VALUES (689,'VAN','ANKARA','13:00','14:00', '2020-12-29','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (690,'VAN','ANKARA','21:00','22:00','2020-12-29','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (691,'VAN','ANKARA','13:00','14:00','2021-01-03','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (692,'VAN','ANKARA','21:00','22:00','2021-01-03','112 Van Lake Express',100.00);
+/*Route: İstanbul-Ankara*/
+INSERT INTO Route VALUES (693,'ISTANBUL','ANKARA','09:00','10:00','2020-12-29','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (694,'ISTANBUL','ANKARA','17:00','18:00','2020-12-29','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (695,'ISTANBUL','ANKARA','09:00','10:00','2021-01-03','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (696,'ISTANBUL','ANKARA','17:00','18:00','2021-01-03','113 High Speed Train',40.00);
+/*Route: Ankara- İstanbul*/
+INSERT INTO Route VALUES (697,'ANKARA','ISTANBUL','15:00','16:00','2020-12-29','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (698,'ANKARA','ISTANBUL','23:00','24:00','2020-12-29','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (699,'ANKARA','ISTANBUL','15:00','16:00','2021-01-03','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (700,'ANKARA','ISTANBUL','23:00','24:00','2021-01-03','113 High Speed Train',40.00);
+
+/*6. Hafta*/
+/*Route: İzmir- Balıkesir*/
+INSERT INTO Route VALUES (701,'IZMIR','BALIKESIR','07:00 ','09:00 ','2021-01-05','100 6 September Express',50.00);
+INSERT INTO Route VALUES (702,'IZMIR','BALIKESIR','13:00','15:00','2021-01-05','100 6 September Express',50.00);
+INSERT INTO Route VALUES (703,'IZMIR','BALIKESIR','09:00','11:00', '2021-01-10','101 17 September Express',50.00);
+INSERT INTO Route VALUES (704,'IZMIR','BALIKESIR','15:00','17:00', '2021-01-10','101 17 September Express',50.00);
+INSERT INTO Route VALUES (705,'IZMIR','BALIKESIR','12:00','14:00','2021-01-07', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (706,'IZMIR','BALIKESIR','18:00','20:00','2021-01-07','103 Aegean Express',50.00);
+INSERT INTO Route VALUES (707,'IZMIR','BALIKESIR','08:00','09:00','2021-01-09','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (708,'IZMIR','BALIKESIR','20:00','21:00','2021-01-08','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (709,'IZMIR','BALIKESIR','08:00','09:00','2021-01-07','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (710,'IZMIR','BALIKESIR','20:00','21:00','2021-01-07','105 İzmir Blue Train',50.00);
+/*Route: Balıkesir-İzmir*/
+INSERT INTO Route VALUES (711,'BALIKESIR', 'IZMIR', '10:00','12:00', '2021-01-05','100 6 September Express',50.00);
+INSERT INTO Route VALUES (712,'BALIKESIR', 'IZMIR', '16:00','18:00','2021-01-05','100 6 September Express',50.00);
+INSERT INTO Route VALUES (713,'BALIKESIR', 'IZMIR', '12:00', '14:00', '2021-01-10','101 17 September Express',50.00);
+INSERT INTO Route VALUES (714,'BALIKESIR', 'IZMIR', '18:00', '20:00', '2021-01-10','101 17 September Express',50.00);
+INSERT INTO Route VALUES (715,'BALIKESIR', 'IZMIR',' 15:00', '17:00', '2021-01-07','103 Aegean Express',50.00);
+INSERT INTO Route VALUES (716,'BALIKESIR', 'IZMIR',' 21:00', '23:00','2021-01-07','103 Aegean Express',50.00);
+INSERT INTO Route VALUES (717,'BALIKESIR', 'IZMIR','06:00','07:00','2021-01-09','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (718,'BALIKESIR', 'IZMIR','18:00','19:00','2021-01-09','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (719,'BALIKESIR', 'IZMIR','06:00','07:00','2021-01-07','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (720,'BALIKESIR', 'IZMIR','18:00','19:00','2021-01-07','105 İzmir Blue Train',50.00);
+/*Route: Eskişehir-Balıkesir*/
+INSERT INTO Route VALUES (721,'IZMIR','BALIKESIR','04:00','05:00 ', '2021-01-09','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (722,'IZMIR','BALIKESIR','16:00','17:00 ','2021-01-09','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (723,'IZMIR','BALIKESIR','04:00','05:00 ','2021-01-07','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (724,'IZMIR','BALIKESIR','16:00','17:00 ','2021-01-07','105 İzmir Blue Train',40.00);
+/*Route: Balıkesir-Eskişehir*/
+INSERT INTO Route VALUES (725,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2021-01-09','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (726,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2021-01-09','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (727,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2021-01-07','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (728,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2021-01-07','105 İzmir Blue Train',40.00);
+/*Route: İstanbul-Eskişehir*/
+INSERT INTO Route VALUES(729,'ISTANBUL','ESKISEHIR','02:00','03:00','2021-01-09','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(730,'ISTANBUL','ESKISEHIR','14:00','15:00','2021-01-09','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(731,'ISTANBUL','ESKISEHIR','02:00','03:00','2021-01-07','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(732,'ISTANBUL','ESKISEHIR','14:00','15:00','2021-01-07','113 High Speed Train',30.00);
+/*Route: Eskişehir-İstanbul*/
+INSERT INTO Route VALUES(733,'ESKISEHIR','ISTANBUL','12:00','13:00','2021-01-09','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(734,'ESKISEHIR','ISTANBUL','24:00','01:00','2021-01-09','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(735,'ESKISEHIR','ISTANBUL','12:00','13:00','2021-01-07','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(736,'ESKISEHIR','ISTANBUL','24:00','01:00','2021-01-07','113 High Speed Train',30.00);
+/*Route: Ankara-Kayseri*/
+INSERT INTO Route VALUES (737,'ANKARA','KAYSERI','06:00', '07:00','2021-01-05','110 East Express',30.00);
+INSERT INTO Route VALUES (738,'ANKARA','KAYSERI','22:00', '23:00','2021-01-05','110 East Express',30.00);
+INSERT INTO Route VALUES (739,'ANKARA','KAYSERI','06:00', '07:00','2021-01-07','110 East Express',30.00);
+INSERT INTO Route VALUES (740,'ANKARA','KAYSERI','22:00', '23:00','2021-01-07','110 East Express',30.00);
+INSERT INTO Route VALUES (741,'ANKARA','KAYSERI','06:00','07:00','2021-01-08','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (742,'ANKARA','KAYSERI','22:00','23:00','2021-01-08','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (743,'ANKARA','KAYSERI','06:00','07:00','2021-01-06','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (744,'ANKARA','KAYSERI','22:00','23:00','2021-01-06','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (745,'ANKARA','KAYSERI','10:00','11:00','2021-01-06','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (746,'ANKARA','KAYSERI','18:00','19:00','2021-01-06','112 Van Lake Express',30.00);
+/*Route: Kayseri-Ankara*/
+INSERT INTO Route VALUES (747,'KAYSERI','ANKARA','20:00', '21:00','2021-01-05','110 East Express',30.00);
+INSERT INTO Route VALUES (748,'KAYSERI','ANKARA','12:00', '13:00','2021-01-05','110 East Express',30.00);
+INSERT INTO Route VALUES (749,'KAYSERI','ANKARA','20:00', '21:00','2021-01-07','110 East Express',30.00);
+INSERT INTO Route VALUES (750,'KAYSERI','ANKARA','12:00', '13:00','2021-01-08','110 East Express',30.00);
+INSERT INTO Route VALUES (751,'KAYSERI','ANKARA','20:00', '21:00','2021-01-08','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (752,'KAYSERI','ANKARA','12:00', '13:00','2021-01-09','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (753,'KAYSERI','ANKARA','20:00', '21:00','2021-01-06','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (754,'KAYSERI','ANKARA','12:00', '13:00','2021-01-06','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (755,'KAYSERI','ANKARA','16:00', '17:00','2021-01-06','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (756,'KAYSERI','ANKARA','24:00', '01:00','2021-01-06','112 Van Lake Express',30.00);
+/*Route: Kayseri-Sivas*/
+INSERT INTO Route VALUES (757,'KAYSERI','SIVAS','08:00','09:00','2021-01-05','110 East Express',30.00);
+INSERT INTO Route VALUES (758,'KAYSERI','SIVAS','24:00','01:00','2021-01-05','110 East Express',30.00);
+INSERT INTO Route VALUES (759,'KAYSERI','SIVAS','08:00','09:00', '2021-01-07','110 East Express',30.00);
+INSERT INTO Route VALUES (760,'KAYSERI','SIVAS','24:00','01:00','2021-01-07','110 East Express',30.00);
+INSERT INTO Route VALUES (761,'KAYSERI','SIVAS','08:00','09:00', '2021-01-08','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (762,'KAYSERI','SIVAS','24:00','01:00', '2021-01-08','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (763,'KAYSERI','SIVAS','08:00','09:00','2021-01-06','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (764,'KAYSERI','SIVAS','24:00','01:00','2021-01-06','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (765,'KAYSERI','SIVAS','12:00','13:00','2021-01-06','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (766,'KAYSERI','SIVAS','20:00','21:00', '2021-01-06','112 Van Lake Express',30.00);
+/*Route: Sivas-Kayseri*/
+INSERT INTO Route VALUES (767,'SIVAS','KAYSERI','18:00','19:00', '2021-01-05','110 East Express',30.00);
+INSERT INTO Route VALUES (768,'SIVAS','KAYSERI','10:00','11:00','2021-01-06','110 East Express',30.00);
+INSERT INTO Route VALUES (769,'SIVAS','KAYSERI','18:00','19:00','2021-01-07','110 East Express',30.00);
+INSERT INTO Route VALUES (770,'SIVAS','KAYSERI','10:00','11:00','2021-01-08','110 East Express',30.00);
+INSERT INTO Route VALUES (771,'SIVAS','KAYSERI','18:00','19:00','2021-01-08','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (772,'SIVAS','KAYSERI','10:00','11:00','2021-01-09','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (773,'SIVAS','KAYSERI','18:00','19:00', '2021-01-06','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (774,'SIVAS','KAYSERI','10:00','11:00', '2021-01-07','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (775,'SIVAS','KAYSERI','14:00','15:00','2021-01-06','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (776,'SIVAS','KAYSERI','22:00','23:00', '2021-01-06','112 Van Lake Express',30.00);
+/*Route: Sivas-Malatya*/
+INSERT INTO Route VALUES (777,'SIVAS','MALATYA','10:00','11:00','2021-01-08','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (778,'SIVAS','MALATYA','02:00','03:00','2021-01-09','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (779,'SIVAS','MALATYA','10:00','11:00', '2021-01-06','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (780,'SIVAS','MALATYA','02:00','03:00', '2021-01-07','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Sivas*/
+INSERT INTO Route VALUES (781,'MALATYA','SIVAS','16:00','17:00','2021-01-08','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (782,'MALATYA','SIVAS','08:00','09:00','2021-01-09','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (783,'MALATYA','SIVAS','16:00','17:00', '2021-01-06','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (784,'MALATYA','SIVAS','08:00','09:00', '2021-01-07','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Diyarbakır*/
+INSERT INTO Route VALUES (785,'MALATYA','DIYARBAKIR','12:00','13:00','2021-01-08','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (786,'MALATYA','DIYARBAKIR','04:00','05:00', '2021-01-09','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (787,'MALATYA','DIYARBAKIR','12:00','13:00','2021-01-06','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (788,'MALATYA','DIYARBAKIR','04:00','05:00', '2021-01-07','106 South Kurtulan Express',20.00);
+/*Diyarbakır-Malatya*/
+INSERT INTO Route VALUES (789,'DIYARBAKIR','MALATYA','14:00','15:00','2021-01-08','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (790,'DIYARBAKIR','MALATYA','06:00','07:00','2021-01-09','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (791,'DIYARBAKIR','MALATYA','14:00','15:00','2021-01-06','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (792,'DIYARBAKIR','MALATYA','06:00','07:00','2021-01-07','106 South Kurtulan Express',20.00);
+/*Route: Sivas-Erzincan*/
+INSERT INTO Route VALUES (793,'SIVAS','ERZINCAN','10:00','11:00','2021-01-05','110 East Express',45.00);
+INSERT INTO Route VALUES (794,'SIVAS','ERZINCAN','02:00','03:00','2021-01-06','110 East Express',45.00);
+INSERT INTO Route VALUES (795,'SIVAS','ERZINCAN','10:00','11:00', '2021-01-07','110 East Express',45.00);
+INSERT INTO Route VALUES (796,'SIVAS','ERZINCAN','02:00','03:00', '2021-01-08','110 East Express',45.00);
+/*Route: Erzincan-Sivas*/
+INSERT INTO Route VALUES (797,'ERZINCAN','SIVAS','16:00','17:00', '2021-01-05','110 East Express',45.00);
+INSERT INTO Route VALUES (798,'ERZINCAN','SIVAS','08:00','09:00','2021-01-06','110 East Express',45.00);
+INSERT INTO Route VALUES (799,'ERZINCAN','SIVAS','16:00','17:00','2021-01-07','110 East Express',45.00);
+INSERT INTO Route VALUES (800,'ERZINCAN','SIVAS','08:00','09:00','2021-01-08','110 East Express',45.00);
+/*Route: Erzincan-Kars*/
+INSERT INTO Route VALUES (801,'ERZINCAN','KARS','12:00','13:00','2021-01-05','110 East Express',35.00);
+INSERT INTO Route VALUES (802,'ERZINCAN','KARS','04:00','05:00','2021-01-06','110 East Express',35.00);
+INSERT INTO Route VALUES (803,'ERZINCAN','KARS','12:00','13:00','2021-01-07','110 East Express',35.00);
+INSERT INTO Route VALUES (804,'ERZINCAN','KARS','04:00','05:00','2021-01-08','110 East Express',35.00);
+/*Route: Kars-Erzincan*/
+INSERT INTO Route VALUES (805,'KARS','ERZINCAN','14:00','15:00','2021-01-05','110 East Express',35.00);
+INSERT INTO Route VALUES (806,'KARS','ERZINCAN','06:00','07:00','2021-01-06','110 East Express',35.00);
+INSERT INTO Route VALUES (807,'KARS','ERZINCAN','14:00','15:00','2021-01-07','110 East Express',35.00);
+INSERT INTO Route VALUES (808,'KARS','ERZINCAN','06:00','07:00','2021-01-08','110 East Express',35.00);
+/*Route: Adana-Konya*/
+INSERT INTO Route VALUES (809,'ADANA','KONYA','11:00','12:00', '2021-01-06','111 Toros Express',55.00);
+INSERT INTO Route VALUES (810,'ADANA','KONYA','19:00','20:00','2021-01-06','111 Toros Express',55.00);
+INSERT INTO Route VALUES (811,'ADANA','KONYA','11:00','12:00','2021-01-08','111 Toros Express',55.00);
+INSERT INTO Route VALUES (812,'ADANA','KONYA','19:00','20:00','2021-01-08','111 Toros Express',55.00);
+/*Route: Konya-Adana*/
+INSERT INTO Route VALUES (813,'KONYA','ADANA','09:00','10:00','2021-01-06','111 Toros Express',55.00);
+INSERT INTO Route VALUES (814,'KONYA','ADANA','17:00','18:00','2021-01-06','111 Toros Express',55.00);
+INSERT INTO Route VALUES (815,'KONYA','ADANA','09:00','10:00','2021-01-08','111 Toros Express',55.00);
+INSERT INTO Route VALUES (816,'KONYA','ADANA','17:00','18:00','2021-01-08','111 Toros Express',55.00);
+/*Route: Konya-İstanbul*/
+INSERT INTO Route VALUES (817,'KONYA','ISTANBUL','13:00','14:00','2021-01-06','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (818,'KONYA','ISTANBUL','21:00','22:00','2021-01-06','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (819,'KONYA','ISTANBUL','13:00','14:00','2021-01-08','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (820,'KONYA','ISTANBUL','21:00','22:00','2021-01-08','113 High Speed Train',60.00);
+/*Route: İstanbul-Konya*/
+INSERT INTO Route VALUES (821,'ISTANBUL','KONYA','07:00','08:00','2021-01-06','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (822,'ISTANBUL','KONYA','15:00','16:00','2021-01-06','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (823,'ISTANBUL','KONYA','07:00','08:00','2021-01-08','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (824,'ISTANBUL','KONYA','15:00','16:00','2021-01-08','113 High Speed Train',60.00);
+/*Route: Ankara-Van*/
+INSERT INTO Route VALUES (825,'ANKARA','VAN','11:00','12:00','2021-01-05','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (826,'ANKARA','VAN','19:00','20:00','2021-01-05','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (827,'ANKARA','VAN','11:00','12:00','2021-01-10','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (828,'ANKARA','VAN','19:00','20:00', '2021-01-10','112 Van Lake Express',100.00);
+/*Route: Van-Ankara*/
+INSERT INTO Route VALUES (829,'VAN','ANKARA','13:00','14:00','2021-01-05','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (830,'VAN','ANKARA','21:00','22:00', '2021-01-05','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (831,'VAN','ANKARA','13:00','14:00', '2021-01-10','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (832,'VAN','ANKARA','21:00','22:00','2021-01-10','112 Van Lake Express',100.00);
+/*Route: İstanbul-Ankara*/
+INSERT INTO Route VALUES (833,'ISTANBUL','ANKARA','09:00','10:00', '2021-01-05','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (834,'ISTANBUL','ANKARA','17:00','18:00','2021-01-05','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (835,'ISTANBUL','ANKARA','09:00','10:00', '2021-01-10','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (836,'ISTANBUL','ANKARA','17:00','18:00','2021-01-10','113 High Speed Train',40.00);
+/*Route: Ankara- İstanbul*/
+INSERT INTO Route VALUES (837,'ANKARA','ISTANBUL','15:00','16:00','2021-01-05','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (838,'ANKARA','ISTANBUL','23:00','24:00','2021-01-05','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (839,'ANKARA','ISTANBUL','15:00','16:00','2021-01-10','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (840,'ANKARA','ISTANBUL','23:00','24:00','2021-01-10','113 High Speed Train',40.00);
+
+
+/*7. Hafta*/
+/*Route: İzmir- Balıkesir*/
+INSERT INTO Route VALUES (841,'IZMIR','BALIKESIR','07:00 ','09:00 ','2021-01-12','100 6 September Express',50.00);
+INSERT INTO Route VALUES (842,'IZMIR','BALIKESIR','13:00','15:00', '2021-01-12','100 6 September Express',50.00);
+INSERT INTO Route VALUES (843,'IZMIR','BALIKESIR','09:00','11:00', '2021-01-17','101 17 September Express',50.00);
+INSERT INTO Route VALUES (844,'IZMIR','BALIKESIR','15:00','17:00',  '2021-01-17','101 17 September Express',50.00);
+INSERT INTO Route VALUES (845,'IZMIR','BALIKESIR','12:00','14:00','2021-01-14', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (846,'IZMIR','BALIKESIR','18:00','20:00','2021-01-14','103 Aegean Express',50.00);
+INSERT INTO Route VALUES (847,'IZMIR','BALIKESIR','08:00','09:00','2021-01-16','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (848,'IZMIR','BALIKESIR','20:00','21:00','2021-01-15','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (849,'IZMIR','BALIKESIR','08:00','09:00','2021-01-14','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (850,'IZMIR','BALIKESIR','20:00','21:00','2021-01-14','105 İzmir Blue Train',50.00);
+/*Route: Balıkesir-İzmir*/
+INSERT INTO Route VALUES (851,'BALIKESIR', 'IZMIR', '10:00','12:00','2021-01-12','100 6 September Express',50.00);
+INSERT INTO Route VALUES (852,'BALIKESIR', 'IZMIR', '16:00','18:00', '2021-01-12','100 6 September Express',50.00);
+INSERT INTO Route VALUES (853,'BALIKESIR', 'IZMIR', '12:00', '14:00', '2021-01-17','101 17 September Express',50.00);
+INSERT INTO Route VALUES (854,'BALIKESIR', 'IZMIR', '18:00', '20:00',  '2021-01-17','101 17 September Express',50.00);
+INSERT INTO Route VALUES (855,'BALIKESIR', 'IZMIR',' 15:00', '17:00', '2021-01-14', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (856,'BALIKESIR', 'IZMIR',' 21:00', '23:00', '2021-01-14', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (857,'BALIKESIR', 'IZMIR','06:00','07:00','2021-01-16','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (858,'BALIKESIR', 'IZMIR','18:00','19:00', '2021-01-16','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (859,'BALIKESIR', 'IZMIR','06:00','07:00', '2021-01-14','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (860,'BALIKESIR', 'IZMIR','18:00','19:00','2021-01-14','105 İzmir Blue Train',50.00);
+/*Route: Eskişehir-Balıkesir*/
+INSERT INTO Route VALUES (861,'IZMIR','BALIKESIR','04:00','05:00 ','2021-01-16','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (862,'IZMIR','BALIKESIR','16:00','17:00 ','2021-01-16','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (863,'IZMIR','BALIKESIR','04:00','05:00 ','2021-01-14','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (864,'IZMIR','BALIKESIR','16:00','17:00 ','2021-01-14','105 İzmir Blue Train',40.00);
+/*Route: Balıkesir-Eskişehir*/
+INSERT INTO Route VALUES (865,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2021-01-16','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (866,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2021-01-16','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (867,'BALIKESIR', 'ESKISEHIR','10:00','11:00', '2021-01-14','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (868,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2021-01-14','105 İzmir Blue Train',40.00);
+/*Route: İstanbul-Eskişehir*/
+INSERT INTO Route VALUES(869,'ISTANBUL','ESKISEHIR','02:00','03:00', '2021-01-16','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(870,'ISTANBUL','ESKISEHIR','14:00','15:00','2021-01-16','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(871,'ISTANBUL','ESKISEHIR','02:00','03:00','2021-01-14','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(872,'ISTANBUL','ESKISEHIR','14:00','15:00', '2021-01-14','113 High Speed Train',30.00);
+/*Route: Eskişehir-İstanbul*/
+INSERT INTO Route VALUES(873,'ESKISEHIR','ISTANBUL','12:00','13:00','2021-01-16','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(874,'ESKISEHIR','ISTANBUL','24:00','01:00','2021-01-16','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(875,'ESKISEHIR','ISTANBUL','12:00','13:00','2021-01-14','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(876,'ESKISEHIR','ISTANBUL','24:00','01:00','2021-01-14','113 High Speed Train',30.00);
+/*Route: Ankara-Kayseri*/
+INSERT INTO Route VALUES (877,'ANKARA','KAYSERI','06:00', '07:00','2021-01-12','110 East Express',30.00);
+INSERT INTO Route VALUES (878,'ANKARA','KAYSERI','22:00', '23:00','2021-01-12','110 East Express',30.00);
+INSERT INTO Route VALUES (879,'ANKARA','KAYSERI','06:00', '07:00','2021-01-14','110 East Express',30.00);
+INSERT INTO Route VALUES (880,'ANKARA','KAYSERI','22:00', '23:00','2021-01-14','110 East Express',30.00);
+INSERT INTO Route VALUES (881,'ANKARA','KAYSERI','06:00','07:00', '2021-01-15','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (882,'ANKARA','KAYSERI','22:00','23:00', '2021-01-15','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (883,'ANKARA','KAYSERI','06:00','07:00','2021-01-13','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (884,'ANKARA','KAYSERI','22:00','23:00','2021-01-13','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (885,'ANKARA','KAYSERI','10:00','11:00','2021-01-13','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (886,'ANKARA','KAYSERI','18:00','19:00','2021-01-13','112 Van Lake Express',30.00);
+/*Route: Kayseri-Ankara*/
+INSERT INTO Route VALUES (887,'KAYSERI','ANKARA','20:00', '21:00','2021-01-12','110 East Express',30.00);
+INSERT INTO Route VALUES (888,'KAYSERI','ANKARA','12:00', '13:00','2021-01-12','110 East Express',30.00);
+INSERT INTO Route VALUES (889,'KAYSERI','ANKARA','20:00', '21:00','2021-01-14','110 East Express',30.00);
+INSERT INTO Route VALUES (890,'KAYSERI','ANKARA','12:00', '13:00','2021-01-15','110 East Express',30.00);
+INSERT INTO Route VALUES (891,'KAYSERI','ANKARA','20:00', '21:00','2021-01-15','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (892,'KAYSERI','ANKARA','12:00', '13:00','2021-01-16','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (893,'KAYSERI','ANKARA','20:00', '21:00', '2021-01-13','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (894,'KAYSERI','ANKARA','12:00', '13:00','2021-01-13','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (895,'KAYSERI','ANKARA','16:00', '17:00','2021-01-13','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (896,'KAYSERI','ANKARA','24:00', '01:00','2021-01-13','112 Van Lake Express',30.00);
+/*Route: Kayseri-Sivas*/
+INSERT INTO Route VALUES (897,'KAYSERI','SIVAS','08:00','09:00','2021-01-12','110 East Express',30.00);
+INSERT INTO Route VALUES (898,'KAYSERI','SIVAS','24:00','01:00','2021-01-12','110 East Express',30.00);
+INSERT INTO Route VALUES (899,'KAYSERI','SIVAS','08:00','09:00','2021-01-14','110 East Express',30.00);
+INSERT INTO Route VALUES (900,'KAYSERI','SIVAS','24:00','01:00','2021-01-14','110 East Express',30.00);
+INSERT INTO Route VALUES (901,'KAYSERI','SIVAS','08:00','09:00','2021-01-15','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (902,'KAYSERI','SIVAS','24:00','01:00','2021-01-15','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (903,'KAYSERI','SIVAS','08:00','09:00','2021-01-13','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (904,'KAYSERI','SIVAS','24:00','01:00','2021-01-13','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (905,'KAYSERI','SIVAS','12:00','13:00','2021-01-13','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (906,'KAYSERI','SIVAS','20:00','21:00','2021-01-13','112 Van Lake Express',30.00);
+/*Route: Sivas-Kayseri*/
+INSERT INTO Route VALUES (907,'SIVAS','KAYSERI','18:00','19:00','2021-01-12','110 East Express',30.00);
+INSERT INTO Route VALUES (908,'SIVAS','KAYSERI','10:00','11:00','2021-01-13','110 East Express',30.00);
+INSERT INTO Route VALUES (909,'SIVAS','KAYSERI','18:00','19:00', '2021-01-14','110 East Express',30.00);
+INSERT INTO Route VALUES (910,'SIVAS','KAYSERI','10:00','11:00', '2021-01-15','110 East Express',30.00);
+INSERT INTO Route VALUES (911,'SIVAS','KAYSERI','18:00','19:00','2021-01-15','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (912,'SIVAS','KAYSERI','10:00','11:00', '2021-01-16','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (913,'SIVAS','KAYSERI','18:00','19:00', '2021-01-13','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (914,'SIVAS','KAYSERI','10:00','11:00','2021-01-14','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (915,'SIVAS','KAYSERI','14:00','15:00', '2021-00-13','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (916,'SIVAS','KAYSERI','22:00','23:00','2021-01-13','112 Van Lake Express',30.00);
+/*Route: Sivas-Malatya*/
+INSERT INTO Route VALUES (917,'SIVAS','MALATYA','10:00','11:00', '2021-01-15','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (918,'SIVAS','MALATYA','02:00','03:00','2021-01-16','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (919,'SIVAS','MALATYA','10:00','11:00','2021-01-13','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (920,'SIVAS','MALATYA','02:00','03:00','2021-01-14','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Sivas*/
+INSERT INTO Route VALUES (921,'MALATYA','SIVAS','16:00','17:00','2021-01-15','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (922,'MALATYA','SIVAS','08:00','09:00','2021-01-16','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (923,'MALATYA','SIVAS','16:00','17:00','2021-01-13','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (924,'MALATYA','SIVAS','08:00','09:00','2021-01-14','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Diyarbakır*/
+INSERT INTO Route VALUES (925,'MALATYA','DIYARBAKIR','12:00','13:00','2021-01-15','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (926,'MALATYA','DIYARBAKIR','04:00','05:00', '2021-01-16','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (927,'MALATYA','DIYARBAKIR','12:00','13:00','2021-01-13','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (928,'MALATYA','DIYARBAKIR','04:00','05:00','2021-01-14','106 South Kurtulan Express',20.00);
+/*Diyarbakır-Malatya*/
+INSERT INTO Route VALUES (929,'DIYARBAKIR','MALATYA','14:00','15:00','2021-01-15','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (930,'DIYARBAKIR','MALATYA','06:00','07:00','2021-01-16','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (931,'DIYARBAKIR','MALATYA','14:00','15:00','2021-01-13','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (932,'DIYARBAKIR','MALATYA','06:00','07:00','2021-01-14','106 South Kurtulan Express',20.00);
+/*Route: Sivas-Erzincan*/
+INSERT INTO Route VALUES (933,'SIVAS','ERZINCAN','10:00','11:00','2021-01-12','110 East Express',45.00);
+INSERT INTO Route VALUES (934,'SIVAS','ERZINCAN','02:00','03:00','2021-01-13','110 East Express',45.00);
+INSERT INTO Route VALUES (935,'SIVAS','ERZINCAN','10:00','11:00','2021-01-14','110 East Express',45.00);
+INSERT INTO Route VALUES (936,'SIVAS','ERZINCAN','02:00','03:00','2021-01-15','110 East Express',45.00);
+/*Route: Erzincan-Sivas*/
+INSERT INTO Route VALUES (937,'ERZINCAN','SIVAS','16:00','17:00','2021-01-12','110 East Express',45.00);
+INSERT INTO Route VALUES (938,'ERZINCAN','SIVAS','08:00','09:00','2021-01-13','110 East Express',45.00);
+INSERT INTO Route VALUES (939,'ERZINCAN','SIVAS','16:00','17:00','2021-01-14','110 East Express',45.00);
+INSERT INTO Route VALUES (940,'ERZINCAN','SIVAS','08:00','09:00','2021-01-15','110 East Express',45.00);
+/*Route: Erzincan-Kars*/
+INSERT INTO Route VALUES (941,'ERZINCAN','KARS','12:00','13:00', '2021-01-12','110 East Express',35.00);
+INSERT INTO Route VALUES (942,'ERZINCAN','KARS','04:00','05:00','2021-01-13','110 East Express',35.00);
+INSERT INTO Route VALUES (943,'ERZINCAN','KARS','12:00','13:00', '2021-01-14','110 East Express',35.00);
+INSERT INTO Route VALUES (944,'ERZINCAN','KARS','04:00','05:00','2021-01-15','110 East Express',35.00);
+/*Route: Kars-Erzincan*/
+INSERT INTO Route VALUES (945,'KARS','ERZINCAN','14:00','15:00','2021-01-12','110 East Express',35.00);
+INSERT INTO Route VALUES (946,'KARS','ERZINCAN','06:00','07:00','2021-01-13','110 East Express',35.00);
+INSERT INTO Route VALUES (947,'KARS','ERZINCAN','14:00','15:00', '2021-01-14','110 East Express',35.00);
+INSERT INTO Route VALUES (948,'KARS','ERZINCAN','06:00','07:00','2021-01-15','110 East Express',35.00);
+/*Route: Adana-Konya*/
+INSERT INTO Route VALUES (949,'ADANA','KONYA','11:00','12:00','2021-01-13','111 Toros Express',55.00);
+INSERT INTO Route VALUES (950,'ADANA','KONYA','19:00','20:00','2021-01-13','111 Toros Express',55.00);
+INSERT INTO Route VALUES (951,'ADANA','KONYA','11:00','12:00','2021-01-15','111 Toros Express',55.00);
+INSERT INTO Route VALUES (952,'ADANA','KONYA','19:00','20:00','2021-01-15','111 Toros Express',55.00);
+/*Route: Konya-Adana*/
+INSERT INTO Route VALUES (953,'KONYA','ADANA','09:00','10:00', '2021-01-13','111 Toros Express',55.00);
+INSERT INTO Route VALUES (954,'KONYA','ADANA','17:00','18:00', '2021-01-13','111 Toros Express',55.00);
+INSERT INTO Route VALUES (955,'KONYA','ADANA','09:00','10:00','2021-01-15','111 Toros Express',55.00);
+INSERT INTO Route VALUES (956,'KONYA','ADANA','17:00','18:00','2021-01-15','111 Toros Express',55.00);
+/*Route: Konya-İstanbul*/
+INSERT INTO Route VALUES (957,'KONYA','ISTANBUL','13:00','14:00','2021-01-13','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (958,'KONYA','ISTANBUL','21:00','22:00','2021-01-13','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (959,'KONYA','ISTANBUL','13:00','14:00', '2021-01-15','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (960,'KONYA','ISTANBUL','21:00','22:00', '2021-01-15','113 High Speed Train',60.00);
+/*Route: İstanbul-Konya*/
+INSERT INTO Route VALUES (961,'ISTANBUL','KONYA','07:00','08:00','2021-01-13','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (962,'ISTANBUL','KONYA','15:00','16:00','2021-01-13','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (963,'ISTANBUL','KONYA','07:00','08:00', '2021-01-15','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (964,'ISTANBUL','KONYA','15:00','16:00', '2021-01-15','113 High Speed Train',60.00);
+/*Route: Ankara-Van*/
+INSERT INTO Route VALUES (965,'ANKARA','VAN','11:00','12:00','2021-01-12','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (966,'ANKARA','VAN','19:00','20:00', '2021-01-12','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (967,'ANKARA','VAN','11:00','12:00', '2021-01-17','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (968,'ANKARA','VAN','19:00','20:00','2021-01-17','112 Van Lake Express',100.00);
+/*Route: Van-Ankara*/
+INSERT INTO Route VALUES (969,'VAN','ANKARA','13:00','14:00','2021-01-12','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (970,'VAN','ANKARA','21:00','22:00','2021-01-12','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (971,'VAN','ANKARA','13:00','14:00','2021-01-17','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (972,'VAN','ANKARA','21:00','22:00', '2021-01-17','112 Van Lake Express',100.00);
+/*Route: İstanbul-Ankara*/
+INSERT INTO Route VALUES (973,'ISTANBUL','ANKARA','09:00','10:00','2021-01-12','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (974,'ISTANBUL','ANKARA','17:00','18:00','2021-01-12','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (975,'ISTANBUL','ANKARA','09:00','10:00','2021-01-17','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (976,'ISTANBUL','ANKARA','17:00','18:00','2021-01-17','113 High Speed Train',40.00);
+/*Route: Ankara- İstanbul*/
+INSERT INTO Route VALUES (977,'ANKARA','ISTANBUL','15:00','16:00','2021-01-12','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (978,'ANKARA','ISTANBUL','23:00','24:00', '2021-01-12','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (979,'ANKARA','ISTANBUL','15:00','16:00', '2021-01-17','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (980,'ANKARA','ISTANBUL','23:00','24:00', '2021-01-17','113 High Speed Train',40.00);
+
+
+/*8. Hafta*/
+/*Route: İzmir- Balıkesir*/
+INSERT INTO Route VALUES (981,'IZMIR','BALIKESIR','07:00 ','09:00 ','2021-01-19','100 6 September Express',50.00);
+INSERT INTO Route VALUES (982,'IZMIR','BALIKESIR','13:00','15:00', '2021-01-19','100 6 September Express',50.00);
+INSERT INTO Route VALUES (983,'IZMIR','BALIKESIR','09:00','11:00', '2021-01-24','101 17 September Express',50.00);
+INSERT INTO Route VALUES (984,'IZMIR','BALIKESIR','15:00','17:00',  '2021-01-24','101 17 September Express',50.00);
+INSERT INTO Route VALUES (985,'IZMIR','BALIKESIR','12:00','14:00', '2021-01-21', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (986,'IZMIR','BALIKESIR','18:00','20:00', '2021-01-21','103 Aegean Express',50.00);
+INSERT INTO Route VALUES (987,'IZMIR','BALIKESIR','08:00','09:00', '2021-01-23','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (988,'IZMIR','BALIKESIR','20:00','21:00','2021-01-22','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (989,'IZMIR','BALIKESIR','08:00','09:00', '2021-01-21','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (990,'IZMIR','BALIKESIR','20:00','21:00', '2021-01-21','105 İzmir Blue Train',50.00);
+/*Route: Balıkesir-İzmir*/
+INSERT INTO Route VALUES (991,'BALIKESIR', 'IZMIR', '10:00','12:00','2021-01-19','100 6 September Express',50.00);
+INSERT INTO Route VALUES (992,'BALIKESIR', 'IZMIR', '16:00','18:00','2021-01-19','100 6 September Express',50.00);
+INSERT INTO Route VALUES (993,'BALIKESIR', 'IZMIR', '12:00', '14:00','2021-01-24','101 17 September Express',50.00);
+INSERT INTO Route VALUES (994,'BALIKESIR', 'IZMIR', '18:00', '20:00','2021-01-24','101 17 September Express',50.00);
+INSERT INTO Route VALUES (995,'BALIKESIR', 'IZMIR',' 15:00', '17:00','2021-01-21','103 Aegean Express',50.00);
+INSERT INTO Route VALUES (996,'BALIKESIR', 'IZMIR',' 21:00', '23:00','2021-01-21', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (997,'BALIKESIR', 'IZMIR','06:00','07:00','2021-01-23','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (998,'BALIKESIR', 'IZMIR','18:00','19:00','2021-01-23','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (999,'BALIKESIR', 'IZMIR','06:00','07:00', '2021-01-21','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (1000,'BALIKESIR', 'IZMIR','18:00','19:00','2021-01-21','105 İzmir Blue Train',50.00);
+/*Route: Eskişehir-Balıkesir*/
+INSERT INTO Route VALUES (1001,'IZMIR','BALIKESIR','04:00','05:00 ','2021-01-23','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (1002,'IZMIR','BALIKESIR','16:00','17:00 ','2021-01-23','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (1003,'IZMIR','BALIKESIR','04:00','05:00 ','2021-01-21','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (1004,'IZMIR','BALIKESIR','16:00','17:00 ', '2021-01-21','105 İzmir Blue Train',40.00);
+/*Route: Balıkesir-Eskişehir*/
+INSERT INTO Route VALUES (1005,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2021-01-23','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (1006,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2021-01-23','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (1007,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2021-01-21','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (1008,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2021-01-21','105 İzmir Blue Train',40.00);
+/*Route: İstanbul-Eskişehir*/
+INSERT INTO Route VALUES(1009,'ISTANBUL','ESKISEHIR','02:00','03:00','2021-01-23','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(1010,'ISTANBUL','ESKISEHIR','14:00','15:00','2021-01-23','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(1011,'ISTANBUL','ESKISEHIR','02:00','03:00','2021-01-21','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(1012,'ISTANBUL','ESKISEHIR','14:00','15:00','2021-01-21','113 High Speed Train',30.00);
+/*Route: Eskişehir-İstanbul*/
+INSERT INTO Route VALUES(1013,'ESKISEHIR','ISTANBUL','12:00','13:00','2021-01-23','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(1014,'ESKISEHIR','ISTANBUL','24:00','01:00','2021-01-23','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(1015,'ESKISEHIR','ISTANBUL','12:00','13:00', '2021-01-21','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(1016,'ESKISEHIR','ISTANBUL','24:00','01:00','2021-01-21','113 High Speed Train',30.00);
+/*Route: Ankara-Kayseri*/
+INSERT INTO Route VALUES (1017,'ANKARA','KAYSERI','06:00', '07:00','2021-01-19','110 East Express',30.00);
+INSERT INTO Route VALUES (1018,'ANKARA','KAYSERI','22:00', '23:00','2021-01-19','110 East Express',30.00);
+INSERT INTO Route VALUES (1019,'ANKARA','KAYSERI','06:00', '07:00','2021-01-21','110 East Express',30.00);
+INSERT INTO Route VALUES (1020,'ANKARA','KAYSERI','22:00', '23:00','2021-01-21','110 East Express',30.00);
+INSERT INTO Route VALUES (1021,'ANKARA','KAYSERI','06:00','07:00','2021-01-22','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1022,'ANKARA','KAYSERI','22:00','23:00','2021-01-22','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1023,'ANKARA','KAYSERI','06:00','07:00','2021-01-20','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1024,'ANKARA','KAYSERI','22:00','23:00','2021-01-20','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1025,'ANKARA','KAYSERI','10:00','11:00','2021-01-20','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (1026,'ANKARA','KAYSERI','18:00','19:00','2021-01-20','112 Van Lake Express',30.00);
+/*Route: Kayseri-Ankara*/
+INSERT INTO Route VALUES (1027,'KAYSERI','ANKARA','20:00', '21:00','2021-01-19','110 East Express',30.00);
+INSERT INTO Route VALUES (1028,'KAYSERI','ANKARA','12:00', '13:00','2021-01-19','110 East Express',30.00);
+INSERT INTO Route VALUES (1029,'KAYSERI','ANKARA','20:00', '21:00','2021-01-21','110 East Express',30.00);
+INSERT INTO Route VALUES (1030,'KAYSERI','ANKARA','12:00', '13:00','2021-01-22','110 East Express',30.00);
+INSERT INTO Route VALUES (1031,'KAYSERI','ANKARA','20:00', '21:00','2021-01-22','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1032,'KAYSERI','ANKARA','12:00', '13:00','2021-01-23','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1033,'KAYSERI','ANKARA','20:00', '21:00', '2021-01-20','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1034,'KAYSERI','ANKARA','12:00', '13:00','2021-01-20','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1035,'KAYSERI','ANKARA','16:00', '17:00', '2021-01-20','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (1036,'KAYSERI','ANKARA','24:00', '01:00', '2021-01-20','112 Van Lake Express',30.00);
+/*Route: Kayseri-Sivas*/
+INSERT INTO Route VALUES (1037,'KAYSERI','SIVAS','08:00','09:00','2021-01-19','110 East Express',30.00);
+INSERT INTO Route VALUES (1038,'KAYSERI','SIVAS','24:00','01:00','2021-01-19','110 East Express',30.00);
+INSERT INTO Route VALUES (1039,'KAYSERI','SIVAS','08:00','09:00','2021-01-21','110 East Express',30.00);
+INSERT INTO Route VALUES (1040,'KAYSERI','SIVAS','24:00','01:00', '2021-01-21','110 East Express',30.00);
+INSERT INTO Route VALUES (1041,'KAYSERI','SIVAS','08:00','09:00','2021-01-22','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1042,'KAYSERI','SIVAS','24:00','01:00', '2021-01-22','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1043,'KAYSERI','SIVAS','08:00','09:00','2021-01-20','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1044,'KAYSERI','SIVAS','24:00','01:00', '2021-01-20','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1045,'KAYSERI','SIVAS','12:00','13:00','2021-01-20','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (1046,'KAYSERI','SIVAS','20:00','21:00','2021-01-20','112 Van Lake Express',30.00);
+/*Route: Sivas-Kayseri*/
+INSERT INTO Route VALUES (1047,'SIVAS','KAYSERI','18:00','19:00','2021-01-19','110 East Express',30.00);
+INSERT INTO Route VALUES (1048,'SIVAS','KAYSERI','10:00','11:00','2021-01-20','110 East Express',30.00);
+INSERT INTO Route VALUES (1049,'SIVAS','KAYSERI','18:00','19:00','2021-01-21','110 East Express',30.00);
+INSERT INTO Route VALUES (1050,'SIVAS','KAYSERI','10:00','11:00','2021-01-22','110 East Express',30.00);
+INSERT INTO Route VALUES (1051,'SIVAS','KAYSERI','18:00','19:00','2021-01-22','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1052,'SIVAS','KAYSERI','10:00','11:00','2021-01-23','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1053,'SIVAS','KAYSERI','18:00','19:00','2021-01-20','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1054,'SIVAS','KAYSERI','10:00','11:00','2021-01-21','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1055,'SIVAS','KAYSERI','14:00','15:00','2021-00-20','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (1056,'SIVAS','KAYSERI','22:00','23:00', '2021-01-20','112 Van Lake Express',30.00);
+/*Route: Sivas-Malatya*/
+INSERT INTO Route VALUES (1057,'SIVAS','MALATYA','10:00','11:00','2021-01-22','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (1058,'SIVAS','MALATYA','02:00','03:00','2021-01-23','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (1059,'SIVAS','MALATYA','10:00','11:00', '2021-01-20','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (1060,'SIVAS','MALATYA','02:00','03:00','2021-01-21','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Sivas*/
+INSERT INTO Route VALUES (1061,'MALATYA','SIVAS','16:00','17:00','2021-01-22','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (1062,'MALATYA','SIVAS','08:00','09:00','2021-01-23','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (1063,'MALATYA','SIVAS','16:00','17:00','2021-01-20','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (1064,'MALATYA','SIVAS','08:00','09:00','2021-01-21','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Diyarbakır*/
+INSERT INTO Route VALUES (1065,'MALATYA','DIYARBAKIR','12:00','13:00','2021-01-22','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (1066,'MALATYA','DIYARBAKIR','04:00','05:00', '2021-01-23','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (1067,'MALATYA','DIYARBAKIR','12:00','13:00','2021-01-20','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (1068,'MALATYA','DIYARBAKIR','04:00','05:00','2021-01-21','106 South Kurtulan Express',20.00);
+/*Diyarbakır-Malatya*/
+INSERT INTO Route VALUES (1069,'DIYARBAKIR','MALATYA','14:00','15:00','2021-01-22','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (1070,'DIYARBAKIR','MALATYA','06:00','07:00','2021-01-23','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (1071,'DIYARBAKIR','MALATYA','14:00','15:00','2021-01-20','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (1072,'DIYARBAKIR','MALATYA','06:00','07:00','2021-01-21','106 South Kurtulan Express',20.00);
+/*Route: Sivas-Erzincan*/
+INSERT INTO Route VALUES (1073,'SIVAS','ERZINCAN','10:00','11:00', '2021-01-19','110 East Express',45.00);
+INSERT INTO Route VALUES (1074,'SIVAS','ERZINCAN','02:00','03:00','2021-01-20','110 East Express',45.00);
+INSERT INTO Route VALUES (1075,'SIVAS','ERZINCAN','10:00','11:00','2021-01-21','110 East Express',45.00);
+INSERT INTO Route VALUES (1076,'SIVAS','ERZINCAN','02:00','03:00', '2021-01-22','110 East Express',45.00);
+/*Route: Erzincan-Sivas*/
+INSERT INTO Route VALUES (1077,'ERZINCAN','SIVAS','16:00','17:00','2021-01-19','110 East Express',45.00);
+INSERT INTO Route VALUES (1078,'ERZINCAN','SIVAS','08:00','09:00','2021-01-20','110 East Express',45.00);
+INSERT INTO Route VALUES (1079,'ERZINCAN','SIVAS','16:00','17:00','2021-01-21','110 East Express',45.00);
+INSERT INTO Route VALUES (1080,'ERZINCAN','SIVAS','08:00','09:00','2021-01-22','110 East Express',45.00);
+/*Route: Erzincan-Kars*/
+INSERT INTO Route VALUES (1081,'ERZINCAN','KARS','12:00','13:00','2021-01-19','110 East Express',35.00);
+INSERT INTO Route VALUES (1082,'ERZINCAN','KARS','04:00','05:00','2021-01-20','110 East Express',35.00);
+INSERT INTO Route VALUES (1083,'ERZINCAN','KARS','12:00','13:00', '2021-01-21','110 East Express',35.00);
+INSERT INTO Route VALUES (1084,'ERZINCAN','KARS','04:00','05:00','2021-01-22','110 East Express',35.00);
+/*Route: Kars-Erzincan*/
+INSERT INTO Route VALUES (1085,'KARS','ERZINCAN','14:00','15:00','2021-01-19','110 East Express',35.00);
+INSERT INTO Route VALUES (1086,'KARS','ERZINCAN','06:00','07:00','2021-01-20','110 East Express',35.00);
+INSERT INTO Route VALUES (1087,'KARS','ERZINCAN','14:00','15:00', '2021-01-21','110 East Express',35.00);
+INSERT INTO Route VALUES (1088,'KARS','ERZINCAN','06:00','07:00','2021-01-22','110 East Express',35.00);
+/*Route: Adana-Konya*/
+INSERT INTO Route VALUES (1089,'ADANA','KONYA','11:00','12:00', '2021-01-20','111 Toros Express',55.00);
+INSERT INTO Route VALUES (1090,'ADANA','KONYA','19:00','20:00','2021-01-20','111 Toros Express',55.00);
+INSERT INTO Route VALUES (1091,'ADANA','KONYA','11:00','12:00','2021-01-22','111 Toros Express',55.00);
+INSERT INTO Route VALUES (1092,'ADANA','KONYA','19:00','20:00','2021-01-22','111 Toros Express',55.00);
+/*Route: Konya-Adana*/
+INSERT INTO Route VALUES (1093,'KONYA','ADANA','09:00','10:00','2021-01-20','111 Toros Express',55.00);
+INSERT INTO Route VALUES (1094,'KONYA','ADANA','17:00','18:00','2021-01-20','111 Toros Express',55.00);
+INSERT INTO Route VALUES (1095,'KONYA','ADANA','09:00','10:00','2021-01-22','111 Toros Express',55.00);
+INSERT INTO Route VALUES (1096,'KONYA','ADANA','17:00','18:00','2021-01-22','111 Toros Express',55.00);
+/*Route: Konya-İstanbul*/
+INSERT INTO Route VALUES (1097,'KONYA','ISTANBUL','13:00','14:00','2021-01-20','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (1098,'KONYA','ISTANBUL','21:00','22:00','2021-01-20','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (1099,'KONYA','ISTANBUL','13:00','14:00','2021-01-22','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (1100,'KONYA','ISTANBUL','21:00','22:00','2021-01-22','113 High Speed Train',60.00);
+/*Route: İstanbul-Konya*/
+INSERT INTO Route VALUES (1101,'ISTANBUL','KONYA','07:00','08:00','2021-01-20','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (1102,'ISTANBUL','KONYA','15:00','16:00','2021-01-20','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (1103,'ISTANBUL','KONYA','07:00','08:00','2021-01-22','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (1104,'ISTANBUL','KONYA','15:00','16:00','2021-01-22','113 High Speed Train',60.00);
+/*Route: Ankara-Van*/
+INSERT INTO Route VALUES (1105,'ANKARA','VAN','11:00','12:00','2021-01-19','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (1106,'ANKARA','VAN','19:00','20:00', '2021-01-19','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (1107,'ANKARA','VAN','11:00','12:00','2021-01-24','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (1108,'ANKARA','VAN','19:00','20:00', '2021-01-24','112 Van Lake Express',100.00);
+/*Route: Van-Ankara*/
+INSERT INTO Route VALUES (1109,'VAN','ANKARA','13:00','14:00', '2021-01-19','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (1110,'VAN','ANKARA','21:00','22:00', '2021-01-19','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (1111,'VAN','ANKARA','13:00','14:00','2021-01-24','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (1112,'VAN','ANKARA','21:00','22:00','2021-01-24','112 Van Lake Express',100.00);
+/*Route: İstanbul-Ankara*/
+INSERT INTO Route VALUES (1113,'ISTANBUL','ANKARA','09:00','10:00','2021-01-19','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (1114,'ISTANBUL','ANKARA','17:00','18:00','2021-01-19','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (1115,'ISTANBUL','ANKARA','09:00','10:00','2021-01-24','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (1116,'ISTANBUL','ANKARA','17:00','18:00', '2021-01-24','113 High Speed Train',40.00);
+/*Route: Ankara- İstanbul*/
+INSERT INTO Route VALUES (1117,'ANKARA','ISTANBUL','15:00','16:00','2021-01-19','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (1118,'ANKARA','ISTANBUL','23:00','24:00','2021-01-19','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (1119,'ANKARA','ISTANBUL','15:00','16:00','2021-01-24','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (1120,'ANKARA','ISTANBUL','23:00','24:00','2021-01-24','113 High Speed Train',40.00);
+
+/*9. Hafta*/
+/*Route: İzmir- Balıkesir*/
+INSERT INTO Route VALUES (1121,'IZMIR','BALIKESIR','07:00 ','09:00 ','2021-01-26','100 6 September Express',50.00);
+INSERT INTO Route VALUES (1122,'IZMIR','BALIKESIR','13:00','15:00','2021-01-26','100 6 September Express',50.00);
+INSERT INTO Route VALUES (1123,'IZMIR','BALIKESIR','09:00','11:00', '2021-01-31','101 17 September Express',50.00);
+INSERT INTO Route VALUES (1124,'IZMIR','BALIKESIR','15:00','17:00', '2021-01-31','101 17 September Express',50.00);
+INSERT INTO Route VALUES (1125,'IZMIR','BALIKESIR','12:00','14:00','2021-01-28', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (1126,'IZMIR','BALIKESIR','18:00','20:00','2021-01-28', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (1127,'IZMIR','BALIKESIR','08:00','09:00','2021-01-30','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (1128,'IZMIR','BALIKESIR','20:00','21:00','2021-01-29','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (1129,'IZMIR','BALIKESIR','08:00','09:00','2021-01-28','105 İzmir  Blue Train',50.00);
+INSERT INTO Route VALUES (1130,'IZMIR','BALIKESIR','20:00','21:00','2021-01-28','105 İzmir Blue Train',50.00);
+/*Route: Balıkesir-İzmir*/
+INSERT INTO Route VALUES (1131,'BALIKESIR', 'IZMIR', '10:00','12:00','2021-01-26','100 6 September Express',50.00);
+INSERT INTO Route VALUES (1132,'BALIKESIR', 'IZMIR', '16:00','18:00','2021-01-26','100 6 September Express',50.00);
+INSERT INTO Route VALUES (1133,'BALIKESIR', 'IZMIR', '12:00', '14:00', '2021-01-31','101 17 September Express',50.00);
+INSERT INTO Route VALUES (1134,'BALIKESIR', 'IZMIR', '18:00', '20:00','2021-01-31','101 17 September Express',50.00);
+INSERT INTO Route VALUES (1135,'BALIKESIR', 'IZMIR',' 15:00', '17:00', '2021-01-28', '103 Aegean Express',50.00);
+INSERT INTO Route VALUES (1136,'BALIKESIR', 'IZMIR',' 21:00', '23:00','2021-01-28','103 Aegean Express',50.00);
+INSERT INTO Route VALUES (1137,'BALIKESIR', 'IZMIR','06:00','07:00', '2021-01-30','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (1138,'BALIKESIR', 'IZMIR','18:00','19:00','2021-01-30','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (1139,'BALIKESIR', 'IZMIR','06:00','07:00','2021-01-28','105 İzmir Blue Train',50.00);
+INSERT INTO Route VALUES (1140,'BALIKESIR', 'IZMIR','18:00','19:00', '2021-01-28','105 İzmir Blue Train',50.00);
+/*Route: Eskişehir-Balıkesir*/
+INSERT INTO Route VALUES (1141,'IZMIR','BALIKESIR','04:00','05:00 ','2021-01-30','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (1142,'IZMIR','BALIKESIR','16:00','17:00 ','2021-01-30','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (1143,'IZMIR','BALIKESIR','04:00','05:00 ','2021-01-28','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (1144,'IZMIR','BALIKESIR','16:00','17:00 ', '2021-01-28','105 İzmir Blue Train',40.00);
+/*Route: Balıkesir-Eskişehir*/
+INSERT INTO Route VALUES (1145,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2021-01-30','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (1146,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2021-01-30','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (1147,'BALIKESIR', 'ESKISEHIR','10:00','11:00','2021-01-28','105 İzmir Blue Train',40.00);
+INSERT INTO Route VALUES (1148,'BALIKESIR', 'ESKISEHIR','22:01','23:00','2021-01-28','105 İzmir Blue Train',40.00);
+/*Route: İstanbul-Eskişehir*/
+INSERT INTO Route VALUES(1149,'ISTANBUL','ESKISEHIR','02:00','03:00', '2021-01-30','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(1150,'ISTANBUL','ESKISEHIR','14:00','15:00','2021-01-30','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(1151,'ISTANBUL','ESKISEHIR','02:00','03:00','2021-01-28','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(1152,'ISTANBUL','ESKISEHIR','14:00','15:00','2021-01-28','113 High Speed Train',30.00);
+/*Route: Eskişehir-İstanbul*/
+INSERT INTO Route VALUES(1153,'ESKISEHIR','ISTANBUL','12:00','13:00','2021-01-30','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(1154,'ESKISEHIR','ISTANBUL','24:00','01:00','2021-01-30','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(1155,'ESKISEHIR','ISTANBUL','12:00','13:00', '2021-01-28','113 High Speed Train',30.00);
+INSERT INTO Route VALUES(1156,'ESKISEHIR','ISTANBUL','24:00','01:00','2021-01-28','113 High Speed Train',30.00);
+/*Route: Ankara-Kayseri*/
+INSERT INTO Route VALUES (1157,'ANKARA','KAYSERI','06:00', '07:00','2021-01-26','110 East Express',30.00);
+INSERT INTO Route VALUES (1158,'ANKARA','KAYSERI','22:00', '23:00','2021-01-26','110 East Express',30.00);
+INSERT INTO Route VALUES (1159,'ANKARA','KAYSERI','06:00', '07:00','2021-01-28','110 East Express',30.00);
+INSERT INTO Route VALUES (1160,'ANKARA','KAYSERI','22:00', '23:00','2021-01-28','110 East Express',30.00);
+INSERT INTO Route VALUES (1161,'ANKARA','KAYSERI','06:00','07:00', '2021-01-29','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1162,'ANKARA','KAYSERI','22:00','23:00', '2021-01-29','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1163,'ANKARA','KAYSERI','06:00','07:00','2021-01-27','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1164,'ANKARA','KAYSERI','22:00','23:00','2021-01-27','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1165,'ANKARA','KAYSERI','10:00','11:00','2021-01-27','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (1166,'ANKARA','KAYSERI','18:00','19:00','2021-01-27','112 Van Lake Express',30.00);
+/*Route: Kayseri-Ankara*/
+INSERT INTO Route VALUES (1167,'KAYSERI','ANKARA','20:00', '21:00','2021-01-26','110 East Express',30.00);
+INSERT INTO Route VALUES (1168,'KAYSERI','ANKARA','12:00', '13:00','2021-01-26','110 East Express',30.00);
+INSERT INTO Route VALUES (1169,'KAYSERI','ANKARA','20:00', '21:00', '2021-01-28','110 East Express',30.00);
+INSERT INTO Route VALUES (1170,'KAYSERI','ANKARA','12:00', '13:00', '2021-01-29','110 East Express',30.00);
+INSERT INTO Route VALUES (1171,'KAYSERI','ANKARA','20:00', '21:00','2021-01-29','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1172,'KAYSERI','ANKARA','12:00', '13:00','2021-01-30','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1173,'KAYSERI','ANKARA','20:00', '21:00','2021-01-27','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1174,'KAYSERI','ANKARA','12:00', '13:00','2021-01-27','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1175,'KAYSERI','ANKARA','16:00', '17:00','2021-01-27','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (1176,'KAYSERI','ANKARA','24:00', '01:00','2021-01-27','112 Van Lake Express',30.00);
+/*Route: Kayseri-Sivas*/
+INSERT INTO Route VALUES (1177,'KAYSERI','SIVAS','08:00','09:00','2021-01-26','110 East Express',30.00);
+INSERT INTO Route VALUES (1178,'KAYSERI','SIVAS','24:00','01:00','2021-01-26','110 East Express',30.00);
+INSERT INTO Route VALUES (1179,'KAYSERI','SIVAS','08:00','09:00','2021-01-28','110 East Express',30.00);
+INSERT INTO Route VALUES (1180,'KAYSERI','SIVAS','24:00','01:00','2021-01-28','110 East Express',30.00);
+INSERT INTO Route VALUES (1181,'KAYSERI','SIVAS','08:00','09:00', '2021-01-29','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1182,'KAYSERI','SIVAS','24:00','01:00','2021-01-29','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1183,'KAYSERI','SIVAS','08:00','09:00','2021-01-27','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1184,'KAYSERI','SIVAS','24:00','01:00','2021-01-27','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1185,'KAYSERI','SIVAS','12:00','13:00', '2021-01-27','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (1186,'KAYSERI','SIVAS','20:00','21:00', '2021-01-27','112 Van Lake Express',30.00);
+/*Route: Sivas-Kayseri*/
+INSERT INTO Route VALUES (1187,'SIVAS','KAYSERI','18:00','19:00', '2021-01-26','110 East Express',30.00);
+INSERT INTO Route VALUES (1188,'SIVAS','KAYSERI','10:00','11:00', '2021-01-27','110 East Express',30.00);
+INSERT INTO Route VALUES (1189,'SIVAS','KAYSERI','18:00','19:00', '2021-01-28','110 East Express',30.00);
+INSERT INTO Route VALUES (1190,'SIVAS','KAYSERI','10:00','11:00','2021-01-29','110 East Express',30.00);
+INSERT INTO Route VALUES (1191,'SIVAS','KAYSERI','18:00','19:00','2021-01-29','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1192,'SIVAS','KAYSERI','10:00','11:00','2021-01-30','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1193,'SIVAS','KAYSERI','18:00','19:00', '2021-01-27','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1194,'SIVAS','KAYSERI','10:00','11:00', '2021-01-28','106 South Kurtulan Express',30.00);
+INSERT INTO Route VALUES (1195,'SIVAS','KAYSERI','14:00','15:00','2021-00-27','112 Van Lake Express',30.00);
+INSERT INTO Route VALUES (1196,'SIVAS','KAYSERI','22:00','23:00', '2021-01-27','112 Van Lake Express',30.00);
+/*Route: Sivas-Malatya*/
+INSERT INTO Route VALUES (1197,'SIVAS','MALATYA','10:00','11:00','2021-01-29','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (1198,'SIVAS','MALATYA','02:00','03:00','2021-01-30','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (1199,'SIVAS','MALATYA','10:00','11:00','2021-01-27','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (1200,'SIVAS','MALATYA','02:00','03:00','2021-01-28','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Sivas*/
+INSERT INTO Route VALUES (1201,'MALATYA','SIVAS','16:00','17:00', '2021-01-29','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (1202,'MALATYA','SIVAS','08:00','09:00', '2021-01-30','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (1203,'MALATYA','SIVAS','16:00','17:00','2021-01-27','106 South Kurtulan Express',40.00);
+INSERT INTO Route VALUES (1204,'MALATYA','SIVAS','08:00','09:00','2021-01-28','106 South Kurtulan Express',40.00);
+/*Route: Malatya-Diyarbakır*/
+INSERT INTO Route VALUES (1205,'MALATYA','DIYARBAKIR','12:00','13:00','2021-01-29','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (1206,'MALATYA','DIYARBAKIR','04:00','05:00','2021-01-30','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (1207,'MALATYA','DIYARBAKIR','12:00','13:00','2021-01-27','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (1208,'MALATYA','DIYARBAKIR','04:00','05:00','2021-01-28','106 South Kurtulan Express',20.00);
+/*Diyarbakır-Malatya*/
+INSERT INTO Route VALUES (1209,'DIYARBAKIR','MALATYA','14:00','15:00','2021-01-29','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (1210,'DIYARBAKIR','MALATYA','06:00','07:00','2021-01-30','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (1211,'DIYARBAKIR','MALATYA','14:00','15:00', '2021-01-27','106 South Kurtulan Express',20.00);
+INSERT INTO Route VALUES (1212,'DIYARBAKIR','MALATYA','06:00','07:00','2021-01-28','106 South Kurtulan Express',20.00);
+/*Route: Sivas-Erzincan*/
+INSERT INTO Route VALUES (1213,'SIVAS','ERZINCAN','10:00','11:00','2021-01-26','110 East Express',45.00);
+INSERT INTO Route VALUES (1214,'SIVAS','ERZINCAN','02:00','03:00', '2021-01-27','110 East Express',45.00);
+INSERT INTO Route VALUES (1215,'SIVAS','ERZINCAN','10:00','11:00', '2021-01-28','110 East Express',45.00);
+INSERT INTO Route VALUES (1216,'SIVAS','ERZINCAN','02:00','03:00','2021-01-29','110 East Express',45.00);
+/*Route: Erzincan-Sivas*/
+INSERT INTO Route VALUES (1217,'ERZINCAN','SIVAS','16:00','17:00', '2021-01-26','110 East Express',45.00);
+INSERT INTO Route VALUES (1218,'ERZINCAN','SIVAS','08:00','09:00', '2021-01-27','110 East Express',45.00);
+INSERT INTO Route VALUES (1219,'ERZINCAN','SIVAS','16:00','17:00','2021-01-28','110 East Express',45.00);
+INSERT INTO Route VALUES (1220,'ERZINCAN','SIVAS','08:00','09:00','2021-01-29','110 East Express',45.00);
+/*Route: Erzincan-Kars*/
+INSERT INTO Route VALUES (1221,'ERZINCAN','KARS','12:00','13:00','2021-01-26','110 East Express',35.00);
+INSERT INTO Route VALUES (1222,'ERZINCAN','KARS','04:00','05:00', '2021-01-27','110 East Express',35.00);
+INSERT INTO Route VALUES (1223,'ERZINCAN','KARS','12:00','13:00','2021-01-28','110 East Express',35.00);
+INSERT INTO Route VALUES (1224,'ERZINCAN','KARS','04:00','05:00', '2021-01-29','110 East Express',35.00);
+/*Route: Kars-Erzincan*/
+INSERT INTO Route VALUES (1225,'KARS','ERZINCAN','14:00','15:00','2021-01-26','110 East Express',35.00);
+INSERT INTO Route VALUES (1226,'KARS','ERZINCAN','06:00','07:00', '2021-01-27','110 East Express',35.00);
+INSERT INTO Route VALUES (1227,'KARS','ERZINCAN','14:00','15:00','2021-01-28','110 East Express',35.00);
+INSERT INTO Route VALUES (1228,'KARS','ERZINCAN','06:00','07:00', '2021-01-29','110 East Express',35.00);
+/*Route: Adana-Konya*/
+INSERT INTO Route VALUES (1229,'ADANA','KONYA','11:00','12:00','2021-01-27','111 Toros Express',55.00);
+INSERT INTO Route VALUES (1230,'ADANA','KONYA','19:00','20:00','2021-01-27','111 Toros Express',55.00);
+INSERT INTO Route VALUES (1231,'ADANA','KONYA','11:00','12:00', '2021-01-29','111 Toros Express',55.00);
+INSERT INTO Route VALUES (1232,'ADANA','KONYA','19:00','20:00','2021-01-29','111 Toros Express',55.00);
+/*Route: Konya-Adana*/
+INSERT INTO Route VALUES (1233,'KONYA','ADANA','09:00','10:00','2021-01-27','111 Toros Express',55.00);
+INSERT INTO Route VALUES (1234,'KONYA','ADANA','17:00','18:00','2021-01-27','111 Toros Express',55.00);
+INSERT INTO Route VALUES (1235,'KONYA','ADANA','09:00','10:00','2021-01-29','111 Toros Express',55.00);
+INSERT INTO Route VALUES (1236,'KONYA','ADANA','17:00','18:00', '2021-01-29','111 Toros Express',55.00);
+/*Route: Konya-İstanbul*/
+INSERT INTO Route VALUES (1237,'KONYA','ISTANBUL','13:00','14:00','2021-01-27','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (1238,'KONYA','ISTANBUL','21:00','22:00','2021-01-27','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (1239,'KONYA','ISTANBUL','13:00','14:00','2021-01-29','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (1240,'KONYA','ISTANBUL','21:00','22:00','2021-01-29','113 High Speed Train',60.00);
+/*Route: İstanbul-Konya*/
+INSERT INTO Route VALUES (1241,'ISTANBUL','KONYA','07:00','08:00','2021-01-27','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (1242,'ISTANBUL','KONYA','15:00','16:00', '2021-01-27','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (1243,'ISTANBUL','KONYA','07:00','08:00','2021-01-29','113 High Speed Train',60.00);
+INSERT INTO Route VALUES (1244,'ISTANBUL','KONYA','15:00','16:00','2021-01-29','113 High Speed Train',60.00);
+/*Route: Ankara-Van*/
+INSERT INTO Route VALUES (1245,'ANKARA','VAN','11:00','12:00','2021-01-26','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (1246,'ANKARA','VAN','19:00','20:00','2021-01-26','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (1247,'ANKARA','VAN','11:00','12:00','2021-01-31','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (1248,'ANKARA','VAN','19:00','20:00','2021-01-31','112 Van Lake Express',100.00);
+/*Route: Van-Ankara*/
+INSERT INTO Route VALUES (1249,'VAN','ANKARA','13:00','14:00', '2021-01-26','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (1250,'VAN','ANKARA','21:00','22:00', '2021-01-26','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (1251,'VAN','ANKARA','13:00','14:00','2021-01-31','112 Van Lake Express',100.00);
+INSERT INTO Route VALUES (1252,'VAN','ANKARA','21:00','22:00','2021-01-31','112 Van Lake Express',100.00);
+/*Route: İstanbul-Ankara*/
+INSERT INTO Route VALUES (1253,'ISTANBUL','ANKARA','09:00','10:00','2021-01-26','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (1254,'ISTANBUL','ANKARA','17:00','18:00','2021-01-26','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (1255,'ISTANBUL','ANKARA','09:00','10:00','2021-01-31','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (1256,'ISTANBUL','ANKARA','17:00','18:00','2021-01-31','113 High Speed Train',40.00);
+/*Route: Ankara- İstanbul*/
+INSERT INTO Route VALUES (1257,'ANKARA','ISTANBUL','15:00','16:00','2021-01-26','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (1258,'ANKARA','ISTANBUL','23:00','24:00','2021-01-26','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (1259,'ANKARA','ISTANBUL','15:00','16:00','2021-01-31','113 High Speed Train',40.00);
+INSERT INTO Route VALUES (1260,'ANKARA','ISTANBUL','23:00','24:00','2021-01-31','113 High Speed Train',40.00);
