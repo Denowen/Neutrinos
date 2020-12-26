@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -376,7 +374,7 @@
                                 <div class="s">
                                     <select name="nereden" id="nereden" style="width: 160%;">
                                         <option value="ISTANBUL">İstanbul</option>
-                                        <option value="İzmir">İzmir</option>
+                                        <option value="ANKARA">Ankara</option>
                                     </select>
                                 </div>
                             </div>
