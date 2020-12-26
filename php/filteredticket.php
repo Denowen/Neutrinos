@@ -151,7 +151,6 @@
 </head>
 <body>    
     <?php
-    session_start();
     include 'dbconnect.php';
     $ticket_ = $_POST['ticket'];
     $way_ = $_POST['way'];
@@ -185,15 +184,13 @@
                 <h3>Filtreleme Sonucu: </h3>
             </div>
             <div class ="d-row">
-                <h4> <?php echo $ticket_; ?></h4>
-                <h4> <?php echo $sdate_; ?></h4>
-                <h4> <?php echo $nereden_; ?></h4>
-                <h4> <?php echo $nereye_; ?></h4>
-                <table border = "3" cellspacing = "3" cellpadding = "3">
+                 <table cellpadding="3">
                     <tr>
-                        <th>nereden</th>
-                        <th>nereye</th>
-                        <th>saat</th>
+                        <th>Tarih</th>
+                        <th>Nereden</th>
+                        <th>Nereye</th>
+                        <th>Saat</th>
+                        <th></th>
                     </tr>
 
 <?php
@@ -203,21 +200,12 @@ while ($i < $num) {
         ?>
 
                             <tr>
-                                <td>
-        <?php echo $count['dateOfRoute'] ?>
-                                </td>
-                                <td><?php echo $count['startingStationTerminal'] ?></a></td>
+                                <td><?php echo $count['dateOfRoute'] ?></td>
+                                <td><?php echo $count['startingStationTerminal'] ?></td>
                                 <td><?php echo $count['destinationStationTerminal'] ?></td>
-                            </tr>
-
-        <?php
-        $i++;
-    }
-}
-?>
-                </table>
-
-                <div class ="a-row">
+                                <td><?php echo $count['departureTime'] ?></td>
+                                <td>
+                                <div class ="a-row">
                     <div class = "buy">
                         <form action= "fillinfo.html">
                             <input type="submit" value="Satın Al" style="background-color: #E5FFCC;
@@ -226,6 +214,7 @@ while ($i < $num) {
                                    width: 6rem;
                                    height: 2rem;"/>
                         </form></div>
+                                    
                     <div class="book">
                         <form action= "fillinfo2.html">
                             <input type="submit" value="Rezervasyon" style="background-color: #E5FFCC;
@@ -235,6 +224,16 @@ while ($i < $num) {
                                    height: 2rem;"/>
                         </form></div>
                 </div>
+                </td>
+                            </tr>
+                            
+
+        <?php
+        $i++;   
+    }   
+}
+?>
+                </table>
             </div>
         </div>
     </div>
