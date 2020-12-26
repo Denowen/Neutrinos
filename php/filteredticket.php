@@ -157,7 +157,13 @@
     $nereden_ = $_POST['nereden'];
     $nereye_ = $_POST['nereye'];
     $sdate_ = $_POST['sdate'];
+    $edate_ = $_POST['edate'];
     $query = "SELECT * FROM Route WHERE dateOfRoute = '$sdate_' and startingStationTerminal = '$nereden_' and destinationStationTerminal = '$nereye_'";
+    if ($way_ == "çift") {
+        $query2 = "SELECT * FROM Route WHERE dateOfRoute = '$edate_' and startingStationTerminal = '$nereye_' and destinationStationTerminal = '$nereden_'";
+        $result2 = mysqli_query($conn, $query2);
+        $num2 = mysqli_num_rows($result2);
+    }
 
     $result = mysqli_query($conn, $query);
     $num = mysqli_num_rows($result);
@@ -183,8 +189,9 @@
             <div class="c-row">
                 <h3>Filtreleme Sonucu: </h3>
             </div>
-            <div class ="d-row">
-                 <table cellpadding="3">
+            <form class ="d-row" action="fillinfo.php" method='post'>
+                <table cellpadding="10">
+                    <h4>Gidiş</h4>
                     <tr>
                         <th>Tarih</th>
                         <th>Nereden</th>
@@ -193,48 +200,76 @@
                         <th></th>
                     </tr>
 
-<?php
-$i = 0;
-while ($i < $num) {
-    while ($count = mysqli_fetch_array($result)) {
-        ?>
+                    <?php
+                    $i = 0;
+                    while ($i < $num) {
+                        while ($count = mysqli_fetch_array($result)) {
+                            ?>
 
+                            <tr>
+
+                                <td><?php echo $count['dateOfRoute'] ?></td>
+                                <td><?php echo $count['startingStationTerminal'] ?></td>
+                                <td><?php echo $count['destinationStationTerminal'] ?></td>
+                                <td><?php echo $count['departureTime'] ?></td>
+                                <td><input type="radio" name="route1" value= '<?php echo $count['routeId'] ?>' /></td>
+
+                            </tr>
+                            <?php
+                            $i++;
+                        }
+                    }
+                    ?>
+                </table>
+
+                <table cellpadding="10">
+                    
+                    <?php
+                    $i = 0;
+                    if ($way_ == "çift") {
+                        
+                       echo" <h4>Dönüş</h4>";
+                    echo"<tr>";
+                     echo "<th>Tarih</th>";
+                       echo "<th>Nereden</th>";
+                       echo "<th>Nereye</th>";
+                        echo "<th>Saat</th>";
+                       echo "<th></th>";
+                   echo "</tr>";
+                    
+                    while ($i < $num2) {
+                        while ($count = mysqli_fetch_array($result2)) {
+                            ?>
+                    
                             <tr>
                                 <td><?php echo $count['dateOfRoute'] ?></td>
                                 <td><?php echo $count['startingStationTerminal'] ?></td>
                                 <td><?php echo $count['destinationStationTerminal'] ?></td>
                                 <td><?php echo $count['departureTime'] ?></td>
-                                <td>
-                                <div class ="a-row">
-                    <div class = "buy">
-                        <form action= "fillinfo.html">
-                            <input type="submit" value="Satın Al" style="background-color: #E5FFCC;
-                                   border-radius: 1rem;
-                                   border-color: green;
-                                   width: 6rem;
-                                   height: 2rem;"/>
-                        </form></div>
-                                    
-                    <div class="book">
-                        <form action= "fillinfo2.html">
-                            <input type="submit" value="Rezervasyon" style="background-color: #E5FFCC;
-                                   border-radius: 1rem;
-                                   border-color: green;
-                                   width: 6rem;
-                                   height: 2rem;"/>
-                        </form></div>
-                </div>
-                </td>
+                                <td><input type="radio" name="route2" value='<?php echo $count['routeId'] ?>' /></td>
                             </tr>
-                            
 
-        <?php
-        $i++;   
-    }   
-}
-?>
+                            <?php
+                            $i++;
+                        }
+                    }
+                    }
+                    
+                    ?>
                 </table>
-            </div>
+
+
+                <div class ="a-row">
+                    <div class = "Devam Et">
+                        <input type="submit" name ='devam et' value="Devam Et" style="background-color: #E5FFCC;
+                                   border-radius: 1rem;
+                                   border-color: green;
+                                   width: 6rem;
+                                   height: 2rem;"/>
+                        </div>
+
+                </div>
+            </form>
         </div>
     </div>
 
