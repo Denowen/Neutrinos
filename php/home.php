@@ -306,6 +306,13 @@
 <body> 
     <?php
     include 'dbconnect.php';
+    $query = "SELECT stationName FROM station ";
+
+    $result = mysqli_query($conn, $query);
+    $num = mysqli_num_rows($result);
+    $result2 = mysqli_query($conn, $query);
+    $num2 = mysqli_num_rows($result2);
+    mysqli_close($conn);
   ?>
 
   <div class="page">
@@ -373,8 +380,17 @@
                                 </div>
                                 <div class="s">
                                     <select name="nereden" id="nereden" style="width: 160%;">
-                                        <option value="ISTANBUL">İstanbul</option>
-                                        <option value="ANKARA">Ankara</option>
+        <?php
+$i = 0;
+while ($i < $num) {
+    while ($count = mysqli_fetch_array($result)) {
+        ?>
+                                        <option value="<?php echo $count['stationName'] ?>"><?php echo $count['stationName'] ?></option>
+                                        <?php
+        $i++;   
+    }   
+}
+?>
                                     </select>
                                 </div>
                             </div>
@@ -384,8 +400,19 @@
                                 </div>
                                 <div class="s">
                                     <select name="nereye" id="nereye" style="width: 160%;">
-                                        <option value="ISTANBUL">İstanbul</option>
-                                        <option value="ANKARA">Ankara</option>
+                                    
+                                    <?php
+$i2 = 0;
+while ($i2 < $num2) {
+    while ($count = mysqli_fetch_array($result2)) {
+        ?>
+                                        <option value="<?php echo $count['stationName'] ?>"><?php echo $count['stationName'] ?></option>
+                                        <?php
+        $i2++;   
+    }   
+}
+?>
+
                                     </select>
                                 </div>
                             </div>
@@ -493,4 +520,3 @@
 
 </body>
 </html>
-
