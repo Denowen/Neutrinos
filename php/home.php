@@ -330,6 +330,7 @@
             </div>
         </div>
         
+        
         <div class="box">
             <div class="contain">
                 
@@ -363,13 +364,13 @@
                                     Tek yön
                                 </div>
                                 <div class="s1">
-                                    <input type="radio" name="way" value="tek" />
+                                    <input type="radio" id="way" name="way" value="tek" />
                                 </div>
                                 <div class="s">
                                     Gidiş dönüş
                                 </div>
                                 <div class="s1">
-                                    <input type="radio" name="way" value="çift" />
+                                    <input type="radio" id="way2" name="way" value="çift" />
                                 </div>
                             </div>
                         </div>
@@ -419,13 +420,15 @@ while ($i2 < $num2) {
                         </div>
                         <div class="div1">
                             <div class="sdate">
+                               
                                 <div class="s1">
                                     <label for="sdate">Gidiş Tarihi</label>
                                 </div>
                                 <div class="s">
-                                    <input type="date" id="sdate" name="sdate" />
+                                    <input type="date" id="sdate" name="sdate"/>
                                 </div>
                             </div>
+                            
                             <div class="edate">
                                 <div class="s1">
                                     <label for="edate">Dönüş Tarihi</label>
