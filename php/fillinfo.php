@@ -134,10 +134,9 @@
     $route2_ = $_POST['route2']; 
     $_SESSION['route1_'] = $route1_;
     $_SESSION['route2_'] = $route2_;
-    $trainNumber = $_POST['trainNumber'];
-    $_SESSION['trainNumber'] = $trainNumber; 
-    $trainNumber2 = $_POST['trainNumber2'];
-    $_SESSION['trainNumber2'] = $trainNumber; 
+    $trainNumber = $_SESSION['trainNumber'];
+    $trainNumber2 = $_SESSION['trainNumber2'];
+    
     ?>
     
 
@@ -160,12 +159,7 @@
             <div class="contain">
                 <div class="c-row">
                     <h3>Yolcu Bilgileri</h3>
-                    <form method="get" action="selectseats.php">
-     <input type="hidden" name="route1_" value='$route1_'>
-    <input type="hidden" name="route2_" value='$route2_'>
-    <input type="hidden" name="trainNumber" value='$trainNumber'>
-    <input type="hidden" name="trainNumber2" value='$trainNumber2'>
-        </form> 
+                    
                 </div>
                 <form class ="row" action="selectseats.php" method='post'>
                     <div class="a-row">
