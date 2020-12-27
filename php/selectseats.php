@@ -142,14 +142,14 @@
     session_start();
     include 'dbconnect.php';
     $number_ = $_POST['number'];
-    $route1_ = $_GET['route1_'];
-    $route2_ = $_GET['route2_'];
+    $route1_ = $_SESSION['route1_'];
+    $route2_ = $_SESSION['route2_'];
     $trainNumber = $_SESSION['trainNumber'];
     $trainNumber2 = $_SESSION['trainNumber2'];
     $_SESSION['number']=$number_;
     $passType_ = $_POST['passType'];
-    $query = "SELECT seatNumber FROM seatandclass WHERE classType = '$passType_' and trainNo='$trainNumber'";
-    $query2 = "SELECT seatNumber FROM seatandclass WHERE classType = '$passType_' and trainNo='$trainNumber2'";
+    $query = "SELECT seatNumber FROM seatandclass s, Route r WHERE classType = '$passType_' and trainNo='$trainNumber' and r.routeId=$route1_ and s.trainNo=r.trainNumber";
+    $query2 = "SELECT seatNumber FROM seatandclass s, Route r WHERE classType = '$passType_' and trainNo='$trainNumber2' and r.routeId=$route2_ and s.trainNo=r.trainNumber";
     
     $result0 = mysqli_query($conn, $query);
     $num0 = mysqli_num_rows($result0);
@@ -181,34 +181,34 @@
     $result9 = mysqli_query($conn, $query);
     $num9 = mysqli_num_rows($result9);
 
-    $result10 = mysqli_query($conn, $query);
+    $result10 = mysqli_query($conn, $query2);
     $num10 = mysqli_num_rows($result10);
 
-    $result11 = mysqli_query($conn, $query);
+    $result11 = mysqli_query($conn, $query2);
     $num11 = mysqli_num_rows($result11);
 
-    $result12 = mysqli_query($conn, $query);
+    $result12 = mysqli_query($conn, $query2);
     $num12 = mysqli_num_rows($result12);
 
-    $result13 = mysqli_query($conn, $query);
+    $result13 = mysqli_query($conn, $query2);
     $num13 = mysqli_num_rows($result13);
 
-    $result14 = mysqli_query($conn, $query);
+    $result14 = mysqli_query($conn, $query2);
     $num14 = mysqli_num_rows($result14);
 
-    $result15 = mysqli_query($conn, $query);
+    $result15 = mysqli_query($conn, $query2);
     $num15 = mysqli_num_rows($result15);
 
-    $result16 = mysqli_query($conn, $query);
+    $result16 = mysqli_query($conn, $query2);
     $num16 = mysqli_num_rows($result16);
 
-    $result17 = mysqli_query($conn, $query);
+    $result17 = mysqli_query($conn, $query2);
     $num17 = mysqli_num_rows($result17);
 
-    $result18 = mysqli_query($conn, $query);
+    $result18 = mysqli_query($conn, $query2);
     $num18 = mysqli_num_rows($result18);
 
-    $result19 = mysqli_query($conn, $query);
+    $result19 = mysqli_query($conn, $query2);
     $num19 = mysqli_num_rows($result19);
 
     mysqli_close($conn);
@@ -260,7 +260,7 @@
                             <?php for($i4=0; $i4 < 2; $i4++){ ?>
                                 <?php if($i4==0){ ?>
                             <label for="seatNum" style="padding-right: 1rem">Koltuk Numarası Gidiş</label>
-                                 <?php }else{ ?>
+                                 <?php }else{ $i6=10; ?>
                                     <label for="seatNum" style="padding-right: 1rem">Koltuk Numarası Dönüş</label>
                                     <?php } ?>
                         
