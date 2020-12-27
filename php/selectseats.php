@@ -238,9 +238,7 @@
                     <h4><?php echo $_SESSION['route2_'] ?> </h4> 
                     <h4><?php echo $_SESSION['trainNumber'] ?> </h4> 
                     <h4><?php echo $_SESSION['trainNumber2'] ?> </h4> 
-                    <form method="get" action="pay.php">
-     <input type="hidden" name="number" value='$number_'>
-        </form>
+                    
                 </div>
                 <form class ="row" action="pay.php" method="post">
                     <div class="image">
