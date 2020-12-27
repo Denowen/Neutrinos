@@ -142,10 +142,14 @@
     session_start();
     include 'dbconnect.php';
     $number_ = $_POST['number'];
+    $route1_ = $_GET['route1_'];
+    $route2_ = $_GET['route2_'];
+    $trainNumber = $_SESSION['trainNumber'];
+    $trainNumber2 = $_SESSION['trainNumber2'];
     $_SESSION['number']=$number_;
     $passType_ = $_POST['passType'];
-    $query = "SELECT seatNumber FROM seatandclass WHERE classType = '$passType_'";
-    $query = "SELECT seatNumber FROM seatandclass WHERE classType = '$passType_'";
+    $query = "SELECT seatNumber FROM seatandclass WHERE classType = '$passType_' and trainNo='$trainNumber'";
+    $query2 = "SELECT seatNumber FROM seatandclass WHERE classType = '$passType_' and trainNo='$trainNumber2'";
     
     $result0 = mysqli_query($conn, $query);
     $num0 = mysqli_num_rows($result0);
@@ -230,8 +234,10 @@
                 <div class="c-row">
                     <h3>Koltuk Seçimi</h3>
                     <h4><?php echo $_SESSION['way'] ?> </h4> 
-                    <h4><?php echo $_SESSION['route1'] ?> </h4> 
-                    <h4><?php echo $_SESSION['route2'] ?> </h4> 
+                    <h4><?php echo $_SESSION['route1_'] ?> </h4> 
+                    <h4><?php echo $_SESSION['route2_'] ?> </h4> 
+                    <h4><?php echo $_SESSION['trainNumber'] ?> </h4> 
+                    <h4><?php echo $_SESSION['trainNumber2'] ?> </h4> 
                     <form method="get" action="pay.php">
      <input type="hidden" name="number" value='$number_'>
         </form>
