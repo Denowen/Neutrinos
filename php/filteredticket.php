@@ -194,10 +194,7 @@
         <div class="contain">
             <div class="c-row">
                 <h3>Filtreleme Sonucu: </h3>
-                <form method="get" action="selectseats.php">
-     <input type="hidden" name="way" value='$way_'>
-    
-        </form>
+                
             </div>
             <form class ="d-row" action="fillinfo.php" method='post'>
                 <table cellpadding="10">
@@ -227,7 +224,7 @@ if ($way_ == "çift" || $way_ == "tek") {
                                     <td><?php echo $count['arrivelTime'] ?></td>
                                     <td><?php echo $count['price'] ?></td>
                                     <td><input type="radio" name="route1" value= '<?php echo $count['routeId'] ?>' />
-                                    <input type="hidden" name="trainNumber" value='<?php echo $count['trainNumber'] ?>'>
+                                    <?php $_SESSION['trainNumber'] = $count['trainNumber'] ?>
                                 </td>
 
                                     
@@ -268,7 +265,7 @@ if ($way_ == "çift" || $way_ == "tek") {
                                     <td><?php echo $count['arrivelTime'] ?></td>
                                     <td><?php echo $count['price'] ?></td>
                                     <td><input type="radio" name="route2" value= '<?php echo $count['routeId'] ?>' />
-                                    <input type="hidden" name="trainNumber2" value='<?php echo $count['trainNumber'] ?>'>
+                                    <?php $_SESSION['trainNumber2'] = $count['trainNumber'] ?>
                                 </td>
                                 </tr>
 
