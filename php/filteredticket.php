@@ -18,6 +18,17 @@
     $nereye_ = $_POST['nereye'];
     $sdate_ = $_POST['sdate'];
     $edate_ = $_POST['edate'];
+    
+    if (isset($_SESSION['email'])) {
+        $usermail = $_SESSION['email'];
+        $count=0;
+        }else{
+            $count=1;
+            header("Refresh: 5; url=giris.php");
+
+            die('5 saniye sonra yönlendirileceksiniz. Beklemek için
+            <a href="giris.php">Tıklayın.</a>');
+        }
 
     if ($way_ == "çift") {
         $query2 = "SELECT * FROM Route WHERE dateOfRoute = '$edate_' and startingStationTerminal = '$nereye_' and destinationStationTerminal = '$nereden_'";
@@ -38,13 +49,23 @@
         <div class="left">
         </div>
         <div class="right">
-            <div class="list">
-                <a href="home.php">Anasayfa</a>
-                <a href="hakkimizda.php">Hakkımızda</a>
-                <a href="kayit.php">Kayıt Ol</a>
-                <a href="contact.php">İletişim</a>
-                <a href="giris.php">Giriş Yap</a>
-            </div>
+            <?php if($count=0){ ?>
+                <div class="list">
+                    <a href="home.php">Anasayfa</a>
+                    <a href="hakkimizda.php">Hakkımızda</a>
+                    <a href="kayit.php">Kayıt Ol</a>
+                    <a href="contact.php">İletişim</a>
+                    <a href="giris.php">Giriş Yap</a>
+                </div>
+                <?php } else{ ?>
+                    <div class="list">
+                    <a href="home2.php">Anasayfa</a>
+                    <a href="hakkimizda2.php">Hakkımızda</a>
+                    <a href="contact2.php">İletişim</a>
+                    <a href="user.php">Profilim</a>
+                    <a href="#">Çıkış Yap</a>
+                </div>
+                <?php } ?>
         </div>
     </div>
 
@@ -138,11 +159,13 @@ if ($way_ == "çift" || $way_ == "tek") {
 
                 <div class ="a-row">
                     <div class = "Devam Et">
+                        <?php if($count != 1){ ?>
                         <input type="submit" name ='devam et' value="Devam Et" style="background-color: #E5FFCC;
                                border-radius: 1rem;
                                border-color: green;
                                width: 6rem;
                                height: 2rem;"/>
+                        <?php } ?>
                     </div>
 
                 </div>
