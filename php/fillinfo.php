@@ -17,11 +17,6 @@
     $_SESSION['route2_'] = $route2_;
     $trainNumber = $_SESSION['trainNumber'];
     $trainNumber2 = $_SESSION['trainNumber2'];
-    if (isset($_SESSION['email'])) {
-        $usermail = $_SESSION['email'];
-        }else{
-            header("Location: giris.php");
-        }
     ?>
     
 
