@@ -208,7 +208,6 @@
 
                 <?php
                 include("dbconnect.php");
-                session_start();
 
                 $username = mysqli_real_escape_string($conn, filter_input(INPUT_POST, 'username'));
                 $passwrd = mysqli_real_escape_string($conn, filter_input(INPUT_POST, 'psw'));
