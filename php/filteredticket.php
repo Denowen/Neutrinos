@@ -49,7 +49,7 @@
         <div class="left">
         </div>
         <div class="right">
-            <?php if($count=0){ ?>
+            <?php if($count==1){ ?>
                 <div class="list">
                     <a href="home.php">Anasayfa</a>
                     <a href="hakkimizda.php">Hakkımızda</a>
@@ -159,7 +159,7 @@ if ($way_ == "çift" || $way_ == "tek") {
 
                 <div class ="a-row">
                     <div class = "Devam Et">
-                        <?php if($count != 1){ ?>
+                        <?php if($count == 0){ ?>
                         <input type="submit" name ='devam et' value="Devam Et" style="background-color: #E5FFCC;
                                border-radius: 1rem;
                                border-color: green;
