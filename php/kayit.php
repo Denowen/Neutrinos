@@ -1,3 +1,5 @@
+<?php include('login.php')?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -170,14 +172,14 @@
                     </div>
                 </div>
                 <div class="c-row">
-                    <form class="a-row">
+                    <form class="a-row" method="post" action="login.php">
                         <div class="d-row">
                             <label for="fname" style="padding-right: 23%;">İsim</label>
-                            <input type="text" placeholder="isim" id="name" name="name" style="height: 100%;"/>
+                            <input type="text" placeholder="isim" id="name" name="fname" style="height: 100%;"/>
                         </div>
                         <div class="d-row">
                             <label for="lname" style="padding-right: 13%;">Soyisim</label>
-                            <input type="text" placeholder="soyisim" id="name" name="name" style="height: 100%;"/>
+                            <input type="text" placeholder="soyisim" id="name" name="lname" style="height: 100%;"/>
                         </div>
                         <div class="d-row">
                             <label for="email" style="padding-right: 19%;">Email</label>
@@ -193,7 +195,7 @@
                         </div>
                         <div class="d-row">
                             <label for="date">Doğum Tarihi</label>
-                            <input type="date" id="date" name="date" style="height: 100%; width: 64%;"/>
+                            <input type="date" id="date" name="bdate" style="height: 100%; width: 64%;"/>
                         </div>
                         <div class="d-row">
                             <label for="tel" style="padding-right: 24%;">Cep No</label>
@@ -204,7 +206,7 @@
                                 <input type="reset" style="background-color: #FFCCCC;border-radius: 1rem;border-color: red;">
                             </div>
                             <div class="submit" style="width:26%">
-                                <input type="submit" value="Kaydet" style="background-color: #E5FFCC;border-radius: 1rem;border-color: green;" />
+                                <input type="submit" value="Kaydet"  name="register" style="background-color: #E5FFCC;border-radius: 1rem;border-color: green;" />
                             </div>
                         </div>
                     </form>
