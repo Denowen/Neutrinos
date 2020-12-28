@@ -146,11 +146,11 @@
             </div>
             <div class="right">
                 <div class="list">
-                    <a href="home.html">Anasayfa</a>
-                    <a href="hakkimizda.html">Hakkımızda</a>
-                    <a href="kayıt.html">Kayıt Ol</a>
-                    <a href="contact.html">İletişim</a>
-                    <a href="giris.html">Giriş Yap</a>
+                    <a href="home.php">Anasayfa</a>
+                    <a href="hakkimizda.php">Hakkımızda</a>
+                    <a href="kayit.php">Kayıt Ol</a>
+                    <a href="contact.php">İletişim</a>
+                    <a href="giris.php">Giriş Yap</a>
                 </div>
             </div>
         </div>
