@@ -3,137 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Koltuk Seçimi</title>
-    <style>
-        * {
-    font-family: Arial;
-}
-.page{
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    display: flex;
-    flex: 1;
-    flex-direction: column;
-}
-.navbar{
-    display: flex;
-    flex-direction: row;
-    height: 10rem;
-    background-color: black;
-}
-.left{
-    display: flex;
-    flex: 1;
-    background-image: url(photos/Untitled\ Design.jpg);
-}
-.right{
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    background-color: black;
-}
-.list{
-    display: flex;
-    flex: 1;
-    max-width: 70%;
-}
-.list a{
-    display: flex;
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    height: 2rem;
-    border-radius: 5rem;
-    text-decoration: none;
-    color: rgba(255, 255, 255, 0.836);
-    border-style: solid;
-    border-color: rgba(0, 128, 128, 0.678);
-    margin: 1%;
-}
-.list a:hover{
-    color: red;
-}
-
-.footer{
-    display: flex;
-    flex-direction: column;
-    background-color:black;
-}
-.f-img{
-    display: flex;
-    justify-content: center;
-    padding-top: 1rem;
-}
-.textt{
-    display: flex;
-    justify-content: center;
-    color: white;
-}
-.box{
-    display: flex;
-    flex: 1;
-    justify-content: center;
-    background-image: url(photos/background.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-.contain{
-    display: flex;
-    flex: 1;
-    max-width: 70%;
-    flex-direction: column;
-    align-items: center;
-    
-}
-.c-row{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1rem;
-    border: outset;
-    border-radius: 5rem;
-    background-color: whitesmoke;
-    border-color:rgba(0, 128, 128, 0.678);
-    border-width: 0.3rem;
-    width: 80rem;
-    filter: opacity(0.9);
-}
-
-.row{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border: outset;
-    border-radius: 5rem;
-    background-color: whitesmoke;
-    border-color:rgba(0, 128, 128, 0.678);
-    border-width: 0.3rem;
-    filter: opacity(0.9);
-}
-
-.d-row{
-    display: flex;
-    padding: 1rem;
-}
-
-.image{
-    display: flex;
-    padding: 1rem;
-    flex-direction: column;
-    align-items: center;
-}
-
-
-
-
-
-
-    </style>
+    <link rel="stylesheet" type="text/css" href="home.css">
+    <link rel="stylesheet" type="text/css" href="selectseats.css">
 
 </head>
 <body>    
@@ -220,11 +91,11 @@
             </div>
             <div class="right">
                 <div class="list">
-                    <a href="home2.php">Anasayfa</a>
-                    <a href="hakkimizda2.php">Hakkımızda</a>
-                    <a href="contact2.php">İletişim</a>
-                    <a href="user.php">Profilim</a>
-                    <a href="#">Çıkış Yap</a>
+                    <a href="home.php">Anasayfa</a>
+                    <a href="hakkimizda.php">Hakkımızda</a>
+                    <a href="kayit.php">Kayıt Ol</a>
+                    <a href="contact.php">İletişim</a>
+                    <a href="giris.php">Giriş Yap</a>
                 </div>
             </div>
         </div>
