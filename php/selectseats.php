@@ -95,7 +95,7 @@
                     <a href="hakkimizda2.php">Hakkımızda</a>
                     <a href="contact2.php">İletişim</a>
                     <a href="user.php">Profilim</a>
-                    <a href="#">Çıkış Yap</a>
+                    <a href="signout.php">Çıkış Yap</a>
                 </div>
             </div>
         </div>

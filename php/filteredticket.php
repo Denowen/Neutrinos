@@ -24,10 +24,7 @@
         $count=0;
         }else{
             $count=1;
-            header("Refresh: 5; url=giris.php");
-
-            die('5 saniye sonra yönlendirileceksiniz. Beklemek için
-            <a href="giris.php">Tıklayın.</a>');
+           
         }
 
     if ($way_ == "çift") {
@@ -63,7 +60,7 @@
                     <a href="hakkimizda2.php">Hakkımızda</a>
                     <a href="contact2.php">İletişim</a>
                     <a href="user.php">Profilim</a>
-                    <a href="#">Çıkış Yap</a>
+                    <a href="signout.php">Çıkış Yap</a>
                 </div>
                 <?php } ?>
         </div>
@@ -159,13 +156,13 @@ if ($way_ == "çift" || $way_ == "tek") {
 
                 <div class ="a-row">
                     <div class = "Devam Et">
-                        <?php if($count == 0){ ?>
+                        
                         <input type="submit" name ='devam et' value="Devam Et" style="background-color: #E5FFCC;
                                border-radius: 1rem;
                                border-color: green;
                                width: 6rem;
                                height: 2rem;"/>
-                        <?php } ?>
+                        
                     </div>
 
                 </div>

@@ -17,6 +17,11 @@
     $_SESSION['route2_'] = $route2_;
     $trainNumber = $_SESSION['trainNumber'];
     $trainNumber2 = $_SESSION['trainNumber2'];
+    if (isset($_SESSION['email'])) {
+        $usermail = $_SESSION['email'];
+        }else{
+            header("Location: giris.php");
+        }
     ?>
     
 
@@ -30,7 +35,7 @@
                     <a href="hakkimizda2.php">Hakkımızda</a>
                     <a href="contact2.php">İletişim</a>
                     <a href="user.php">Profilim</a>
-                    <a href="#">Çıkış Yap</a>
+                    <a href="signout.php">Çıkış Yap</a>
                 </div>
             </div>
         </div>
