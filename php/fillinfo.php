@@ -17,9 +17,12 @@
     $_SESSION['route2_'] = $route2_;
     $trainNumber = $_SESSION['trainNumber'];
     $trainNumber2 = $_SESSION['trainNumber2'];
+
+
     if (isset($_SESSION['email'])) {
         $usermail = $_SESSION['email'];
         }else{
+            $geldigi_sayfa = $_SERVER['HTTP_REFERER'];
             header("Location: giris.php");
         }
     ?>
@@ -49,9 +52,9 @@
                 <form class ="row" action="selectseats.php" method='post'>
                     <div class="a-row">
                         <div class = "d-row">
-                            <label for="passType" style="padding-right: 1.2rem">Yolcu Tipi</label>
+                            <label for="passType1" style="padding-right: 1.2rem">Yolcu Tipi</label>
                             <div class="s">
-                                <select name="passType" id="passType" style="height: 156%;width: 200%;">
+                                <select name="passType1" id="passType1" style="height: 156%;width: 200%;">
                                     <option value="1">Öğrenci</option>
                                     
                                     <option value="2">Normal</option>

@@ -38,7 +38,9 @@ if(isset($_POST['register'])){
 
 
     $query ="INSERT INTO users VALUES('$ssn', '$fname', '$lname', '$email', '$password')";
+    $query2 = "INSERT INTO registeredusers VALUES('$fname', '$lname', '$ssn', '$email', '$password', '$bdate', '$tel')";
     mysqli_query($conn, $query);
+    mysqli_query($conn, $query2);
     
-    header('location: login.php');
+    header('location: giris.php');
 }

@@ -13,11 +13,19 @@
     include 'dbconnect.php';
     $ticket_ = $_POST['ticket'];
     $way_ = $_POST['way'];
-    $_SESSION['way'] = $way_;
     $nereden_ = $_POST['nereden'];
     $nereye_ = $_POST['nereye'];
     $sdate_ = $_POST['sdate'];
     $edate_ = $_POST['edate'];
+
+
+    $_SESSION['ticket'] = $ticket_;
+    $_SESSION['way'] = $way_;
+    $_SESSION['nereden'] = $nereden_;
+    $_SESSION['nereye'] = $nereye_;
+    $_SESSION['sdate'] = $sdate_;
+    $_SESSION['edate'] = $edate_;
+    
     
     if (isset($_SESSION['email'])) {
         $usermail = $_SESSION['email'];
