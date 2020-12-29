@@ -87,7 +87,7 @@
                         </div>
 
 </div>
-                     <div class="h-row" action="selectseat.html">
+                     <div class="h-row">
                         <div class="d-row" style="justify-content: center;">
                                 <input type="submit" value="Devam Et" style="background-color: #E5FFCC;
                             border-radius: 1rem;
