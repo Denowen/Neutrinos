@@ -95,9 +95,9 @@
             </div>
             <div class="right">
                 <div class="list">
-                    <a href="home2.php">Anasayfa</a>
-                    <a href="hakkimizda2.php">Hakkımızda</a>
-                    <a href="contact2.php">İletişim</a>
+                    <a href="home.php">Anasayfa</a>
+                    <a href="hakkimizda.php">Hakkımızda</a>
+                    <a href="contact.php">İletişim</a>
                     <a href="user.php">Profilim</a>
                     <a href="signout.php">Çıkış Yap</a>
                 </div>
@@ -187,7 +187,7 @@ while ($i < ${"num$i9"}) {
 
                     </div>
                     
-                     <div class="h-row" action="pay.html">
+                     <div class="h-row"">
                         <div class="d-row" style="justify-content: center;">
                                 <input type="submit" value="Devam Et" style="background-color: #E5FFCC;
                             border-radius: 1rem;
