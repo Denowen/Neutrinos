@@ -49,6 +49,7 @@
                     <h3>Yolcu Bilgileri</h3>
                     
                 </div>
+                <?php if($_SESSION['ticket'] == 'Satış'){ ?>
                 <form class ="row" action="selectseats.php" method='post'>
                     <div class="a-row">
                         
@@ -86,7 +87,7 @@
                         </div>
 
 </div>
-                     <div class="h-row"">
+                     <div class="h-row" action="selectseat.html">
                         <div class="d-row" style="justify-content: center;">
                                 <input type="submit" value="Devam Et" style="background-color: #E5FFCC;
                             border-radius: 1rem;
@@ -97,6 +98,56 @@
                             </div>
 </div>
                     </form>
+                    <?php } else{ ?>
+                        <form class ="row" action="rezervasyon.php" method='post'>
+                    <div class="a-row">
+                        
+        
+                        <div class = "d-row">
+                            <label for="passType" style="padding-right: 0.4rem">Yolcu Sınıfı</label>
+                            <div class="s1">
+                                <select name="passType" id="passType" style="height: 156%;width:200%">
+                                    <option value="BUSINESS CLASS">BUSINESS CLASS</option>
+                                    <option value="ECONOMY CLASS">ECONOMY CLASS</option>
+        
+                                </select>
+                                </div>
+                        </div>
+        
+                        <div class = "d-row">
+                            <label for="passNumber" style="padding-right: 0.2rems;" >Yolcu Sayısı</label>
+                            <div class="s2">
+                                <select name="number" id="number" style="height: 156%;width: 125%">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+        
+                                </select>
+        
+                            </div>
+    
+                        </div>
+
+</div>
+                     <div class="h-row">
+                        <div class="d-row" style="justify-content: center;">
+                                <input type="submit" value="Rezervasyon Yap" style="background-color: #E5FFCC;
+                            border-radius: 1rem;
+                            border-color: green;
+                            margin-top: 1rem;
+                            width: 10rem;
+                            height: 2rem;"/>
+                            </div>
+</div>
+                    </form>
+                        <?php } ?>
             </div>
         </div>
 
