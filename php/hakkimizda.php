@@ -9,11 +9,26 @@
 </head>
 <body>    
    
+<?php
+    session_start();
+    include 'dbconnect.php';
+
+    if (isset($_SESSION['email'])) {
+        $usermail = $_SESSION['email'];
+        $count=0;
+        }else{
+            $count=1;           
+        }
+
+    mysqli_close($conn);
+  ?>
+
     <div class="page">
         <div class="navbar">
             <div class="left">
             </div>
             <div class="right">
+            <?php if($count==1){ ?>
                 <div class="list">
                     <a href="home.php">Anasayfa</a>
                     <a href="hakkimizda.php">Hakkımızda</a>
@@ -21,6 +36,15 @@
                     <a href="contact.php">İletişim</a>
                     <a href="giris.php">Giriş Yap</a>
                 </div>
+                <?php } else{ ?>
+                    <div class="list">
+                    <a href="home.php">Anasayfa</a>
+                    <a href="hakkimizda.php">Hakkımızda</a>
+                    <a href="contact.php">İletişim</a>
+                    <a href="user.php">Profilim</a>
+                    <a href="signout.php">Çıkış Yap</a>
+                </div>
+                <?php } ?>
             </div>
         </div>
 
