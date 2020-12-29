@@ -51,17 +51,7 @@
                 </div>
                 <form class ="row" action="selectseats.php" method='post'>
                     <div class="a-row">
-                        <div class = "d-row">
-                            <label for="passType1" style="padding-right: 1.2rem">Yolcu Tipi</label>
-                            <div class="s">
-                                <select name="passType1" id="passType1" style="height: 156%;width: 200%;">
-                                    <option value="1">Öğrenci</option>
-                                    
-                                    <option value="2">Normal</option>
-        
-                                </select>
-                                </div>
-                        </div>
+                        
         
                         <div class = "d-row">
                             <label for="passType" style="padding-right: 0.4rem">Yolcu Sınıfı</label>

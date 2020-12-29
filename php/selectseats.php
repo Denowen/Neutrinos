@@ -18,13 +18,11 @@
     $route2_ = $_SESSION['route2_'];
     $trainNumber = $_SESSION['trainNumber'];
     $trainNumber2 = $_SESSION['trainNumber2'];
-    $passType1_ = $_POST['passType1'];
     $passType_ = $_POST['passType'];
 
     $_SESSION['number']=$number_;
-    $_SESSION['passType1']=$passType1_;
     $_SESSION['passType']=$passType_;
-    
+
     $query = "SELECT seatNumber FROM seatandclass s, Route r WHERE classType = '$passType_' and trainNo='$trainNumber' and r.routeId=$route1_ and s.trainNo=r.trainNumber";
     $query2 = "SELECT seatNumber FROM seatandclass s, Route r WHERE classType = '$passType_' and trainNo='$trainNumber2' and r.routeId=$route2_ and s.trainNo=r.trainNumber";
     
