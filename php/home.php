@@ -11,13 +11,23 @@
 </head>
 <body> 
     <?php
+    session_start();
     include 'dbconnect.php';
     $query = "SELECT stationName FROM station ";
+
 
     $result = mysqli_query($conn, $query);
     $num = mysqli_num_rows($result);
     $result2 = mysqli_query($conn, $query);
     $num2 = mysqli_num_rows($result2);
+
+    if (isset($_SESSION['email'])) {
+        $usermail = $_SESSION['email'];
+        $count=0;
+        }else{
+            $count=1;           
+        }
+
     mysqli_close($conn);
   ?>
 
@@ -26,6 +36,7 @@
             <div class="left">
             </div>
             <div class="right">
+            <?php if($count==1){ ?>
                 <div class="list">
                     <a href="home.php">Anasayfa</a>
                     <a href="hakkimizda.php">Hakkımızda</a>
@@ -33,6 +44,15 @@
                     <a href="contact.php">İletişim</a>
                     <a href="giris.php">Giriş Yap</a>
                 </div>
+                <?php } else{ ?>
+                    <div class="list">
+                    <a href="home2.php">Anasayfa</a>
+                    <a href="hakkimizda2.php">Hakkımızda</a>
+                    <a href="contact2.php">İletişim</a>
+                    <a href="user.php">Profilim</a>
+                    <a href="signout.php">Çıkış Yap</a>
+                </div>
+                <?php } ?>
             </div>
         </div>
         
