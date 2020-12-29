@@ -17,7 +17,11 @@
     $route1_ = $_SESSION['route1_'];
     $route2_ = $_SESSION['route2_'];
     $trainNumber = $_SESSION['trainNumber'];
-    $trainNumber2 = $_SESSION['trainNumber2'];
+
+    if(isset($_SESSION['trainNumber2'])){
+        $trainNumber2 = $_SESSION['trainNumber2'];
+    }
+    
     $passType_ = $_POST['passType'];
 
     $_SESSION['number']=$number_;
@@ -56,7 +60,8 @@
     $result9 = mysqli_query($conn, $query);
     $num9 = mysqli_num_rows($result9);
 
-    $result10 = mysqli_query($conn, $query2);
+    if(isset($_SESSION['trainNumber2'])){
+        $result10 = mysqli_query($conn, $query2);
     $num10 = mysqli_num_rows($result10);
 
     $result11 = mysqli_query($conn, $query2);
@@ -85,6 +90,8 @@
 
     $result19 = mysqli_query($conn, $query2);
     $num19 = mysqli_num_rows($result19);
+    }
+    
 
     mysqli_close($conn);
     ?>
