@@ -46,22 +46,18 @@ CREATE TABLE Reserve(
 reservationId INT(200) AUTO_INCREMENT PRIMARY KEY,
 regUserSsn VARCHAR(12) REFERENCES RegisteredUsers(regUserSsn),
 routeId INT(20) REFERENCES Route(routeId),
-isDropped INT(1) DEFAULT 0,
-classType VARCHAR(20) REFERENCES SeatAndClass(classType),
-passengerNumber INT(20));
+classType VARCHAR(20) REFERENCES SeatAndClass(classType));
+
 
 /*Buy Table*/
 CREATE TABLE Buy(
-purchasedId INT(200) AUTO_INCREMENT PRIMARY KEY,
-PNR VARCHAR(200) REFERENCES Ticket(PNR),
+PNR VARCHAR(200)  PRIMARY KEY REFERENCES Ticket(PNR),
 creditCardNumber INT(30) REFERENCES Payment(creditCardNumber),
 reguserSsn VARCHAR(12) REFERENCES RegisteredUser(reguserSsn),
 routeId INT(20) REFERENCES Route(routeId),
 totalPrice FLOAT(6,2) REFERENCES Route(price),
-isCancelled INT(1) DEFAULT 0,
 classType VARCHAR(20) REFERENCES SeatAndClass(classType),
-seatNumber VARCHAR(20) REFERENCES SeatAndClass(seatNumber),
-passengerNumber INT(10));
+seatNumber VARCHAR(20) REFERENCES SeatAndClass(seatNumber));
 
 /*Train Table*/
 CREATE TABLE Train(
@@ -87,14 +83,13 @@ price FLOAT(6,2));
 
 /*Ticket Table*/
 CREATE TABLE Ticket(
-PNR INT(200) AUTO_INCREMENT PRIMARY KEY,
+PNR VARCHAR(200) PRIMARY KEY,
 reguserSsn VARCHAR(12) REFERENCES RegisteredUser(reguserSsn),
-purchasedId INT(200) REFERENCES Buy(purchasedId),
 totalPrice FLOAT(6,2) REFERENCES Buy(totalprice),
 routeId INT(20) REFERENCES Route(routeId),
 classType VARCHAR(20) REFERENCES SeatAndClass(classType),
-seatNumber VARCHAR(20) REFERENCES SeatAndClass(seatNumber),
-passengerNumber INT(10) REFERENCES Buy(passengerNumber));
+seatNumber VARCHAR(20) REFERENCES SeatAndClass(seatNumber));
+
 
 /*Administrators in System*/
 INSERT INTO Administrators VALUES('21474836471','Elif','Akar','elif.akar@isik.edu.tr','123elif');
