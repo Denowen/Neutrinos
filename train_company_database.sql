@@ -1,4 +1,4 @@
-use train_company_database;
+
 
 /*Represents all users*/
 CREATE TABLE Users(
