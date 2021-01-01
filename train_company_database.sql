@@ -43,7 +43,7 @@ classType VARCHAR(20));
 
 /*Reservation Table*/
 CREATE TABLE Reserve(
-reservationId VARCHAR(40) AUTO_INCREMENT PRIMARY KEY,
+reservationId VARCHAR(200) PRIMARY KEY,
 regUserSsn VARCHAR(12) REFERENCES RegisteredUsers(regUserSsn),
 routeId INT(20) REFERENCES Route(routeId),
 classType VARCHAR(20) REFERENCES SeatAndClass(classType));
