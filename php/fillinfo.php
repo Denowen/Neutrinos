@@ -22,7 +22,6 @@
     if (isset($_SESSION['email'])) {
         $usermail = $_SESSION['email'];
         }else{
-            $geldigi_sayfa = $_SERVER['HTTP_REFERER'];
             header("Location: giris.php");
         }
     ?>

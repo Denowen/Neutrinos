@@ -96,7 +96,7 @@
                                     Gidiş dönüş
                                 </div>
                                 <div class="s1">
-                                    <input type="radio" id="way2" name="way" value="çift" />
+                                    <input type="radio" id="way" name="way" value="çift" />
                                 </div>
                             </div>
                         </div>

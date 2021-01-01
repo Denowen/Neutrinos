@@ -18,6 +18,7 @@
     $route2_ = $_SESSION['route2_'];
     $trainNumber = $_SESSION['trainNumber'];
 
+
     if(isset($_SESSION['trainNumber2'])){
         $trainNumber2 = $_SESSION['trainNumber2'];
     }
@@ -121,8 +122,9 @@
                     <h4><?php echo $_SESSION['trainNumber'] ?> </h4> 
                     <h4><?php echo $_SESSION['trainNumber2'] ?> </h4> 
                     
+                    
                 </div>
-                <form class ="row" action="pay.php" method="post">
+                <form class ="row" action="pay2.php" method="post">
                     <div class="image">
                         <h3>Business</h3>
                         <img src="photos/seats.png" style="width: 99%;padding-left: 1.0005rem;">
@@ -135,7 +137,7 @@
                     
                     <div class="a-row">
                         <div class = "d-row">
-                            <?php if($_SESSION['way'] == 'çift'){ $i6 = 0; ?>  
+                            <?php if($_SESSION['way'] == 'çift'){$i3 = 0; $i6 = 0; ?>  
                          
                             <?php for($i4=0; $i4 < 2; $i4++){ ?>
                                 <?php if($i4==0){ ?>
@@ -145,9 +147,10 @@
                                     <?php } ?>
                         
                             <div class="s">
-                            <?php for($i2=0; $i2<$number_; $i2++){ ?>
-                                <select style="max-width: 3rem;" name="seatNum".$i2 id="seatNum" style="height: 156%;width: 200%;">
-
+                            <?php for($i2=0; $i2<$number_; $i2++){ 
+                                $a = "seatNum".$i3?>
+                                <select style="max-width: 3rem;" name="<?php echo "$a";?>" id="<?php echo "$a";?>" style="height: 156%;width: 200%;">
+                                  
                                 <?php
 $i = 0;
 echo"$i6";
@@ -162,7 +165,7 @@ while ($i < ${"num$i6"}) {
 ?>
                                 
                                 </select>
-                                <?php $i6++; } ?>
+                                <?php $i6++; $i3++; } ?>
                                 </div>
                                 <?php } ?>
                                 <?php }else{ ?>
@@ -170,8 +173,8 @@ while ($i < ${"num$i6"}) {
 
                         
                             <div class="s">
-                            <?php for($i9=0; $i9<$number_; $i9++){ ?>
-                                <select style="max-width: 3rem;" name="seatNum".$i9 id="seatNum" style="height: 156%;width: 200%;">
+                            <?php for($i9=0; $i9<$number_; $i9++){ $a = "seatNum".$i9 ?>
+                                <select style="max-width: 3rem;" name="<?php echo "$a";?>" id="<?php echo "$a";?>" style="height: 156%;width: 200%;">
 
                                 <?php
 $i = 0;
@@ -194,7 +197,7 @@ while ($i < ${"num$i9"}) {
 
                     </div>
                     
-                     <div class="h-row"">
+                     <div class="h-row">
                         <div class="d-row" style="justify-content: center;">
                                 <input type="submit" value="Devam Et" style="background-color: #E5FFCC;
                             border-radius: 1rem;

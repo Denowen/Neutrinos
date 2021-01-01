@@ -109,6 +109,7 @@ if ($way_ == "çift" || $way_ == "tek") {
                                     <td><?php echo $count['price'] ?></td>
                                     <td><input type="radio" name="route1" value= '<?php echo $count['routeId'] ?>' />
                                     <?php $_SESSION['trainNumber'] = $count['trainNumber'] ?>
+                                    <?php $_SESSION['price'] = $count['price'] ?>
                                 </td>
 
                                     
@@ -150,6 +151,7 @@ if ($way_ == "çift" || $way_ == "tek") {
                                     <td><?php echo $count['price'] ?></td>
                                     <td><input type="radio" name="route2" value= '<?php echo $count['routeId'] ?>' />
                                     <?php $_SESSION['trainNumber2'] = $count['trainNumber'] ?>
+                                    <?php $_SESSION['price2'] = $count['price'] ?>
                                 </td>
                                 </tr>
 
