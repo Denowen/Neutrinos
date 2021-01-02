@@ -5,10 +5,25 @@
     <title>Kullanıcı</title>
     <link rel="stylesheet" type="text/css" href="home.css">
     <link rel="stylesheet" type="text/css" href="user.css">
-    
+    <style>
+        .right2 td{
+            color:white;
+        }
+        </style>
 </head>
 <body>    
-   
+
+   <?php 
+   session_start();
+   include 'dbconnect.php';
+   $email = $_SESSION['email'];
+
+   $query = "SELECT b.PNR, b.totalPrice, r.startingStationTerminal, r.destinationStationTerminal, r.arrivelTime, r.dateOfRoute, b.seatNumber FROM registeredusers a, buy b, route r WHERE a.regUserEmail='$email' and a.regUserSsn=b.reguserSsn and b.routeId=r.routeId";
+        $result = mysqli_query($conn, $query);
+        $num = mysqli_num_rows($result);
+
+   ?>
+
     <div class="page">
         <div class="navbar">
             <div class="left">
@@ -37,9 +52,55 @@
                         <a class="a2" href="user2.php">Reserved Tickets</a>
                     </div>
                 </div>
-                <div class="right2">
+                <form class="right2" style="flex-direction: column;">
                     
+                <table cellpadding="40" style=" display: flex;color: rgb(50 239 239 / 68%);flex: 2;">
+
+                    <?php
+                    $i = 0;
+                    
+
+                        echo"<tr>";
+                        echo "<th>PNR</th>";
+                        echo "<th>Fiyat</th>";
+                        echo "<th>Nereden</th>";
+                        echo "<th>Nereye</th>";
+                        echo "<th>Saat</th>";
+                        echo "<th>Tarih</th>";
+                        echo "<th>Koltuk Numarası</th>";
+                        echo "</tr>";
+
+                        while ($i < $num) {
+                            while ($count = mysqli_fetch_array($result)) {
+                                ?>
+
+                                <tr>
+                                    <td><?php echo $count['PNR'] ?></td>
+                                    <td><?php echo $count['totalPrice'] ?></td>
+                                    <td><?php echo $count['startingStationTerminal'] ?></td>
+                                    <td><?php echo $count['destinationStationTerminal'] ?></td>
+                                    <td><?php echo $count['arrivelTime'] ?></td>
+                                    <td><?php echo $count['dateOfRoute'] ?></td>
+                                    <td><?php echo $count['seatNumber'] ?></td>
+                                    <td><input type="radio" name="cancel" value= '<?php echo $count['PNR'] ?>' /></td>
+                                </td>
+                                </tr>
+
+            <?php
+            $i++;
+        }
+    }
+
+?>
+                </table>
+                <div class="buton" style="display: flex; justify-content: flex-end;">
+                    <input type="submit" name ='İptal Et' value="İptal Et" style="background-color: #E5FFCC;
+                               border-radius: 1rem;
+                               border-color: green;
+                               width: 6rem;
+                               height: 2rem;"/>
                 </div>
+                </form>
             </div>
 
         </div>
