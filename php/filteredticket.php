@@ -11,8 +11,16 @@
     <?php
     session_start();
     include 'dbconnect.php';
-    $ticket_ = $_POST['ticket'];
+    
+    
+    if(empty($_POST['way'])){
+        echo '<script type="text/javascript">'; 
+echo 'alert("Yön bilgisi girmelisiniz");'; 
+echo 'window.location.href = "home.php";';
+echo '</script>';
+    }
     $way_ = $_POST['way'];
+    $ticket_ = $_POST['ticket'];
     $nereden_ = $_POST['nereden'];
     $nereye_ = $_POST['nereye'];
     $sdate_ = $_POST['sdate'];
@@ -25,6 +33,7 @@
     $_SESSION['nereye'] = $nereye_;
     $_SESSION['sdate'] = $sdate_;
     $_SESSION['edate'] = $edate_;
+    
     
     
     if (isset($_SESSION['email'])) {
@@ -44,6 +53,8 @@
         $query = "SELECT * FROM Route WHERE dateOfRoute = '$sdate_' and startingStationTerminal = '$nereden_' and destinationStationTerminal = '$nereye_'";
         $result = mysqli_query($conn, $query);
         $num = mysqli_num_rows($result);
+    }else{
+        
     }
     mysqli_close($conn);
     
