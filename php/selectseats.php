@@ -28,8 +28,8 @@
     $_SESSION['number']=$number_;
     $_SESSION['passType']=$passType_;
 
-    $query = "SELECT seatNumber FROM seatandclass s, Route r WHERE classType = '$passType_' and trainNo='$trainNumber' and r.routeId=$route1_ and s.trainNo=r.trainNumber";
-    $query2 = "SELECT seatNumber FROM seatandclass s, Route r WHERE classType = '$passType_' and trainNo='$trainNumber2' and r.routeId=$route2_ and s.trainNo=r.trainNumber";
+    $query = "SELECT seatNumber FROM seatandclass WHERE classType = '$passType_' and trainNo='$trainNumber' and seatNumber NOT IN (SELECT seatNumber FROM buy WHERE routeId=$route1_)";
+    $query2 = "SELECT seatNumber FROM seatandclass WHERE classType = '$passType_' and trainNo='$trainNumber2' and seatNumber NOT IN (SELECT seatNumber FROM buy WHERE routeId=$route2_)";
     
     $result0 = mysqli_query($conn, $query);
     $num0 = mysqli_num_rows($result0);
