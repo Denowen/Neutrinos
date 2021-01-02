@@ -43,12 +43,12 @@
                 <form class="a-row" action = "pay2.php" method = "post">
                 <div class = "d-row">
                     <label for="cardnumber" style="padding-right: 1rem">Kart Numarası</label>
-                    <input type="number" id="cardnumber" name="cardnumber" style="height: 56%;" />
+                    <input type="number" required id="cardnumber" name="cardnumber" style="height: 56%;" />
                 </div>
 
                 <div class = "d-row">
                     <label for="cvv" style="padding-right: 1rem">Güvenlik Kodu</label>
-                    <input type="text" id="cvv" name="cvv" style="height: 56%;" />
+                    <input type="text" required id="cvv" name="cvv" style="height: 56%;" />
                 </div>
 
                 <div class = "d-row">
