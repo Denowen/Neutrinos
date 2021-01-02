@@ -38,31 +38,31 @@
                     <form class="a-row" method="post" action="login.php">
                         <div class="d-row">
                             <label for="fname" style="padding-right: 23%;">İsim</label>
-                            <input type="text" placeholder="isim" id="name" name="fname" style="height: 100%;"/>
+                            <input type="text" placeholder="isim" required id="name" name="fname" style="height: 100%;"/>
                         </div>
                         <div class="d-row">
                             <label for="lname" style="padding-right: 13%;">Soyisim</label>
-                            <input type="text" placeholder="soyisim" id="name" name="lname" style="height: 100%;"/>
+                            <input type="text" required  placeholder="soyisim" id="name" name="lname" style="height: 100%;"/>
                         </div>
                         <div class="d-row">
                             <label for="email" style="padding-right: 19%;">Email</label>
-                            <input type="email" id="email" name="email" style="height: 100%;"/>
+                            <input type="email" required id="email" name="email" style="height: 100%;"/>
                         </div>
                         <div class="d-row">
                             <label for="password" style="padding-right: 22%;">Şifre</label>
-                            <input type="password" id="password" name="password" style="height: 100%;"/>
+                            <input type="password" required id="password" name="password" style="height: 100%;"/>
                         </div>
                         <div class="d-row">
                             <label for="ssn" style="padding-right: 1%;">TC Kimlik No</label>
-                            <input type="text" id="ssn" name="ssn" style="height: 56%;" />
+                            <input type="text" required id="ssn" name="ssn" style="height: 56%;" />
                         </div>
                         <div class="d-row">
                             <label for="date">Doğum Tarihi</label>
-                            <input type="date" id="date" name="bdate" style="height: 100%; width: 64%;"/>
+                            <input type="date" required id="date" name="bdate" style="height: 100%; width: 64%;"/>
                         </div>
                         <div class="d-row">
                             <label for="tel" style="padding-right: 24%;">Cep No</label>
-                            <input type="tel" id="tel" name="tel" style="height: 55%;" />
+                            <input type="tel" required id="tel" name="tel" style="height: 55%;" />
                         </div>
                         <div class="b-row">
                             <div class="reset">
