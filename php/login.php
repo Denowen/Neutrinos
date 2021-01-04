@@ -42,10 +42,11 @@ if(isset($_POST['register'])){
     mysqli_query($conn, $query);
     mysqli_query($conn, $query2);
 
-
+    $isim = $_POST['fname'];
+    $soyisim = $_POST['lname'];
     $to_email = "$maill";
     $subject = ":: Merhaba 👋 Neutrinos Turizm'e hoş geldin ::";
-    $body = "Neutrinos Turizm'e kayıt işlemin gerçekleşti. Şu andan itibaren istediğin tren biletini alabilir ve yolculuğa çıkabilirsin.";
+    $body = "$isim $soyisim Neutrinos Turizm'e kayıt işlemin gerçekleşti. Şu andan itibaren istediğin tren biletini alabilir ve yolculuğa çıkabilirsin.";
     $headers = "From: neutrinos.turizm@gmail.com";
     if (mail($to_email, $subject, $body, $headers)) {
         echo "Email successfully sent to $to_email...";
