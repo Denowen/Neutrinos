@@ -3,7 +3,7 @@
 <?php
 //GET TICKET ID AND ACCORDING TO THAT ID, SELECT ATTRIBUTES FROM DATABASE AND FILL THEM.
 $routeId = $_GET['varname'];
-$sql = "SELECT * FROM route WHERE ticketId='$routeId'";
+$sql = "SELECT * FROM route WHERE routeId='$routeId'";
 $query = mysqli_query($conn, $sql);
 $routeArray = mysqli_fetch_assoc($query);
 $routeId = $routeArray['routeId'];
@@ -28,7 +28,7 @@ if ($count == 0) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Hakkımızda</title>
+    <title>Yolcu Listesi</title>
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="user.css">
 
@@ -73,30 +73,22 @@ if ($count == 0) {
                 <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
                         <thead>
 
-                            <th>Departure</th>
-                            <th>Destination</th>
-                            <th>Arrivel Time</th>
-                            <th>Departure Time</th>
-                            <th>Date of the Route</th>
-                            <th>Train Number</th>
+                            <th>İsim</th>
+                            <th>Soyisim</th>
+                            <th>Email</th>
+                            <th>Telefon numarası</th>
                         </thead>
-                        <tbody>
+                        <tbody style="text-align: center; color: white;">
                             <?php
                             //PRINT ALL ROUTES
-                            $query1 = mysqli_query($conn, "SELECT * FROM route where routeId='$routeId'");
+                            $query1 = mysqli_query($conn, "SELECT r.regUserName, r.regUserSurname, r.regUserEmail, r.regUserTelephoneNumber FROM ticket t, registeredusers r where t.routeId='$routeId' and t.reguserSsn=r.regUserSsn");
                             while($row = mysqli_fetch_array($query1, MYSQLI_ASSOC)){
-                                $routeId =$row['routeId'];
 
                                 echo 
-                                "<td> " . $row['startingStationTerminal'] . " </td> "
-                                . "<td>" . $row['destinationStationTerminal'] . "</td>"
-                                . "<td> " . $row['arrivelTime'] . " </td> "
-                                . "<td>" . $row['departureTime'] . "</td>"
-                                . "<td>" . $row['dateOfRoute'] . "</td>"
-                                . "<td> " . $row['trainNumber'] . " </td> "
-                                //. "<form method='post' action='modifyRoute.php?varname=$trainName'>"
-                                . "<td> <button type='submit' class='btn' name='acceptBooking'>Modify Route</button></a></td>"
-                                . "</form>"
+                                "<td> " . $row['regUserName'] . " </td> "
+                                . "<td>" . $row['regUserSurname'] . "</td>"
+                                . "<td>" . $row['regUserEmail'] . "</td>"
+                                . "<td>" . $row['regUserTelephoneNumber'] . "</td>"
                                 . "</tr>";
                                 
                             }
