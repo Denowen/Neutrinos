@@ -35,12 +35,24 @@ if(isset($_POST['register'])){
     $ssn = mysqli_real_escape_string($conn, $_POST['ssn']);
     $bdate = mysqli_real_escape_string($conn, $_POST['bdate']);
     $tel = mysqli_real_escape_string($conn, $_POST['tel']);
-
+    $maill = $_POST['email'];
 
     $query ="INSERT INTO users VALUES('$ssn', '$fname', '$lname', '$email', '$password')";
     $query2 = "INSERT INTO registeredusers VALUES('$fname', '$lname', '$ssn', '$email', '$password', '$bdate', '$tel')";
     mysqli_query($conn, $query);
     mysqli_query($conn, $query2);
+
+
+    $to_email = "$maill";
+    $subject = ":: Merhaba 👋 Neutrinos Turizm'e hoş geldin ::";
+    $body = "Neutrinos Turizm'e kayıt işlemin gerçekleşti. Şu andan itibaren istediğin tren biletini alabilir ve yolculuğa çıkabilirsin.";
+    $headers = "From: neutrinos.turizm@gmail.com";
+    if (mail($to_email, $subject, $body, $headers)) {
+        echo "Email successfully sent to $to_email...";
+    } else {
+        echo "Email sending failed...";
+    }
+
     
     header('location: giris.php');
 }
