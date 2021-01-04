@@ -54,13 +54,13 @@
                 <img src="photos/İletişim.jpg">
             </div>
             <div class="c-form">
-                <form class="form">
+                <form class="form" action="contact2.php" method="post">
                     <div class="box1">
                         <div class="b1-1">
                             <label for="fname">İsim</label>
                         </div>
                         <div class="b1-2">
-                            <input type="text" id="fname" name="firstname" placeholder="İsminiz">
+                            <input type="text" required id="fname" name="firstname" placeholder="İsminiz">
                         </div>
                     </div>
                     <div class="box1">
@@ -68,7 +68,15 @@
                             <label for="lname">Soyisim</label>
                         </div>
                         <div class="b1-2">
-                            <input type="text" id="lname" name="lastname" placeholder="Soyisminiz">
+                            <input type="text" required id="lname" name="lastname" placeholder="Soyisminiz">
+                        </div>
+                    </div>
+                    <div class="box1">
+                        <div class="b1-1">
+                            <label for="email">Mail</label>
+                        </div>
+                        <div class="b1-2">
+                            <input type="email" required id="email" name="email" placeholder="Mail Adresiniz">
                         </div>
                     </div>
                     <div class="box1">
@@ -88,7 +96,7 @@
                             <label for="message">Mesaj</label>
                         </div>
                         <div class="b1-2">
-                            <textarea id="message" name="message" placeholder="Mesajınızı yazınız"></textarea>
+                            <textarea id="message" required name="message" placeholder="Mesajınızı yazınız"></textarea>
                         </div>
                     </div>
                     <div class="box1">
