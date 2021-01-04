@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Hakkımızda</title>
+    <title>Tüm Yolcular</title>
     <link rel="stylesheet" href="home.css">
     <link rel="stylesheet" href="user.css">
 
