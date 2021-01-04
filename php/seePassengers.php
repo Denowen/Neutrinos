@@ -44,11 +44,7 @@ if ($count == 0) {
             </div>
             <div class="right">
                 <div class="list">
-                    <a href="home.php">Anasayfa</a>
-                    <a href="hakkimizda.php">Hakkımızda</a>
-                    <a href="kayıt.php">Kayıt Ol</a>
-                    <a href="contact.php">İletişim</a>
-                    <a href="giris.php">Giriş Yap</a>
+                    <a href="signout.php">Çıkış Yap</a>
                 </div>
             </div>
         </div>
@@ -60,10 +56,10 @@ if ($count == 0) {
                         <h1>Admin Paneli</h1>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="#">Add new route</a>
+                        <a class="a2" href="addNewRoute.php">Add new route</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="#">All route list</a>
+                        <a class="a2" href="allRouteList.php">All route list</a>
                     </div>
                     <div class="p-ticket">
                         <a class="a2" href="allPassengers.php">See All Passengers</a>

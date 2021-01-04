@@ -22,6 +22,7 @@
    $count = mysqli_fetch_array($result);
    
    if($way_ == 'tek'){
+      
       for($i = 0; $i < $number_; $i++){
          ${"seatNum$i"} = $_POST["seatNum".$i];
          ${"pnr$i"} = "$count[0]"."$route1_"."$i"; 
@@ -33,6 +34,7 @@
         }
 
    }else{
+      
    for($i = 0; $i < $number_*2; $i++){
     ${"seatNum$i"} = $_POST["seatNum".$i];
     if($i < $number_){
@@ -67,10 +69,10 @@
          $resultsql1 = mysqli_query($conn, $sql1);
         }
      }
-      header("Location:home.php");
+      header("Location:user.php");
    }else{
-
       header("Location: pay.php");
    }
+
 
    ?>

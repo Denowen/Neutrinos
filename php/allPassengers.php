@@ -20,11 +20,8 @@
             </div>
             <div class="right">
                 <div class="list">
-                    <a href="home.php">Anasayfa</a>
-                    <a href="hakkimizda.php">Hakkımızda</a>
-                    <a href="kayıt.php">Kayıt Ol</a>
-                    <a href="contact.php">İletişim</a>
-                    <a href="giris.php">Giriş Yap</a>
+                    
+                    <a href="signout.php">Çıkış Yap</a>
                 </div>
             </div>
         </div>

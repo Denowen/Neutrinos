@@ -4,7 +4,7 @@ $dbname="new_schema";
         if (!$conn) {
     die('not connected:' . mysqli_error($conn));
 } else {
-    echo 'connected';
+    
 }
 $b= mysqli_select_db($conn, $dbname);
 if(!$b){

@@ -9,7 +9,7 @@
 .rows{
     display: flex;
     flex-direction: row;
-    width: 70%;
+    width: 80%;
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
@@ -24,7 +24,7 @@
 }
 .title{
     display: flex;
-    margin-bottom: 12rem;
+    margin-bottom:12rem;
     color: rgb(50 239 239 / 68%);
 }
 .right2{
@@ -51,3 +51,5 @@
     padding-left: 2rem;
     color: rgb(50 239 239 / 68%);
 }
+
+

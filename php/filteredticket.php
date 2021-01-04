@@ -13,12 +13,26 @@
     include 'dbconnect.php';
     
     
-    if(empty($_POST['way'])){
+    if(empty($_POST['way']) && empty($_POST['ticket'])){
         echo '<script type="text/javascript">'; 
-echo 'alert("Yön bilgisi girmelisiniz");'; 
+echo 'alert("Yön bilgisi ve İşlem bilgisi girmelisiniz!");'; 
 echo 'window.location.href = "home.php";';
 echo '</script>';
     }
+
+    else if(empty($_POST['ticket'])){
+        echo '<script type="text/javascript">'; 
+echo 'alert("İşlem bilgisi girmelisiniz!");'; 
+echo 'window.location.href = "home.php";';
+echo '</script>';
+    } else if(empty($_POST['way'])){
+        echo '<script type="text/javascript">'; 
+echo 'alert("Yön bilgisi girmelisiniz!");'; 
+echo 'window.location.href = "home.php";';
+echo '</script>';
+    }
+
+
     $way_ = $_POST['way'];
     $ticket_ = $_POST['ticket'];
     $nereden_ = $_POST['nereden'];

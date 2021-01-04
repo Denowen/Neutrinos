@@ -17,6 +17,20 @@
    session_start();
    include 'dbconnect.php';
    $email = $_SESSION['email'];
+   $query2 = "SELECT PNR FROM buy where creditCardNumber = '0'";
+   $result2 = mysqli_query($conn, $query2);
+   $num2 = mysqli_num_rows($result2);
+   while ($i < $num2) {
+    while ($count = mysqli_fetch_array($result2)) {
+        $query3 = "DELETE FROM ticket WHERE PNR = '$count[0]'";
+        $result3 = mysqli_query($conn, $query3);
+        $query4 = "DELETE FROM buy WHERE PNR = '$count[0]'";
+        $result4 = mysqli_query($conn, $query4);
+
+     $i++;   
+    }
+}
+
 
    $query = "SELECT b.PNR, b.totalPrice, r.startingStationTerminal, r.destinationStationTerminal, r.arrivelTime, r.dateOfRoute, b.seatNumber FROM registeredusers a, buy b, route r WHERE a.regUserEmail='$email' and a.regUserSsn=b.reguserSsn and b.routeId=r.routeId";
         $result = mysqli_query($conn, $query);
@@ -45,16 +59,18 @@
                     <div class="title">
                         <h1>Biletlerim</h1>
                     </div>
+                    
                     <div class="p-ticket">
                         <a class="a2" href="user.php">Purchased Tickets</a>
                     </div>
                     <div class="p-ticket">
                         <a class="a2" href="user2.php">Reserved Tickets</a>
                     </div>
-                </div>
-                <form class="right2" style="flex-direction: column;">
                     
-                <table cellpadding="40" style=" display: flex;color: rgb(50 239 239 / 68%);flex: 2;">
+                </div>
+                <form class="right2" style="flex-direction: column;" action="cancelAndDrop.php" method="post">
+                    
+                <table cellpadding="30" style=" display: flex;color: rgb(50 239 239 / 68%);flex: 2;">
 
                     <?php
                     $i = 0;

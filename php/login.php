@@ -19,7 +19,7 @@ if(isset($_POST['login'])){
         header('location: home.php');
     } else if (mysqli_num_rows($result2) == 1){
         $_SESSION['email']=$email;
-        header('location: home.php');
+        header('location: admin.php');
     }else {
         
         echo("<br>wrong id pass");

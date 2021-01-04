@@ -53,7 +53,7 @@
                         <a class="a2" href="user2.php">Reserved Tickets</a>
                     </div>
                 </div>
-                <form class="right2" style="flex-direction: column;">
+                <form class="right2" style="flex-direction: column;" action="cancelAndDrop.php" method="post">
                     
                 <table cellpadding="40" style=" display: flex;color: rgb(50 239 239 / 68%);flex: 2;">
 
@@ -78,7 +78,7 @@ $i = 0;
                 <td><?php echo $count['destinationStationTerminal'] ?></td>
                 <td><?php echo $count['arrivelTime'] ?></td>
                 <td><?php echo $count['dateOfRoute'] ?></td>
-                <td><input type="radio" name="drop" value= '<?php echo $count['PNR'] ?>' /></td>
+                <td><input type="radio" name="drop" value= '<?php echo $count['reservationId'] ?>' /></td>
             </td>
             </tr>
 
