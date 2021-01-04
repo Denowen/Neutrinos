@@ -49,7 +49,7 @@
                 <div class="right2">
                     <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
                         <thead>
-
+                            <th>Id</th>
                             <th>Departure</th>
                             <th>Destination</th>
                             <th>Arrivel Time</th>
@@ -57,7 +57,7 @@
                             <th>Date of the Route</th>
                             <th>Train Number</th>
                         </thead>
-                        <tbody>
+                        <tbody >
                             <?php
                             //PRINT ALL ROUTES
                             $query1 = mysqli_query($conn, "SELECT * FROM route");
@@ -65,7 +65,8 @@
                                 $routeId =$row['routeId'];
 
                                 echo 
-                                "<td> " . $row['startingStationTerminal'] . " </td> "
+                                 "<td> " . $row['routeId'] . " </td> "
+                                . "<td> " . $row['startingStationTerminal'] . " </td> "
                                 . "<td>" . $row['destinationStationTerminal'] . "</td>"
                                 . "<td> " . $row['arrivelTime'] . " </td> "
                                 . "<td>" . $row['departureTime'] . "</td>"
