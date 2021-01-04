@@ -90,14 +90,26 @@
                                     Tek yön
                                 </div>
                                 <div class="s1">
-                                    <input type="radio" id="way" name="way" value="tek" />
+                                    <input type="radio" onclick="deneme()" id="way" name="way" value="tek" />
                                 </div>
                                 <div class="s">
                                     Gidiş dönüş
                                 </div>
-                                <div class="s1">
-                                    <input type="radio" id="way" name="way" value="çift" />
+                                <div class="s1" >
+                                    <input type="radio" onclick="deneme2()" id="way" name="way" value="çift" />
                                 </div>
+
+                                <script>
+                                function deneme(){
+                                    document.getElementById("deneme").style.display = "none";
+                                }
+                                </script>
+                                <script>
+                                function deneme2(){
+                                    document.getElementById("deneme").style.display = "flex";
+                                }
+                                </script>
+
                             </div>
                         </div>
                         <div class="div1">
@@ -155,8 +167,8 @@ while ($i2 < $num2) {
                                 </div>
                             </div>
                             
-                            <div class="edate">
-                                <div class="s1">
+                            <div class="edate" id="deneme">
+                                <div class="s1" >
                                     <label for="edate">Dönüş Tarihi</label>
                                 </div>
                                 <div class="s">
