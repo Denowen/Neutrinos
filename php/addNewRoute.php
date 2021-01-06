@@ -114,9 +114,8 @@ $num3 = mysqli_num_rows($sql);
 
                             <td>
 
-                                <div class="input-group">
                                     <input onclick="dateConstraint()" class="input" id="routeDate" type="date" name="date" value="<?php echo $date ?>"></input>
-                                </div>
+                                
                             </td>
                             <script>
                                 function dateConstraint() {
