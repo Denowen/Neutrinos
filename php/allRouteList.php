@@ -45,13 +45,14 @@
                 <div class="right2">
                     <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
                         <thead>
-
+                            <th>Id</th>
                             <th>Departure</th>
                             <th>Destination</th>
                             <th>Arrivel Time</th>
                             <th>Departure Time</th>
                             <th>Date of the Route</th>
                             <th>Train Number</th>
+                            <th>Price</th>
                         </thead>
                         <tbody>
                             <?php
@@ -60,17 +61,18 @@
                             while ($row = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
                                 $routeId = $row['routeId'];
 
-                                echo
-                                    "<td> " . $row['startingStationTerminal'] . " </td> "
-                                        . "<td>" . $row['destinationStationTerminal'] . "</td>"
-                                        . "<td> " . $row['arrivelTime'] . " </td> "
-                                        . "<td>" . $row['departureTime'] . "</td>"
-                                        . "<td>" . $row['dateOfRoute'] . "</td>"
-                                        . "<td> " . $row['trainNumber'] . " </td> "
-                                        . "<form method='post' action='modifyRoute.php?varname=$routeId'>"
-                                        . "<td> <button type='submit' class='btn' name='modifyRoute'>Modify Route</button></a></td>"
-                                        . "</form>"
-                                        . "</tr>";
+                                echo "<td> " . $row['routeId'] . " </td> "
+                                    . "<td> " . $row['startingStationTerminal'] . " </td> "
+                                    . "<td>" . $row['destinationStationTerminal'] . "</td>"
+                                    . "<td> " . $row['arrivelTime'] . " </td> "
+                                    . "<td>" . $row['departureTime'] . "</td>"
+                                    . "<td>" . $row['dateOfRoute'] . "</td>"
+                                    . "<td> " . $row['trainNumber'] . " </td> "
+                                    . "<td> " . $row['price'] . " </td> "
+                                    . "<form method='post' action='modifyRoute.php?varname=$routeId'>"
+                                    . "<td> <button type='submit' class='btn' name='modifyRoute'>Modify Route</button></a></td>"
+                                    . "</form>"
+                                    . "</tr>";
                             }
                             ?>
                         </tbody>
