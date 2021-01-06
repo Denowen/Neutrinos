@@ -62,6 +62,7 @@ $num3 = mysqli_num_rows($sql);
                             <th>Departure Time</th>
                             <th>Date of the Route</th>
                             <th>Train Number</th>
+                            <th>Price</th>
                         </thead>
                         <tbody>
                             <td><select name="nereden" id="nereden" style="width: 100%;">
@@ -125,7 +126,7 @@ $num3 = mysqli_num_rows($sql);
                             </script>
 
                             <td>
-                                <select name="trainNumber" id="trainNumber" style="width: 100%">
+                                <select name="trainNumber" id="trainNumber" style="width: 120%">
                                     <?php
                                     $i3 = 0;
                                     while ($i3 < $num3) {
@@ -140,14 +141,14 @@ $num3 = mysqli_num_rows($sql);
                             </td>
                             </select>
 
+                            <td>
+                                <input class ="input" type="number" id="price" name="price" style="width:50%"  value="price">
+                            </td>
+
                         </tbody>
                     </table>
                     <div class="buton" style="display: flex; justify-content: flex-end;">
-                        <input type="submit" name='İptal Et' value="Rotayı Ekle" style="background-color: #E5FFCC;
-                               border-radius: 1rem;
-                               border-color: green;
-                               width: 6rem;
-                               height: 2rem;" />
+                        <input type="submit" name='İptal Et' value="Rotayı Ekle">
                     </div>
                 </form>
             </div>
