@@ -3,7 +3,7 @@
 <?php
 //GET TICKET ID AND ACCORDING TO THAT ID, SELECT ATTRIBUTES FROM DATABASE AND FILL THEM.
 $routeId = $_GET['varname'];
-$sql = "SELECT * FROM route WHERE ticketId='$routeId'";
+$sql = "SELECT * FROM route WHERE routeId='$routeId'";
 $query = mysqli_query($conn, $sql);
 $routeArray = mysqli_fetch_assoc($query);
 $routeId = $routeArray['routeId'];
