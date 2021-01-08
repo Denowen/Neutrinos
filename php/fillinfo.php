@@ -50,6 +50,8 @@
                 </div>
                 <?php if($_SESSION['ticket'] == 'Satış'){ ?>
                 <form class ="row" action="selectseats.php" method='post'>
+                
+                
                     <div class="a-row">
                         
         
@@ -67,7 +69,7 @@
                         <div class = "d-row">
                             <label for="passNumber" style="padding-right: 0.2rems;" >Yolcu Sayısı</label>
                             <div class="s2">
-                                <select name="number" id="number" style="height: 156%;width: 125%">
+                                <select name="number" onclick="deneme()" id="number" style="height: 156%;width: 125%">
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
@@ -80,10 +82,32 @@
                                     <option value="10">10</option>
         
                                 </select>
-        
                             </div>
-    
+                            
+                            <script>
+                            function deneme(){
+                                    var c ="";
+                                   var a= document.getElementById("number");
+                                   var b = a.value;
+
+                                   var i = 0;
+                                   for(i = 0; i < b; i++){
+
+                                       c += '<label for="isim' + i + '" style="margin-top: 1rem;">' + (i+1) + '.İsim</label>';
+                                       c += '<input name ="isim' + i + '" id="isim' + i + '"  type="text"/>';
+                                       c += '<label for="soyisim' + i + '" style="margin-top: 1rem;">' + (i+1) + '.Soyisim</label>';
+                                       c += '<input name ="soyisim' + i + '" id="soyisim' + i + '"  type="text"/>';
+                                       c += '<label for="ssn' + i + '" style="margin-top: 1rem;">' + (i+1) + '.Kimlik Numarası</label>';
+                                       c += '<input name ="ssn' + i + '" id="ssn' + i + '"  type="text"/>';
+
+                                   }
+                                   document.getElementById("ans").innerHTML=c;
+                                }
+
+                                </script>
                         </div>
+                        
+                        <div id="ans" style="display: flex; flex-direction: column;"></div>
 
 </div>
                      <div class="h-row">
