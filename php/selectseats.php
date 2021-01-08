@@ -126,13 +126,6 @@
             <div class="contain">
                 <div class="c-row">
                     <h3>Koltuk Seçimi</h3>
-                    <h4><?php echo $_SESSION['way'] ?> </h4> 
-                    <h4><?php echo $_SESSION['route1_'] ?> </h4> 
-                    <h4><?php echo $_SESSION['route2_'] ?> </h4> 
-                    <h4><?php echo $_SESSION['trainNumber'] ?> </h4> 
-                    <h4><?php echo $_SESSION['trainNumber2'] ?> </h4> 
-                    <h4><?php echo $isim0 ?> </h4> 
-                    
                     
                 </div>
                 <form class ="row" action="pay2.php" method="post">
