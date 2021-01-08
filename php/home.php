@@ -163,7 +163,7 @@ while ($i2 < $num2) {
                                     <label for="sdate">Gidiş Tarihi</label>
                                 </div>
                                 <div class="s">
-                                    <input type="date" id="sdate" name="sdate"/>
+                                    <input type="date" id="sdate" name="sdate" min="<?php echo date('Y-m-d'); ?>"/>
                                 </div>
                             </div>
                             
@@ -172,7 +172,7 @@ while ($i2 < $num2) {
                                     <label for="edate">Dönüş Tarihi</label>
                                 </div>
                                 <div class="s">
-                                    <input type="date" id="edate" name="edate" />
+                                    <input type="date" id="edate" name="edate" min="<?php echo date('Y-m-d'); ?>" />
                                 </div>
                             </div>
                         </div>
