@@ -14,6 +14,16 @@
     include 'dbconnect.php';
 
     $number_ = $_POST['number'];
+    for($i = 0; $i < $number_; $i++){
+        ${"isim$i"} = $_POST["isim".$i]; 
+        ${"soyisim$i"} = $_POST["soyisim".$i]; 
+        ${"ssn$i"} = $_POST["ssn".$i]; 
+        $_SESSION["isim".$i] = ${"isim$i"};
+        $_SESSION["soyisim".$i] = ${"soyisim$i"};
+        $_SESSION["ssn".$i] = ${"ssn$i"};
+    }
+
+    $isim1 = $_POST['isim1'];
     $route1_ = $_SESSION['route1_'];
     $route2_ = $_SESSION['route2_'];
     $trainNumber = $_SESSION['trainNumber'];
@@ -121,6 +131,7 @@
                     <h4><?php echo $_SESSION['route2_'] ?> </h4> 
                     <h4><?php echo $_SESSION['trainNumber'] ?> </h4> 
                     <h4><?php echo $_SESSION['trainNumber2'] ?> </h4> 
+                    <h4><?php echo $isim0 ?> </h4> 
                     
                     
                 </div>
@@ -149,6 +160,7 @@
                             <div class="s">
                             <?php for($i2=0; $i2<$number_; $i2++){ 
                                 $a = "seatNum".$i3?>
+
                                 <select style="max-width: 3rem;" name="<?php echo "$a";?>" id="<?php echo "$a";?>" style="height: 156%;width: 200%;">
                                   
                                 <?php
@@ -169,11 +181,13 @@ while ($i < ${"num$i6"}) {
                                 </div>
                                 <?php } ?>
                                 <?php }else{ ?>
-                                    <label for="seatNum" style="padding-right: 1rem">Koltuk Numarası</label>
-
+                                    
                         
                             <div class="s">
                             <?php for($i9=0; $i9<$number_; $i9++){ $a = "seatNum".$i9 ?>
+                            
+                            <p><?php echo ${"isim$i9"}; echo " "; echo${"soyisim$i9"}; ?></p>
+                            <label for="seatNum" style="height: 100%; margin-bottom: 1rem;">Koltuk Numarası</label>
                                 <select style="max-width: 3rem;" name="<?php echo "$a";?>" id="<?php echo "$a";?>" style="height: 156%;width: 200%;">
 
                                 <?php
