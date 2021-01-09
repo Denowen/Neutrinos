@@ -44,18 +44,18 @@
                 <form class="a-row" action = "pay2.php" method = "post">
                 <div class = "d-row">
                     <label for="cardnumber" style="padding-right: 1rem">Kart Numarası</label>
-                    <input type="number" required id="cardnumber" minlength="16" maxlength="16" name="cardnumber" style="height: 56%;" />
+                    <input type="number" required id="cardnumber"  oninput="if(value.length>16)value=value.slice(0,16)" name="cardnumber" style="height: 56%;" />
                 </div>
 
                 <div class = "d-row">
                     <label for="cvv" style="padding-right: 1rem">Güvenlik Kodu</label>
-                    <input type="text" required id="cvv" minlength="3" maxlength="3" name="cvv" style="height: 56%;" />
+                    <input type="number" required id="cvv" oninput="if(value.length>3)value=value.slice(0,3)" name="cvv" style="height: 56%;" />
                 </div>
 
                 <div class = "d-row">
                     <label for="expDate" style="padding-right: 1rem">Son Kullanma Tarihi</label>
                     <div class="s">
-                        <select name="start" id="start" style="height: 156%;">
+                        <select name="month" id="month" style="height: 156%;">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -71,7 +71,7 @@
 
                         </select>
                         /
-                        <select name="end" id="end" style="height: 156%;">
+                        <select name="year" id="year" style="height: 156%;">
                             <option value="20">20</option>
                             <option value="21">21</option>
                             <option value="22">22</option>
@@ -86,8 +86,12 @@
                         </select>
 
                     </div>
-
                     
+                    
+                </div>
+                <div class = "d-row">
+                    <label for="ns" style="padding-right: 1rem">İsim & Soyisim:</label>
+                    <input type="text" required id="ns" name="ns" style="height: 56%;" />
                 </div>
                 <div class="d-row" style="justify-content: center">
                         <input type="submit" value="Ödeme Yap" style="background-color: #E5FFCC;

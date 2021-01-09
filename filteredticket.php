@@ -132,7 +132,7 @@ if ($way_ == "çift" || $way_ == "tek") {
                                     <td><?php echo $count['destinationStationTerminal'] ?></td>
                                     <td><?php echo $count['departureTime'] ?></td>
                                     <td><?php echo $count['price'] ?></td>
-                                    <td><input type="radio" name="route1" value= '<?php echo $count['routeId'] ?>' />
+                                    <td><input type="radio" name="route1" onclick="deletee()" value= '<?php echo $count['routeId'] ?>' />
                                     <?php $_SESSION['trainNumber'] = $count['trainNumber'] ?>
                                     <?php $_SESSION['price'] = $count['price'] ?>
                                 </td>
@@ -174,7 +174,7 @@ if ($way_ == "çift" || $way_ == "tek") {
                                     <td><?php echo $count['destinationStationTerminal'] ?></td>
                                     <td><?php echo $count['departureTime'] ?></td>
                                     <td><?php echo $count['price'] ?></td>
-                                    <td><input type="radio" name="route2" value= '<?php echo $count['routeId'] ?>' />
+                                    <td><input type="radio" name="route2" onclick="deletee1()" value= '<?php echo $count['routeId'] ?>' />
                                     <?php $_SESSION['trainNumber2'] = $count['trainNumber'] ?>
                                     <?php $_SESSION['price2'] = $count['price'] ?>
                                 </td>
@@ -188,9 +188,20 @@ if ($way_ == "çift" || $way_ == "tek") {
 ?>
                 </table>
 
+                <script>
+                function deletee(){
+                    document.getElementById("devam5").style.display = "flex";
+                }
+                </script>
+                <script>
+                function deletee1(){
+                    document.getElementById("devam5").style.display = "flex";
+                }
+                </script>
+
 
                 <div class ="a-row">
-                    <div class = "Devam Et">
+                    <div id="devam5" class = "Devam Et" style="display:none;">
                         
                         <input type="submit" name ='devam et' value="Devam Et" style="background-color: #E5FFCC;
                                border-radius: 1rem;

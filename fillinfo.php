@@ -106,7 +106,7 @@
                                        c += '<label for="soyisim' + i + '" style="margin-top: 1rem;">' + (i+1) + '.Soyisim</label>';
                                        c += '<input required name ="soyisim' + i + '" id="soyisim' + i + '"  type="text"/>';
                                        c += '<label for="ssn' + i + '" style="margin-top: 1rem;">' + (i+1) + '.Kimlik Numarası</label>';
-                                       c += '<input required maxlength="11" minlength="11" name ="ssn' + i + '" id="ssn' + i + '"  type="number"/>';
+                                       c += '<input required name ="ssn' + i + '" id="ssn' + i + '"  type="number" oninput="if(value.length>11)value=value.slice(0,11)"/>';
 
                                    }
                                    document.getElementById("ans").innerHTML=c;

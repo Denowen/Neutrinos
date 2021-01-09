@@ -11,27 +11,35 @@ $query = "SELECT regUserSsn FROM registeredusers WHERE regUserEmail = '$email'";
 $result = mysqli_query($conn, $query);
 $count = mysqli_fetch_array($result);
 
+$rr=0;
+
+if($rr == 0){
+    $qq += 1;
+}
+
 if($way_ == 'tek'){
     for($i = 0; $i < $number_; $i++){
-       ${"reservationId$i"} = "$count[0]"."$route1_"."$i"; 
+       ${"reservationId$i"} = "$count[0]"."$route1_"."$i"."$qq"; 
        $_SESSION[${"reservationId$i"}] = ${"reservationId$i"};
        $query2 = "INSERT INTO reserve VALUES('${"reservationId$i"}', '$count[0]','$route1_', '$passType_')";
        $result2 = mysqli_query($conn, $query2);
-       
+       $qq++;
       }
 
  }else{
  for($i = 0; $i < $number_*2; $i++){
   if($i < $number_){
-   ${"reservationId$i"} = "$count[0]"."$route1_"."$i"; 
+   ${"reservationId$i"} = "$count[0]"."$route1_"."$i"."$qq"; 
     $_SESSION[${"reservationId$i"}] = ${"reservationId$i"};
     $query3 = "INSERT INTO reserve VALUES('${"reservationId$i"}', '$count[0]', '$route1_', '$passType_')";
     $result3 = mysqli_query($conn, $query3);
+    $qq++;
   }else{
-   ${"reservationId$i"} = "$count[0]"."$route2_"."$i"; 
+   ${"reservationId$i"} = "$count[0]"."$route2_"."$i"."$qq"; 
     $_SESSION[${"reservationId$i"}] = ${"reservationId$i"};
     $query4 = "INSERT INTO reserve VALUES('${"reservationId$i"}', '$count[0]', '$route2_', '$passType_')";
     $result4 = mysqli_query($conn, $query4);
+    $qq++;
   }
   
  }

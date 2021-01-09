@@ -17,6 +17,13 @@
    $price = $_SESSION['price'];
    $price2 = $_SESSION['price2'];
    $cardnumber = $_POST['cardnumber'];
+   $cvv = $_POST['cvv'];
+   $month = $_POST['month'];
+   $year = $_POST['year'];
+   $ns = $_POST['ns'];
+
+   $randomNumber = rand(0,99); 
+
    for($i = 0; $i< $number_; $i++){
        ${"isim$i"} = $_SESSION["isim".$i];
          ${"soyisim$i"} = $_SESSION["soyisim".$i];
@@ -30,7 +37,9 @@
       
       for($i = 0; $i < $number_; $i++){
          ${"seatNum$i"} = $_POST["seatNum".$i];
-         ${"pnr$i"} = "${"ssn$i"}"."$route1_"."$i"; 
+
+         ${"pnr$i"} = "${"ssn$i"}"."$route1_"."$i";
+
          $_SESSION[${"pnr$i"}] = ${"pnr$i"};
          $query2 = "INSERT INTO ticket VALUES('${"pnr$i"}', '$count[0]','${"isim$i"}','${"soyisim$i"}','${"ssn$i"}', '$price', '$route1_', '$passType_', '${"seatNum$i"}')";
          $result2 = mysqli_query($conn, $query2);
@@ -43,14 +52,14 @@
    for($i = 0; $i < $number_*2; $i++){
     ${"seatNum$i"} = $_POST["seatNum".$i];
     if($i < $number_){
-      ${"pnr$i"} = "${"ssn$i"}"."$route1_"."$i"; 
+      ${"pnr$i"} = "${"ssn$i"}"."$route1_"."$i";
       $_SESSION[${"pnr$i"}] = ${"pnr$i"};
       $query2 = "INSERT INTO ticket VALUES('${"pnr$i"}', '$count[0]','${"isim$i"}','${"soyisim$i"}','${"ssn$i"}', '$price', '$route1_', '$passType_', '${"seatNum$i"}')";
       $result2 = mysqli_query($conn, $query2);
       $query3 = "INSERT INTO buy VALUES('${"pnr$i"}', '0', '$count[0]', '$route1_', '$price', '$passType_', '${"seatNum$i"}')";
       $result3 = mysqli_query($conn, $query3);
     }else{
-      ${"pnr$i"} = "${"ssn$i2"}"."$route2_"."$i"; 
+      ${"pnr$i"} = "${"ssn$i"}"."$route1_"."$i";
       $_SESSION[${"pnr$i"}] = ${"pnr$i"};
       $query4 = "INSERT INTO ticket VALUES('${"pnr$i"}', '$count[0]','${"isim$i2"}','${"soyisim$i2"}','${"ssn$i2"}', '$price2', '$route2_', '$passType_', '${"seatNum$i"}')";
       $result4 = mysqli_query($conn, $query4);
@@ -78,10 +87,17 @@
         
      }
      $_SESSION['buton'] = null;
+
      $drop = $_SESSION['dropp'];
+
      $query4 = "DELETE FROM reserve WHERE reservationId='$drop'";
     $result4 = mysqli_query($conn, $query4);
+
     $_SESSION['dropp'] = null;
+
+    $query5 = "INSERT INTO payment VALUES('$cardnumber', '$cvv', '$month', '$year', '$ns')";
+    $result5 = mysqli_query($conn, $query5);
+
     $to_email = "$email";
     $subject = ":: 🎫 Bilet Satın Alma İşlemin Başarıyla Tamamlandı ::";
     $body = "Yolculuğunuz için Neutrinos Turizm'i tercih ettiğiniz için teşekkür ederiz. Hesabınızın Profilim kısmından bilet bilgilerinize erişebilir, iptal işlemlerinizi gerçekleştirebilirsiniz. İyi yolculuklar dileriz.  ";

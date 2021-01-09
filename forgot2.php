@@ -66,7 +66,7 @@ if (mail($to_email, $subject, $body, $headers)) {
                             <form class = "a-row" method="post" action="forgot3.php">
                                 <div class="e-row">
                                     <label for="number" style= "margin-top:1rem">Kod:</label>
-                                    <input placeholder="kurtarma kodu" required type="number" minlength="4" id="number" name="number" style="height: 100%;margin-top:1rem"/>
+                                    <input placeholder="kurtarma kodu" required type="number" oninput="if(value.length>4)value=value.slice(0,4)" id="number" name="number" style="height: 100%;margin-top:1rem"/>
                                     <input type="hidden" id="mail" name="mail" value="<?php echo $mail ?>" />
                                 </div>
                                 <div class="e-row">
