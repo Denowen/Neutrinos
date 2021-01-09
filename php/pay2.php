@@ -68,13 +68,25 @@
          $sql = "UPDATE buy SET creditCardNumber='$cardnumber' WHERE PNR='$a'";
          $resultsql = mysqli_query($conn, $sql);
         }
+
      }else{
       for($i = 0; $i < $number_*2; $i++){
          $b = $_SESSION[${"pnr$i"}];
          $sql1 = "UPDATE buy SET creditCardNumber='$cardnumber' WHERE PNR='$b'";
          $resultsql1 = mysqli_query($conn, $sql1);
         }
+        
      }
+    $to_email = "$email";
+    $subject = ":: 🎫 Bilet Satın Alma İşlemin Başarıyla Tamamlandı ::";
+    $body = "Yolculuğunuz için Neutrinos Turizm'i tercih ettiğiniz için teşekkür ederiz. Hesabınızın Profilim kısmından bilet bilgilerinize erişebilir, iptal işlemlerinizi gerçekleştirebilirsiniz. İyi yolculuklar dileriz.  ";
+    $headers = "From: neutrinos.turizm@gmail.com";
+    if (mail($to_email, $subject, $body, $headers)) {
+        echo "Email successfully sent to $to_email...";
+    } else {
+        echo "Email sending failed...";
+    }
+
       header("Location:user.php");
    }else{
       header("Location: pay.php");
