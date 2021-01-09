@@ -37,7 +37,7 @@ if($way_ == 'tek'){
  }
 }
 $to_email = "$email";
-$subject = ":: 🎫 Rezervasyon İşlemin Başarıyla Tamamlandı ::";
+$subject = ":: 💺 Rezervasyon İşlemin Başarıyla Tamamlandı ::";
 $body = "Yolculuğunuz için Neutrinos Turizm'i tercih ettiğiniz için teşekkür ederiz. Hesabınızın Profilim kısmından rezervasyon bilgilerinize erişebilir, iptal işlemlerinizi gerçekleştirebilirsiniz. İyi yolculuklar dileriz.  ";
 $headers = "From: neutrinos.turizm@gmail.com";
 if (mail($to_email, $subject, $body, $headers)) {
