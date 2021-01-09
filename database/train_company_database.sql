@@ -8,7 +8,8 @@ userSsn VARCHAR(12) PRIMARY KEY,
 userName VARCHAR(100),
 userSurname VARCHAR(100),
 userEmail VARCHAR(100) UNIQUE,
-userPassword VARCHAR(10));
+userPassword VARCHAR(10),
+recoveryCode INT(4));
 
 /*Registered User Table(Possible customer)*/
 CREATE TABLE RegisteredUsers(
@@ -102,10 +103,10 @@ INSERT INTO Administrators VALUES('31249826713','Hilal','Yavuz','218cs2112@isik.
 INSERT INTO Administrators VALUES('21354689271','Görkem Deniz','Seyhan','gorkem.seyhan@isik.edu.tr','123gork');
 INSERT INTO Administrators VALUES('51286932143','Doğukan','Doğanay','dogukan.doganay@isik.edu.tr','123doğu');
 /*Users*/
-INSERT INTO Users VALUES('21474836471','Elif','Akar','elif.akar@isik.edu.tr','123elif');
-INSERT INTO  Users VALUES('31249826713','Hilal','Yavuz','218cs2112@isik.edu.tr','123hilal');
-INSERT INTO  Users VALUES('21354689271','Görkem Deniz','Seyhan','gorkem.seyhan@isik.edu.tr','123gork');
-INSERT INTO  Users VALUES('51286932143','Doğukan','Doğanay','dogukan.doganay@isik.edu.tr','123doğu');
+INSERT INTO Users VALUES('21474836471','Elif','Akar','elif.akar@isik.edu.tr','123elif',0000);
+INSERT INTO  Users VALUES('31249826713','Hilal','Yavuz','218cs2112@isik.edu.tr','123hilal',0000);
+INSERT INTO  Users VALUES('21354689271','Görkem Deniz','Seyhan','gorkem.seyhan@isik.edu.tr','123gork',0000);
+INSERT INTO  Users VALUES('51286932143','Doğukan','Doğanay','dogukan.doganay@isik.edu.tr','123doğu',0000);
 
 /*Trains in System*/
 INSERT INTO Train VALUES('100 6 September Express', 483); 
