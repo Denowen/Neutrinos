@@ -11,7 +11,7 @@
     <?php
     session_start();
     include 'dbconnect.php';
-    
+    include 'delete.php';
     
     if(empty($_POST['way']) && empty($_POST['ticket'])){
         echo '<script type="text/javascript">'; 

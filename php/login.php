@@ -2,6 +2,7 @@
 session_start();
 
 include('dbconnect.php');
+include 'delete.php';
 
 
 if(isset($_POST['login'])){

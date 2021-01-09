@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="100;url=home.php" />
     <title>Ödeme</title>
     <link rel="stylesheet" type="text/css" href="home.css">
     <link rel="stylesheet" type="text/css" href="pay.css">
@@ -11,7 +12,7 @@
    <?php
    session_start();
    include 'dbconnect.php';
-       
+   
 
    ?>
     <div class="page">

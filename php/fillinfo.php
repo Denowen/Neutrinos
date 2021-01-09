@@ -11,6 +11,7 @@
 <?php
     session_start();
     include 'dbconnect.php';
+    include 'delete.php';
     $route1_ = $_POST['route1'];
     $route2_ = $_POST['route2']; 
     $_SESSION['route1_'] = $route1_;
@@ -98,7 +99,7 @@
                                        c += '<label for="soyisim' + i + '" style="margin-top: 1rem;">' + (i+1) + '.Soyisim</label>';
                                        c += '<input required name ="soyisim' + i + '" id="soyisim' + i + '"  type="text"/>';
                                        c += '<label for="ssn' + i + '" style="margin-top: 1rem;">' + (i+1) + '.Kimlik Numarası</label>';
-                                       c += '<input required name ="ssn' + i + '" id="ssn' + i + '"  type="text"/>';
+                                       c += '<input required name ="ssn' + i + '" id="ssn' + i + '"  type="number"/>';
 
                                    }
                                    document.getElementById("ans").innerHTML=c;

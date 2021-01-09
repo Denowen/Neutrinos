@@ -1,6 +1,7 @@
 <?php
 session_start();
 include 'dbconnect.php';
+include 'delete.php';
 $route1_ = $_SESSION['route1_'];
 $route2_ = $_SESSION['route2_'];
 $number_ = $_POST['number'];

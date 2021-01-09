@@ -12,7 +12,7 @@
 <?php
     session_start();
     include 'dbconnect.php';
-
+    include 'delete.php';
     if (isset($_SESSION['email'])) {
         $usermail = $_SESSION['email'];
         $count=0;

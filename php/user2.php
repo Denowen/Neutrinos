@@ -17,6 +17,7 @@
 <?php 
    session_start();
    include 'dbconnect.php';
+   include 'delete.php';
    $email = $_SESSION['email'];
 
    $query = "SELECT b.reservationId, r.startingStationTerminal, r.destinationStationTerminal, r.arrivelTime, r.dateOfRoute FROM registeredusers a, reserve b, route r WHERE a.regUserEmail='$email' and a.regUserSsn=b.regUserSsn and b.routeId=r.routeId";

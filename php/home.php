@@ -13,6 +13,7 @@
     <?php
     session_start();
     include 'dbconnect.php';
+    include 'delete.php';
     $query = "SELECT stationName FROM station ";
 
 

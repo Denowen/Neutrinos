@@ -17,6 +17,11 @@
    $price = $_SESSION['price'];
    $price2 = $_SESSION['price2'];
    $cardnumber = $_POST['cardnumber'];
+   for($i = 0; $i< $number_; $i++){
+       ${"isim$i"} = $_SESSION["isim".$i];
+         ${"soyisim$i"} = $_SESSION["soyisim".$i];
+         ${"ssn$i"} = $_SESSION["ssn".$i];
+   }
    $query = "SELECT regUserSsn FROM registeredusers WHERE regUserEmail = '$email'";
    $result = mysqli_query($conn, $query);
    $count = mysqli_fetch_array($result);
@@ -25,7 +30,7 @@
       
       for($i = 0; $i < $number_; $i++){
          ${"seatNum$i"} = $_POST["seatNum".$i];
-         ${"pnr$i"} = "$count[0]"."$route1_"."$i"; 
+         ${"pnr$i"} = "${"ssn$i"}"."$route1_"."$i"; 
          $_SESSION[${"pnr$i"}] = ${"pnr$i"};
          $query2 = "INSERT INTO ticket VALUES('${"pnr$i"}', '$count[0]', '$price', '$route1_', '$passType_', '${"seatNum$i"}')";
          $result2 = mysqli_query($conn, $query2);
@@ -34,23 +39,24 @@
         }
 
    }else{
-      
+      $i2 = 0;
    for($i = 0; $i < $number_*2; $i++){
     ${"seatNum$i"} = $_POST["seatNum".$i];
     if($i < $number_){
-     ${"pnr$i"} = "$count[0]"."$route1_"."$i"; 
+      ${"pnr$i"} = "${"ssn$i"}"."$route1_"."$i"; 
       $_SESSION[${"pnr$i"}] = ${"pnr$i"};
       $query2 = "INSERT INTO ticket VALUES('${"pnr$i"}', '$count[0]', '$price', '$route1_', '$passType_', '${"seatNum$i"}')";
       $result2 = mysqli_query($conn, $query2);
       $query3 = "INSERT INTO buy VALUES('${"pnr$i"}', '0', '$count[0]', '$route1_', '$price', '$passType_', '${"seatNum$i"}')";
       $result3 = mysqli_query($conn, $query3);
     }else{
-     ${"pnr$i"} = "$count[0]"."$route2_"."$i"; 
+      ${"pnr$i"} = "${"ssn$i2"}"."$route2_"."$i"; 
       $_SESSION[${"pnr$i"}] = ${"pnr$i"};
       $query4 = "INSERT INTO ticket VALUES('${"pnr$i"}', '$count[0]', '$price2', '$route2_', '$passType_', '${"seatNum$i"}')";
       $result4 = mysqli_query($conn, $query4);
       $query5 = "INSERT INTO buy VALUES('${"pnr$i"}', '0', '$count[0]', '$route2_', '$price2', '$passType_', '${"seatNum$i"}')";
       $result5 = mysqli_query($conn, $query5);
+      $i2++;
     }
     
    }
