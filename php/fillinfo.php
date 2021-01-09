@@ -71,6 +71,7 @@
                             <label for="passNumber" style="padding-right: 0.2rems;" >Yolcu Sayısı</label>
                             <div class="s2">
                                 <select name="number" onclick="deneme()" id="number" style="height: 156%;width: 125%">
+                                    <option value="" selected="selected" hidden="hidden">Kişi sayısı seçiniz</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
