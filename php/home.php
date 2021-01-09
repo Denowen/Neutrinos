@@ -172,8 +172,16 @@ while ($i2 < $num2) {
                                 <div class="s1" >
                                     <label for="edate">Dönüş Tarihi</label>
                                 </div>
+                                <script>
+                                function setDatee(){
+                                    var a = document.getElementById('sdate');
+                                    var b = a.value;
+                                    document.getElementById('edate').min = b;
+                                    console.log(b);
+                                }
+                                </script>
                                 <div class="s">
-                                    <input type="date" id="edate" name="edate" min="<?php echo date('Y-m-d'); ?>" />
+                                    <input type="date" onclick="setDatee()" id="edate" name="edate" min="<?php echo date('Y-m-d'); ?>" />
                                 </div>
                             </div>
                         </div>
