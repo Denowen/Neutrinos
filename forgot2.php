@@ -66,12 +66,12 @@ if (mail($to_email, $subject, $body, $headers)) {
                             <form class = "a-row" method="post" action="forgot3.php">
                                 <div class="e-row">
                                     <label for="number" style= "margin-top:1rem">Kod:</label>
-                                    <input placeholder="kurtarma kodu" required type="number" id="number" name="number" style="height: 100%;margin-top:1rem"/>
+                                    <input placeholder="kurtarma kodu" required type="number" minlength="4" id="number" name="number" style="height: 100%;margin-top:1rem"/>
                                     <input type="hidden" id="mail" name="mail" value="<?php echo $mail ?>" />
                                 </div>
                                 <div class="e-row">
                                     <label for="password" style="padding-right: 5%">Yeni şifre:</label>
-                                    <input placeholder="Yeni şifre" required type="password" id="password" name="password" style="height: 100%;"/>
+                                    <input placeholder="Yeni şifre" required type="password" minlength="4" id="password" name="password" style="height: 100%;"/>
                                 </div>
                                 <div class="submit" style="width:43%; padding-left:33%">
                                     <input type="submit" value="Kaydet" name="login" style="background-color: #E5FFCC;border-radius: 1rem;border-color: green;" />
