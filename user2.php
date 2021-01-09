@@ -20,7 +20,7 @@
    include 'delete.php';
    $email = $_SESSION['email'];
 
-   $query = "SELECT b.reservationId, r.startingStationTerminal, r.destinationStationTerminal, r.arrivelTime, r.dateOfRoute FROM registeredusers a, reserve b, route r WHERE a.regUserEmail='$email' and a.regUserSsn=b.regUserSsn and b.routeId=r.routeId";
+   $query = "SELECT b.reservationId, r.startingStationTerminal, r.destinationStationTerminal, r.departureTime, r.dateOfRoute FROM registeredusers a, reserve b, route r WHERE a.regUserEmail='$email' and a.regUserSsn=b.regUserSsn and b.routeId=r.routeId";
         $result = mysqli_query($conn, $query);
         $num = mysqli_num_rows($result);
 
@@ -77,7 +77,7 @@ $i = 0;
                 <td><?php echo $count['reservationId'] ?></td>
                 <td><?php echo $count['startingStationTerminal'] ?></td>
                 <td><?php echo $count['destinationStationTerminal'] ?></td>
-                <td><?php echo $count['arrivelTime'] ?></td>
+                <td><?php echo $count['departureTime'] ?></td>
                 <td><?php echo $count['dateOfRoute'] ?></td>
                 <td><input type="radio" onclick="deneme()"  name="drop" value= '<?php echo $count['reservationId'] ?>' /></td>
             </td>
