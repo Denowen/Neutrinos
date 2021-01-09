@@ -21,9 +21,10 @@ if(isset($_POST['login'])){
     } else if (mysqli_num_rows($result2) == 1){
         $_SESSION['email']=$email;
         header('location: admin.php');
-    }else {
-        
-        echo("<br>wrong id pass");
+    }else {echo '<script type="text/javascript">'; 
+echo 'alert("Parola Yanlış!");'; 
+echo 'window.location.href = "giris.php";';
+echo '</script>';
     }
 
 }
