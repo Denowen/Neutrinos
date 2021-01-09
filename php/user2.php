@@ -48,10 +48,10 @@
                         <h1>Biletlerim</h1>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="user.php">Purchased Tickets</a>
+                        <a class="a2" href="user.php">Biletlerim</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="user2.php">Reserved Tickets</a>
+                        <a class="a2" href="user2.php">Rezervasyonlarım</a>
                     </div>
                 </div>
                 <form class="right2" style="flex-direction: column;" action="cancelAndDrop.php" method="post">
