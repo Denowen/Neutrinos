@@ -1,12 +1,14 @@
 
 
+use train_company_database;
+
 /*Represents all users*/
 CREATE TABLE Users(
 userSsn VARCHAR(12) PRIMARY KEY,
 userName VARCHAR(100),
 userSurname VARCHAR(100),
 userEmail VARCHAR(100) UNIQUE,
-userPassword VARCHAR(10) UNIQUE);
+userPassword VARCHAR(10));
 
 /*Registered User Table(Possible customer)*/
 CREATE TABLE RegisteredUsers(
@@ -14,7 +16,7 @@ regUserName VARCHAR(100) REFERENCES Users(userName),
 regUserSurname VARCHAR(100) REFERENCES Users(userSurname),
 regUserSsn VARCHAR(12) PRIMARY KEY REFERENCES Users(userSsn) ,
 regUserEmail VARCHAR(100) UNIQUE REFERENCES Users(userEmail),
-regUserPassword VARCHAR(10) UNIQUE REFERENCES Users(userPassword),
+regUserPassword VARCHAR(10) REFERENCES Users(userPassword),
 regUserBirthdate DATE,
 regUserTelephoneNumber VARCHAR(20));
 
@@ -23,8 +25,8 @@ CREATE TABLE Administrators(
 adminSsn VARCHAR(12) PRIMARY KEY REFERENCES Users(userSsn),
 adminName VARCHAR(100) REFERENCES Users(userName) ,
 adminSurname VARCHAR(100) REFERENCES Users(userSurname),
-adminEmail VARCHAR(100) UNIQUE,
-adminPassword VARCHAR(10) UNIQUE);
+adminEmail VARCHAR(100) UNIQUE REFERENCES Users(userEmail),
+adminPassword VARCHAR(10)  REFERENCES Users(userPassword) );
 
 /*Payment Table*/
 CREATE TABLE Payment(
@@ -85,6 +87,9 @@ price FLOAT(6,2));
 CREATE TABLE Ticket(
 PNR VARCHAR(200) PRIMARY KEY,
 reguserSsn VARCHAR(12) REFERENCES RegisteredUser(reguserSsn),
+passengerName VARCHAR(100),
+passengerSurname VARCHAR(100),
+passengerSsn  VARCHAR(12),
 totalPrice FLOAT(6,2) REFERENCES Buy(totalprice),
 routeId INT(20) REFERENCES Route(routeId),
 classType VARCHAR(20) REFERENCES SeatAndClass(classType),
