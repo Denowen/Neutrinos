@@ -19,7 +19,7 @@
    include 'delete.php';
 
 
-   $query = "SELECT b.PNR, b.totalPrice, r.startingStationTerminal, r.destinationStationTerminal, r.arrivelTime, r.dateOfRoute, b.seatNumber FROM registeredusers a, buy b, route r WHERE a.regUserEmail='$email' and a.regUserSsn=b.reguserSsn and b.routeId=r.routeId";
+   $query = "SELECT b.PNR, b.totalPrice, r.startingStationTerminal, r.destinationStationTerminal, r.departureTime, r.dateOfRoute, b.seatNumber FROM registeredusers a, buy b, route r WHERE a.regUserEmail='$email' and a.regUserSsn=b.reguserSsn and b.routeId=r.routeId";
         $result = mysqli_query($conn, $query);
         $num = mysqli_num_rows($result);
 
@@ -82,7 +82,7 @@
                                     <td><?php echo $count['totalPrice'] ?></td>
                                     <td><?php echo $count['startingStationTerminal'] ?></td>
                                     <td><?php echo $count['destinationStationTerminal'] ?></td>
-                                    <td><?php echo $count['arrivelTime'] ?></td>
+                                    <td><?php echo $count['departureTime'] ?></td>
                                     <td><?php echo $count['dateOfRoute'] ?></td>
                                     <td><?php echo $count['seatNumber'] ?></td>
                                     <td><input type="radio" name="cancel" value= '<?php echo $count['PNR'] ?>' /></td>
