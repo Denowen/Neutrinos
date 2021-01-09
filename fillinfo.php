@@ -76,7 +76,7 @@
                         <div class = "d-row">
                             <label for="passNumber" style="padding-right: 0.2rems;" >Yolcu Sayısı</label>
                             <div class="s2">
-                                <select name="number" onclick="deneme()" id="number" style="height: 156%;width: 125%">
+                                <select name="number" onclick="deneme()" id="number" required style="height: 156%;width: 125%">
                                     <option value="" selected="selected" hidden="hidden">Kişi sayısı seçiniz</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -106,7 +106,7 @@
                                        c += '<label for="soyisim' + i + '" style="margin-top: 1rem;">' + (i+1) + '.Soyisim</label>';
                                        c += '<input required name ="soyisim' + i + '" id="soyisim' + i + '"  type="text"/>';
                                        c += '<label for="ssn' + i + '" style="margin-top: 1rem;">' + (i+1) + '.Kimlik Numarası</label>';
-                                       c += '<input required name ="ssn' + i + '" id="ssn' + i + '"  type="number"/>';
+                                       c += '<input required maxlength="11" minlength="11" name ="ssn' + i + '" id="ssn' + i + '"  type="number"/>';
 
                                    }
                                    document.getElementById("ans").innerHTML=c;
@@ -148,7 +148,8 @@
                         <div class = "d-row">
                             <label for="passNumber" style="padding-right: 0.2rems;" >Yolcu Sayısı</label>
                             <div class="s2">
-                                <select name="number" id="number" style="height: 156%;width: 125%">
+                                <select name="number" id="number" required style="height: 156%;width: 125%">
+                                    <option value="" selected="selected" hidden="hidden">Kişi sayısı seçiniz</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
                                     <option value="3">3</option>
