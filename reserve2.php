@@ -9,9 +9,10 @@ $result2 = mysqli_query($conn, $query2);
 $count = mysqli_fetch_array($result2);
 $_SESSION['dropRoute'] = $count[0];
 $_SESSION['buton'] = $buton;
-
+$way2 = "tek";
 
 if($buton == "Satın Al" && !empty($drop)){
+    $_SESSION['way'] = $way2;
     header("Location:fillinfo.php");
 }else{
     $query4 = "DELETE FROM reserve WHERE reservationId='$drop'";
