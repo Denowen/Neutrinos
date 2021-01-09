@@ -69,6 +69,7 @@ if ($count == 0) {
                 <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
                         <thead>
 
+                            <th>Kimlik Numarası</th>
                             <th>İsim</th>
                             <th>Soyisim</th>
                             <th>Email</th>
@@ -77,12 +78,13 @@ if ($count == 0) {
                         <tbody style="text-align: center; color: white;">
                             <?php
                             //PRINT ALL ROUTES
-                            $query1 = mysqli_query($conn, "SELECT r.regUserName, r.regUserSurname, r.regUserEmail, r.regUserTelephoneNumber FROM ticket t, registeredusers r where t.routeId='$routeId' and t.reguserSsn=r.regUserSsn");
+                            $query1 = mysqli_query($conn, "SELECT t.passengerSsn, t.passengerName, t.passengerSurname, r.regUserEmail, r.regUserTelephoneNumber FROM ticket t, registeredusers r where t.routeId='$routeId' and t.reguserSsn=r.regUserSsn");
                             while($row = mysqli_fetch_array($query1, MYSQLI_ASSOC)){
 
                                 echo 
-                                "<td> " . $row['regUserName'] . " </td> "
-                                . "<td>" . $row['regUserSurname'] . "</td>"
+                                "<td> " . $row['passengerSsn'] . " </td> "
+                                . "<td>" . $row['passengerName'] . "</td>"
+                                . "<td>" . $row['passengerSurname'] . "</td>"
                                 . "<td>" . $row['regUserEmail'] . "</td>"
                                 . "<td>" . $row['regUserTelephoneNumber'] . "</td>"
                                 . "</tr>";
