@@ -77,12 +77,11 @@ CREATE TABLE Route(
 routeId INT(20) PRIMARY KEY,
 startingStationTerminal VARCHAR(50) REFERENCES Station(stationName),
 destinationStationTerminal VARCHAR(50) REFERENCES Station(stationName),
-arrivelTime VARCHAR(20),
 departureTime VARCHAR(20),
+arrivelTime VARCHAR(20),
 dateOfRoute DATE,
 trainNumber VARCHAR(50) REFERENCES Train(trainNumber),
 price FLOAT(6,2));
-
 
 /*Ticket Table*/
 CREATE TABLE Ticket(
