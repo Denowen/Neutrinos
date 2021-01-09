@@ -12,8 +12,6 @@ $_SESSION['buton'] = $buton;
 
 
 if($buton == "Satın Al" && !empty($drop)){
-    $query5 = "DELETE FROM reserve WHERE reservationId='$drop'";
-    $result5 = mysqli_query($conn, $query5);
     header("Location:fillinfo.php");
 }else{
     $query4 = "DELETE FROM reserve WHERE reservationId='$drop'";
