@@ -54,7 +54,7 @@
                         </div>
                         <div class="d-row">
                             <label for="ssn" style="padding-right: 1%;">TC Kimlik No</label>
-                            <input type="text" required id="ssn" name="ssn" style="height: 56%;" />
+                            <input type="text" required id="ssn" maxlength="11" minlength="11" name="ssn" style="height: 56%;" />
                         </div>
                         <div class="d-row">
                             <label for="date">Doğum Tarihi</label>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="d-row">
                             <label for="tel" style="padding-right: 24%;">Cep No</label>
-                            <input type="tel" required id="tel" name="tel" style="height: 55%;" />
+                            <input type="tel" required id="tel" maxlength="11" minlength="11" name="tel" style="height: 55%;" />
                         </div>
                         <div class="b-row">
                             <div class="reset">
