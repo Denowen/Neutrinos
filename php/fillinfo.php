@@ -12,7 +12,13 @@
     session_start();
     include 'dbconnect.php';
     include 'delete.php';
-    $route1_ = $_POST['route1'];
+    if($_SESSION['buton'] == "Satın Al"){
+        $route1_ = $_SESSION['dropRoute'];
+    }else{
+        $_SESSION['buton'] = null;
+        $route1_ = $_POST['route1'];
+    }
+    
     $route2_ = $_POST['route2']; 
     $_SESSION['route1_'] = $route1_;
     $_SESSION['route2_'] = $route2_;
@@ -49,7 +55,7 @@
                     <h3>Yolcu Bilgileri</h3>
                     
                 </div>
-                <?php if($_SESSION['ticket'] == 'Satış'){ ?>
+                <?php if($_SESSION['ticket'] == 'Satış' || $_SESSION['buton'] == "Satın Al"){ ?>
                 <form class ="row" action="selectseats.php" method='post'>
                 
                 

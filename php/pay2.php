@@ -77,6 +77,11 @@
         }
         
      }
+     $_SESSION['buton'] = null;
+     $drop = $_SESSION['dropp'];
+     $query4 = "DELETE FROM reserve WHERE reservationId='$drop'";
+    $result4 = mysqli_query($conn, $query4);
+    $_SESSION['dropp'] = null;
     $to_email = "$email";
     $subject = ":: 🎫 Bilet Satın Alma İşlemin Başarıyla Tamamlandı ::";
     $body = "Yolculuğunuz için Neutrinos Turizm'i tercih ettiğiniz için teşekkür ederiz. Hesabınızın Profilim kısmından bilet bilgilerinize erişebilir, iptal işlemlerinizi gerçekleştirebilirsiniz. İyi yolculuklar dileriz.  ";

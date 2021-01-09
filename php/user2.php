@@ -54,7 +54,7 @@
                         <a class="a2" href="user2.php">Rezervasyonlarım</a>
                     </div>
                 </div>
-                <form class="right2" style="flex-direction: column;" action="cancelAndDrop.php" method="post">
+                <form class="right2" style="flex-direction: column;" action="reserve2.php" method="post">
                     
                 <table cellpadding="40" style=" display: flex;color: rgb(50 239 239 / 68%);flex: 2;">
 
@@ -79,7 +79,7 @@ $i = 0;
                 <td><?php echo $count['destinationStationTerminal'] ?></td>
                 <td><?php echo $count['arrivelTime'] ?></td>
                 <td><?php echo $count['dateOfRoute'] ?></td>
-                <td><input type="radio" name="drop" value= '<?php echo $count['reservationId'] ?>' /></td>
+                <td><input type="radio" onclick="deneme()"  name="drop" value= '<?php echo $count['reservationId'] ?>' /></td>
             </td>
             </tr>
 
@@ -91,13 +91,26 @@ $i++;
 ?>
 </table>
 
-<div class="buton" style="display: flex; justify-content: flex-end;">
-                    <input type="submit" name ='İptal Et' value="İptal Et" style="background-color: #E5FFCC;
+<div id="id1" class="buton" style="display: none; justify-content: flex-end;">
+                    <input type="submit" name ='buton' value="İptal Et" style="background-color: #E5FFCC;
                                border-radius: 1rem;
                                border-color: green;
                                width: 6rem;
                                height: 2rem;"/>
                 </div>
+                <div id="id2" class="buton" style="display: none; justify-content: flex-end;">
+                    <input type="submit" name ='buton' value="Satın Al" style="background-color: #E5FFCC;
+                               border-radius: 1rem;
+                               border-color: green;
+                               width: 6rem;
+                               height: 2rem;"/>
+                </div>
+                <script>
+                                function deneme(){
+                                    document.getElementById("id1").style.display = "flex";
+                                    document.getElementById("id2").style.display = "flex";
+                                }
+                                </script>
 
                 </form>
             </div>

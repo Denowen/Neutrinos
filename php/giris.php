@@ -1,5 +1,7 @@
 
-<?php include('login.php')?>
+<?php include('login.php')
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -50,6 +52,11 @@
                                     <input type="submit" value="Giriş Yap" name="login" style="background-color: #E5FFCC;border-radius: 1rem;border-color: green;" />
                                 </div>
                             </form>
+                            <form class = "a-row" method="post" action="forgot.php" style="width: 46%;">
+                                <div class="submit" style="width:43%; padding-left:33%">
+                                    <input type="submit" value="Şifremi Unuttum" name="login" style="background-color: #E5FFCC;border-radius: 1rem;border-color: green;" />
+                                </div>
+                            </form>    
                         </div>
 
                     </div>
