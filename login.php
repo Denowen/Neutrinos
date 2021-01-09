@@ -22,7 +22,7 @@ if(isset($_POST['login'])){
         $_SESSION['email']=$email;
         header('location: admin.php');
     }else {echo '<script type="text/javascript">'; 
-echo 'alert("Parola Yanlış!");'; 
+echo 'alert("Parola veya Email Yanlış! Lütfen Tekrar Giriniz.");'; 
 echo 'window.location.href = "giris.php";';
 echo '</script>';
     }
