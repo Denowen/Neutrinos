@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="e-row">
                                     <label for="password" style="padding-right: 5%">Şifre:</label>
-                                    <input placeholder="Password" required type="password" id="password" name="password" style="height: 100%;"/>
+                                    <input placeholder="Password" required type="password" minlength="4" id="password" name="password" style="height: 100%;"/>
                                 </div>
                                 <div class="submit" style="width:43%; padding-left:33%">
                                     <input type="submit" value="Giriş Yap" name="login" style="background-color: #E5FFCC;border-radius: 1rem;border-color: green;" />
