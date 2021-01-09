@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'dbconnect.php';
-include 'delete.php';
 $cancel = $_POST['cancel'];
 $drop = $_POST['drop'];
 
