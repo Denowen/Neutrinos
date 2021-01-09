@@ -38,7 +38,7 @@ if(isset($_POST['register'])){
     $tel = mysqli_real_escape_string($conn, $_POST['tel']);
     $maill = $_POST['email'];
 
-    $query ="INSERT INTO users VALUES('$ssn', '$fname', '$lname', '$email', '$password')";
+    $query ="INSERT INTO users VALUES('$ssn', '$fname', '$lname', '$email', '$password', '0')";
     $query2 = "INSERT INTO registeredusers VALUES('$fname', '$lname', '$ssn', '$email', '$password', '$bdate', '$tel')";
     mysqli_query($conn, $query);
     mysqli_query($conn, $query2);
