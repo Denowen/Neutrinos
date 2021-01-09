@@ -50,7 +50,7 @@
                         </div>
                         <div class="d-row">
                             <label for="password" style="padding-right: 22%;">Şifre</label>
-                            <input type="password" required id="password" name="password" style="height: 100%;"/>
+                            <input type="password" required id="password" minlength="4" name="password" style="height: 100%;"/>
                         </div>
                         <div class="d-row">
                             <label for="ssn" style="padding-right: 1%;">TC Kimlik No</label>
