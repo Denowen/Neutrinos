@@ -1,7 +1,6 @@
 <?php
 session_start();
 include 'dbconnect.php';
-include 'delete.php';
 $route1_ = $_SESSION['route1_'];
 $route2_ = $_SESSION['route2_'];
 $number_ = $_POST['number'];
@@ -29,7 +28,7 @@ if($way_ == 'tek'){
     $query3 = "INSERT INTO reserve VALUES('${"reservationId$i"}', '$count[0]', '$route1_', '$passType_')";
     $result3 = mysqli_query($conn, $query3);
   }else{
-   ${"pnr$i"} = "$count[0]"."$route2_"."$i"; 
+   ${"reservationId$i"} = "$count[0]"."$route2_"."$i"; 
     $_SESSION[${"reservationId$i"}] = ${"reservationId$i"};
     $query4 = "INSERT INTO reserve VALUES('${"reservationId$i"}', '$count[0]', '$route2_', '$passType_')";
     $result4 = mysqli_query($conn, $query4);
