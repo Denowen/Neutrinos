@@ -1,0 +1,78 @@
+.main{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    background-image: url(photos/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding-bottom: 1rem;
+}
+.contain{
+    display: flex;
+    flex: 1;
+    max-width: 50%;
+    flex-direction: column;
+    align-items: center;
+    border: outset;
+    border-color: rgba(0, 128, 128, 0.678);
+    margin-top: 1rem;
+    border-width: 0.3rem;
+    background-color: whitesmoke;
+    filter: opacity(0.95);
+    border-radius: 4rem;
+}
+.head{
+    display: flex;
+    margin-top: 1rem;
+    justify-content: center;
+}
+.head img{
+    width: 60%;
+}
+.c-form{
+    display: flex;
+    margin-top: 1rem;
+    justify-content: center;
+    width: 60%;
+    border: red;
+}
+.form{
+    display: flex;
+    flex-direction: column;
+    margin: 1rem;
+    width: 100%;
+}
+.box1{
+    display: flex;
+    flex-direction: row;
+    margin: 1rem;
+}
+.b1-1{
+    display: flex;
+    width: 25%;
+}
+.b1-2{
+    display: flex;
+    width: 75%;
+}
+.b1-2a{
+    display: flex;
+    width: 75%;
+}
+.b1-1 label{
+    width: 100%;
+}
+.b1-2 input{
+    width: 90%;
+}
+.b1-1a{
+    display: flex;
+    flex: 1;
+    flex-direction: row-reverse;
+}
+#konu{
+    width: 92%;
+}
+#message{
+    width: 90%;
+}
