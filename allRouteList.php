@@ -1,5 +1,16 @@
 <!DOCTYPE html>
-<?php include('dbconnect.php') ?>
+<?php include('dbconnect.php');
+ //Checks the user if admin or not
+   //$email = $_SESSION['email'];
+   //$query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
+   //$count = mysqli_num_rows($query);
+   //if ($count!= 1) {
+   //    header("location:home.php");
+   //}
+
+
+?>
+
 <html lang="en">
 
 <head>
@@ -71,6 +82,9 @@
                                     . "<td> " . $row['price'] . " </td> "
                                     . "<form method='post' action='modifyRoute.php?varname=$routeId'>"
                                     . "<td> <button type='submit' class='btn' name='modifyRoute'>Modify Route</button></a></td>"
+                                    . "</form>"
+                                    . "<form method='post' action='deleteRoute.php?varname=$routeId'>"
+                                    . "<td> <button type='submit' class='btn' name='deleteRoute'>Delete Button</button></a></td>"
                                     . "</form>"
                                     . "</tr>";
                             }
