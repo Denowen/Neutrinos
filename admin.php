@@ -41,6 +41,9 @@
                     <div class="p-ticket">
                         <a class="a2" href="allPassengers.php">See All Passengers</a>
                     </div>
+                    <div class="p-ticket">
+                        <a class="a2" href="allTicketList.php">All Ticket List</a>
+                    </div>
                 </div>
                 <div class="right2" style="justify-content:center; align-items:center; color:white">
                     <h2>Admin Paneline Hoşgeldiniz!</h2>
