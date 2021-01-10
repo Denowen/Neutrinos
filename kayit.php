@@ -56,7 +56,7 @@
                         </div>
                         <div class="d-row">
                             <label for="ssn" style="padding-right: 1%;">TC Kimlik No</label>
-                            <input type="number" required id="ssn" oninput="if(value.length>11)value=value.slice(0,11)" name="ssn" style="height: 56%;" />
+                            <input type="number" required id="ssn" oninput="if(value.length>11)value=value.slice(0,11)" name="ssn" style="height: 56%;" min="1"; />
                         </div>
                         <div class="d-row">
                             <label for="date">Doğum Tarihi</label>
@@ -98,4 +98,8 @@
 
 </body>
 
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 0435482028f2dc2be400896de2a33d548748d87d
