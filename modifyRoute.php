@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <?php include 'dbconnect.php';
-    session_start();
-    $email = $_SESSION['email'];
-    //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
-    $query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
-    $counta = mysqli_num_rows($query);
-    if (!$counta) {
-        header("location:home.php");
-    } ?>
+session_start();
+$email = $_SESSION['email'];
+//QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
+$query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
+$counta = mysqli_num_rows($query);
+if (!$counta) {
+    header("location:home.php");
+} ?>
 <?php
 
 $routeId = $_GET['varname'];
@@ -50,32 +50,32 @@ if ($count == 0) {
             <div class="rows">
                 <div class="left2">
                     <div class="title">
-                    <h5><a class="a2" href="admin.php" style="font-size: 32px; text-decoration: none">Admin Paneli</a></h5>
+                        <h5><a class="a2" href="admin.php" style="font-size: 32px; text-decoration: none">Admin Paneli</a></h5>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="addNewRoute.php">Add new route</a>
+                        <a class="a2" href="addNewRoute.php">Yeni Rota Ekle</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allRouteList.php">All route list</a>
+                        <a class="a2" href="allRouteList.php">Rotaları Listele</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allPassengers.php">See All Passengers</a>
+                        <a class="a2" href="allPassengers.php">Yolcuları Listele</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allTicketList.php">All Ticket List</a>
+                        <a class="a2" href="allTicketList.php">Biletleri Listele</a>
                     </div>
                 </div>
                 <form class="right2" action="modRoute.php" method="post">
                     <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
                         <thead>
-                            <th>Route Id</th>
-                            <th>Departure</th>
-                            <th>Destination</th>
-                            <th>Departure Time</th>
-                            <th>Arrivel Time</th>
-                            <th>Date of the Route</th>
-                            <th>Train Number</th>
-                            <th>Price</th>
+                            <th>Id</th>
+                            <th>Kalkış</th>
+                            <th>Varış</th>
+                            <th>Kalkış Saati</th>
+                            <th>Varış Saati</th>
+                            <th>Kalkış Günü</th>
+                            <th>Tren Numarası</th>
+                            <th>Ücret</th>
                         </thead>
                         <tbody>
                             <?php
@@ -116,7 +116,7 @@ if ($count == 0) {
                                     ?>
                             </td>
                             <td>
-                            <select name="saat2" id="saat2" style="width: 100%;">
+                                <select name="saat2" id="saat2" style="width: 100%;">
                                     <?php
                                     $time2 = 1;
                                     while ($time2 <= 24 and $time2 >= 1) {
@@ -133,7 +133,7 @@ if ($count == 0) {
                             <td>
                                 <input onclick="dateConstraint()" class="input" id="routeDate" type="date" name="date" value="<?php echo $date ?>"></input>
                             </td>
-                            
+
                             <td><?php
                                 $query1 = mysqli_query($conn, "SELECT * FROM route where routeId='$routeId'");
                                 while ($row = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
