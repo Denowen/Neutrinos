@@ -50,7 +50,7 @@ if ($count == 0) {
             <div class="rows">
                 <div class="left2">
                     <div class="title">
-                        <h1>Admin Paneli</h1>
+                        <h5><a class="a2" href="admin.php" style="font-size: 32px; text-decoration: none">Admin Paneli</a></h5>
                     </div>
                     <div class="p-ticket">
                         <a class="a2" href="addNewRoute.php">Add new route</a>
