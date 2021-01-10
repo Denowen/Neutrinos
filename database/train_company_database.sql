@@ -1,5 +1,3 @@
-
-
 use train_company_database;
 
 /*Represents all users*/
@@ -31,9 +29,10 @@ adminPassword VARCHAR(10)  REFERENCES Users(userPassword) );
 
 /*Payment Table*/
 CREATE TABLE Payment(
-creditCardNumber INT(30) PRIMARY KEY,
-CVV INT(5),
-expirationDate DATE,
+creditCardNumber VARCHAR(16) PRIMARY KEY,
+CVV VARCHAR(3),
+expirationMonth VARCHAR(2),
+expirationYear VARCHAR(2),
 cardOwnerNameAndSurname VARCHAR(100));
 
 /*Seat And Class Information Table*/
@@ -55,7 +54,7 @@ classType VARCHAR(20) REFERENCES SeatAndClass(classType));
 /*Buy Table*/
 CREATE TABLE Buy(
 PNR VARCHAR(200)  PRIMARY KEY REFERENCES Ticket(PNR),
-creditCardNumber INT(30) REFERENCES Payment(creditCardNumber),
+creditCardNumber VARCHAR(16) REFERENCES Payment(creditCardNumber),
 reguserSsn VARCHAR(12) REFERENCES RegisteredUser(reguserSsn),
 routeId INT(20) REFERENCES Route(routeId),
 totalPrice FLOAT(6,2) REFERENCES Route(price),
