@@ -17,11 +17,30 @@ $row[0] += 1;
 
 
 
+
+
 if (empty($nereden) || empty($nereye) || empty($saat) || empty($trainNumber) || empty($trainNumber) || empty($price)) {
    header("location: admin.php");
 } else {
 
-   $query = "INSERT INTO route VALUES('$row[0]','$nereden', '$nereye', '$saat:00', '$saat2:00', '$date', '$trainNumber', '$price')";
-   $result = mysqli_query($conn, $query);
-   header("location: admin.php");
+   $trains = "SELECT * FROM route WHERE trainNumber='$trainNumber' and dateOfRoute = '$date'";
+   $q1 = mysqli_query($conn, $trains);
+
+
+   $count = 0;
+
+   while ($array = mysqli_fetch_array($q1, MYSQLI_ASSOC)) {
+      if ($array['departureTime'] < $saat and $array['arrivelTime'] < $saat and $saat2 < $saat and $array['startingStationTerminal'] == $$array['destinationStationTerminal']) {
+         $count++;
+      }
+   }
+   if ($count == 0) {
+      $query = "INSERT INTO route VALUES('$row[0]','$nereden', '$nereye', '$saat:00', '$saat2:00', '$date', '$trainNumber', '$price')";
+      $result = mysqli_query($conn, $query);
+      header("location: allRouteList.php");
+   } else
+      echo '<script type="text/javascript">';
+   echo 'alert("Yanlış bilgi girdiniz.");';
+   echo 'window.location.href = "admin.php";';
+   echo '</script>';
 }
