@@ -44,16 +44,16 @@
 
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="addNewRoute.php">Add new route</a>
+                        <a class="a2" href="addNewRoute.php">Yeni Rota Ekle</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allRouteList.php">All route list</a>
+                        <a class="a2" href="allRouteList.php">Rotaları Listele</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allPassengers.php">See All Passengers</a>
+                        <a class="a2" href="allPassengers.php">Yolcuları Listele</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allTicketList.php">All Ticket List</a>
+                        <a class="a2" href="allTicketList.php">Biletleri Listele</a>
                     </div>
                 </div>
                 <div class="right2" style="justify-content:center; align-items:center; color:white">
