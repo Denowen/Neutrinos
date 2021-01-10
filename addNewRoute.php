@@ -10,6 +10,15 @@
     } ?>
 <?php
 session_start();
+
+$email = $_SESSION['email'];
+    //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
+    $query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
+    $counta = mysqli_num_rows($query);
+    if (!$counta) {
+        header("location:home.php");
+    } 
+
 $query = "SELECT stationName FROM station ";
 $result = mysqli_query($conn, $query);
 $num = mysqli_num_rows($result);
@@ -59,6 +68,9 @@ $num3 = mysqli_num_rows($sql);
                     </div>
                     <div class="p-ticket">
                         <a class="a2" href="allPassengers.php">See All Passengers</a>
+                    </div>
+                    <div class="p-ticket">
+                        <a class="a2" href="allTicketList.php">All Ticket List</a>
                     </div>
                 </div>
                 <form class="right2" style="flex-direction: column;" action="addRoute.php" method="post">
@@ -149,7 +161,7 @@ $num3 = mysqli_num_rows($sql);
                             </select>
 
                             <td>
-                                <input class ="input" type="number" id="price" name="price" style="width:50%"  value="price">
+                                <input class ="input" type="number" id="price" name="price" style="width:50%"  value="price" onkeypress="return event.charCode >= 48" min="1">
                             </td>
 
                         </tbody>
