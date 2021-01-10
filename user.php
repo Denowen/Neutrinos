@@ -18,6 +18,13 @@
    include 'dbconnect.php';
    include 'delete.php';
 
+   $email = $_SESSION['email'];
+    //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
+    $query = mysqli_query($conn, "select * from registeredusers where regUserEmail = '$email'");
+    $counta = mysqli_num_rows($query);
+    if (!$counta) {
+        header("location:admin.php");
+    } 
 
    $query = "SELECT b.PNR, b.totalPrice, r.startingStationTerminal, r.destinationStationTerminal, r.departureTime, r.dateOfRoute, b.seatNumber FROM registeredusers a, buy b, route r WHERE a.regUserEmail='$email' and a.regUserSsn=b.reguserSsn and b.routeId=r.routeId";
         $result = mysqli_query($conn, $query);

@@ -1,5 +1,17 @@
 <!DOCTYPE html>
-<?php include('dbconnect.php') ?>
+<?php include 'dbconnect.php';
+    session_start();
+    $email = $_SESSION['email'];
+    //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
+    $query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
+    $counta = mysqli_num_rows($query);
+    if (!$counta) {
+        header("location:home.php");
+    } 
+
+
+?>
+
 <html lang="en">
 
 <head>
@@ -41,6 +53,9 @@
                     <div class="p-ticket">
                         <a class="a2" href="allPassengers.php">See All Passengers</a>
                     </div>
+                    <div class="p-ticket">
+                        <a class="a2" href="allTicketList.php">All Ticket List</a>
+                    </div>
                 </div>
                 <div class="right2">
                     <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
@@ -71,6 +86,9 @@
                                     . "<td> " . $row['price'] . " </td> "
                                     . "<form method='post' action='modifyRoute.php?varname=$routeId'>"
                                     . "<td> <button type='submit' class='btn' name='modifyRoute'>Modify Route</button></a></td>"
+                                    . "</form>"
+                                    . "<form method='post' action='deleteRoute.php?varname=$routeId'>"
+                                    . "<td> <button type='submit' class='btn' name='deleteRoute'>Delete Button</button></a></td>"
                                     . "</form>"
                                     . "</tr>";
                             }

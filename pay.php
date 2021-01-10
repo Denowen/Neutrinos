@@ -13,6 +13,13 @@
    session_start();
    include 'dbconnect.php';
    
+   $email = $_SESSION['email'];
+    //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
+    $query = mysqli_query($conn, "select * from registeredusers where regUserEmail = '$email'");
+    $counta = mysqli_num_rows($query);
+    if (!$counta) {
+        header("location:admin.php");
+    } 
 
    ?>
     <div class="page">
@@ -44,7 +51,7 @@
                 <form class="a-row" action = "pay2.php" method = "post">
                 <div class = "d-row">
                     <label for="cardnumber" style="padding-right: 1rem">Kart Numarası</label>
-                    <input type="number" required id="cardnumber"  oninput="if(value.length>16)value=value.slice(0,16)" name="cardnumber" style="height: 56%;" />
+                    <input type="number" required id="cardnumber"  oninput="if(value.length>16)value=value.slice(0,16)" min="1000000000000000" name="cardnumber" style="height: 56%;" />
                 </div>
 
                 <div class = "d-row">

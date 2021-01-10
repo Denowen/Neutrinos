@@ -13,6 +13,15 @@
     session_start();
     include 'dbconnect.php';
     include 'delete.php';
+
+    $email = $_SESSION['email'];
+    //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
+    $query = mysqli_query($conn, "select * from registeredusers where regUserEmail = '$email'");
+    $counta = mysqli_num_rows($query);
+    if (!$counta) {
+        header("location:admin.php");
+    } 
+
     if (isset($_SESSION['email'])) {
         $usermail = $_SESSION['email'];
         $count=0;

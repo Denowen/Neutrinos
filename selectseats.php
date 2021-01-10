@@ -13,6 +13,14 @@
     session_start();
     include 'dbconnect.php';
 
+    $email = $_SESSION['email'];
+    //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
+    $query = mysqli_query($conn, "select * from registeredusers where regUserEmail = '$email'");
+    $counta = mysqli_num_rows($query);
+    if (!$counta) {
+        header("location:admin.php");
+    } 
+
     $number_ = $_POST['number'];
     for($i = 0; $i < $number_; $i++){
         ${"isim$i"} = $_POST["isim".$i]; 

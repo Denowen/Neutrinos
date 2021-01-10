@@ -1,24 +1,20 @@
 <!DOCTYPE html>
-<?php include('dbconnect.php') ?>
+<?php include 'dbconnect.php';
+    session_start();
+    $email = $_SESSION['email'];
+    //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
+    $query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
+    $counta = mysqli_num_rows($query);
+    if (!$counta) {
+        header("location:home.php");
+    }  ?>
 <?php
 //GET TICKET ID AND ACCORDING TO THAT ID, SELECT ATTRIBUTES FROM DATABASE AND FILL THEM.
 $routeId = $_GET['varname'];
-$sql = "SELECT * FROM route WHERE routeId='$routeId'";
-$query = mysqli_query($conn, $sql);
-$routeArray = mysqli_fetch_assoc($query);
-$routeId = $routeArray['routeId'];
-$startingStationTerminal = $routeArray['startingStationTerminal'];
-$destinationStationTerminal = $routeArray['destinationStationTerminal'];
-$arrivelTime = $routeArray['arrivelTime'];
-$departureTime = $routeArray['departureTime'];
-$dateOfRoute = $routeArray['dateOfRoute'];
-$trainNumber = $routeArray['trainNumber'];
-$price = $routeArray['price'];
-$count = mysqli_num_rows($query);
 if ($count == 0) {
     echo "no such route exist";
 }
-//END OF FILLING ATTRIBUTES
+
 
 
 
@@ -63,6 +59,9 @@ if ($count == 0) {
                     </div>
                     <div class="p-ticket">
                         <a class="a2" href="allPassengers.php">See All Passengers</a>
+                    </div>
+                    <div class="p-ticket">
+                        <a class="a2" href="allTicketList.php">All Ticket List</a>
                     </div>
                 </div>
                 <div class="right2">

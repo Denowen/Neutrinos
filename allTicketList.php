@@ -1,24 +1,13 @@
 <!DOCTYPE html>
-
-
-<?php
-session_start();
-include('dbconnect.php');
-
-if (!isset($_SESSION['loggedin'])) {
-    header('location: home.php'); //IF THERE IS NO SESSION REDIRECT TO INDEX
-} else { //IF SESSION EXISTS BUT THE VIEWER IS NOT ADMIN REDIRECT TO INDEX
+<?php include 'dbconnect.php';
+    session_start();
     $email = $_SESSION['email'];
-    $query = mysqli_query($conn, "select * from registeredusers where regUserEmail = '$email'");
+    //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
+    $query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
     $counta = mysqli_num_rows($query);
-    if ($counta) {
+    if (!$counta) {
         header("location:home.php");
-    }
-}
-
-
-
-?>
+    }  ?>
 <html lang="en">
 
 <head>
@@ -82,7 +71,7 @@ if (!isset($_SESSION['loggedin'])) {
                             //PRINT ALL ROUTES
                             $query1 = mysqli_query($conn, "SELECT t.PNR, t.passengerName, t.passengerSurname, t.passengerSsn, r.startingStationTerminal, r.destinationStationTerminal, r.departureTime,r.dateOfRoute,t.seatNumber FROM route r, ticket t WHERE t.routeId = r.routeId");
                             while ($row = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
-                                
+
 
                                 echo "<td> " . $row['PNR'] . " </td> "
                                     . "<td> " . $row['passengerName'] . " </td> "
