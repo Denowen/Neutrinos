@@ -50,7 +50,7 @@ if ($count == 0) {
             <div class="rows">
                 <div class="left2">
                     <div class="title">
-                        <h5><a class="a2" href="admin.php" style="font-size: 32px; text-decoration: none">Admin Paneli</a></h5>
+                    <h5><a class="a2" href="admin.php" style="font-size: 32px; text-decoration: none">Admin Paneli</a></h5>
                     </div>
                     <div class="p-ticket">
                         <a class="a2" href="addNewRoute.php">Add new route</a>
@@ -115,7 +115,21 @@ if ($count == 0) {
 
                                     ?>
                             </td>
-                            <td></td>
+                            <td>
+                            <select name="saat2" id="saat2" style="width: 100%;">
+                                    <?php
+                                    $time2 = 0;
+                                    while ($time2 <= 24 and $time2 >= 0) {
+                                        echo $time2;
+                                    ?>
+                                        <option value="<?php echo $time2 ?>"><?php echo $time2 ?>:00</option>
+                                    <?php
+
+                                        $time2++;
+                                    }
+
+                                    ?>
+                            </td>
                             <td>
                                 <input onclick="dateConstraint()" class="input" id="routeDate" type="date" name="date" value="<?php echo $date ?>"></input>
                             </td>
