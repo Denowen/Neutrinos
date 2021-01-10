@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <?php include 'dbconnect.php';
-    session_start();
-    $email = $_SESSION['email'];
-    //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
-    $query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
-    $counta = mysqli_num_rows($query);
-    if (!$counta) {
-        header("location:home.php");
-    }  ?>
+session_start();
+$email = $_SESSION['email'];
+//QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
+$query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
+$counta = mysqli_num_rows($query);
+if (!$counta) {
+    header("location:home.php");
+}  ?>
 <html lang="en">
 
 <head>
@@ -28,7 +28,7 @@
             </div>
             <div class="right">
                 <div class="list">
-                    
+
                     <a href="signout.php">Çıkış Yap</a>
                 </div>
             </div>
@@ -36,37 +36,37 @@
 
         <div class="main">
             <div class="rows">
-            <div class="left2">
+                <div class="left2">
                     <div class="title">
-                      <h5><a class="a2"  href="admin.php" style="font-size: 32px; text-decoration: none">Admin Paneli</a></h5>
+                        <h5><a class="a2" href="admin.php" style="font-size: 32px; text-decoration: none">Admin Paneli</a></h5>
 
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="addNewRoute.php">Add new route</a>
+                        <a class="a2" href="addNewRoute.php">Yeni Rota Ekle</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allRouteList.php">All route list</a>
+                        <a class="a2" href="allRouteList.php">Rotaları Listele</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allPassengers.php">See All Passengers</a>
+                        <a class="a2" href="allPassengers.php">Yolcuları Listele</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allTicketList.php">All Ticket List</a>
+                        <a class="a2" href="allTicketList.php">Biletleri Listele</a>
                     </div>
                 </div>
                 <div class="right2">
                     <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
                         <thead>
                             <th>Id</th>
-                            <th>Departure</th>
-                            <th>Destination</th>
-                            <th>Arrivel Time</th>
-                            <th>Departure Time</th>
-                            <th>Date of the Route</th>
-                            <th>Train Number</th>
-                            <th>Price</th>
+                            <th>Kalkış</th>
+                            <th>Varış</th>
+                            <th>Kalkış Saati</th>
+                            <th>Varış Saati</th>
+                            <th>Kalkış Günü</th>
+                            <th>Tren Numarası</th>
+                            <th>Ücret</th>
                         </thead>
-                        <tbody >
+                        <tbody>
                             <?php
                             //PRINT ALL ROUTES
                             $query1 = mysqli_query($conn, "SELECT * FROM route");
@@ -77,16 +77,15 @@
                                     "<td> " . $row['routeId'] . " </td> "
                                         . "<td> " . $row['startingStationTerminal'] . " </td> "
                                         . "<td>" . $row['destinationStationTerminal'] . "</td>"
-                                        . "<td> " . $row['arrivelTime'] . " </td> "
                                         . "<td>" . $row['departureTime'] . "</td>"
+                                        . "<td> " . $row['arrivelTime'] . " </td> "
                                         . "<td>" . $row['dateOfRoute'] . "</td>"
                                         . "<td> " . $row['trainNumber'] . " </td> "
                                         . "<td> " . $row['price'] . " </td> "
                                         . "<form method='post' action='seePassengers.php?varname=$routeId'>"
-                                        . "<td> <button type='submit' class='btn' name='acceptBooking'>See Passengers</button></a></td>"
+                                        . "<td> <button type='submit' class='btn' name='acceptBooking'>Yolcuları Gör</button></a></td>"
                                         . "</form>"
                                         . "</tr>";
-                                
                             }
                             ?>
                         </tbody>
