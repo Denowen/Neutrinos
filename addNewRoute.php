@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <?php include 'dbconnect.php';
-    session_start();
-    $email = $_SESSION['email'];
-    //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
-    $query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
-    $counta = mysqli_num_rows($query);
-    if (!$counta) {
-        header("location:home.php");
-    } ?>
+session_start();
+$email = $_SESSION['email'];
+//QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
+$query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
+$counta = mysqli_num_rows($query);
+if (!$counta) {
+    header("location:home.php");
+} ?>
 <?php
 session_start();
 
 $email = $_SESSION['email'];
-    //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
-    $query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
-    $counta = mysqli_num_rows($query);
-    if (!$counta) {
-        header("location:home.php");
-    } 
+//QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
+$query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
+$counta = mysqli_num_rows($query);
+if (!$counta) {
+    header("location:home.php");
+}
 
 $query = "SELECT stationName FROM station ";
 $result = mysqli_query($conn, $query);
@@ -61,29 +61,29 @@ $num3 = mysqli_num_rows($sql);
 
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="addNewRoute.php">Add new route</a>
+                        <a class="a2" href="addNewRoute.php">Yeni Rota Ekle</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allRouteList.php">All route list</a>
+                        <a class="a2" href="allRouteList.php">Rotaları Listele</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allPassengers.php">See All Passengers</a>
+                        <a class="a2" href="allPassengers.php">Yolcuları Listele</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allTicketList.php">All Ticket List</a>
+                        <a class="a2" href="allTicketList.php">Biletleri Listele</a>
                     </div>
                 </div>
                 <form class="right2" style="flex-direction: column;" action="addRoute.php" method="post">
                     <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
                         <thead>
 
-                            <th>Departure</th>
-                            <th>Destination</th>
-                            <th>Departure Time</th>
-                            <th>Arrivel Time</th>
-                            <th>Date of the Route</th>
-                            <th>Train Number</th>
-                            <th>Price</th>
+                            <th>Kalkış</th>
+                            <th>Varış</th>
+                            <th>Kalkış Saati</th>
+                            <th>Varış Saati</th>
+                            <th>Kalkış Günü</th>
+                            <th>Tren Numarası</th>
+                            <th>Ücret</th>
                         </thead>
                         <tbody>
                             <td><select name="nereden" id="nereden" style="width: 100%;">
@@ -118,10 +118,10 @@ $num3 = mysqli_num_rows($sql);
 
                             <td>
 
-                                <select name="saat" id="saat" style="width: 50%;">
+                                <select name="saat" id="saat" style="width: 100%;">
                                     <?php
-                                    $time1 = 0;
-                                    while ($time1 <= 24 and $time1 >= 0) {
+                                    $time1 = 1;
+                                    while ($time1 <= 24 and $time1 >= 1) {
                                         echo $time1;
                                     ?>
                                         <option value="<?php echo $time1 ?>"><?php echo $time1 ?>:00</option>
@@ -133,27 +133,27 @@ $num3 = mysqli_num_rows($sql);
                                     ?>
                                     < </td>
 
-                                    <td>
+                            <td>
 
-<select name="saat2" id="saat2" style="width: 50%;">
-    <?php
-    $time2 = 0;
-    while ($time2 <= 24 and $time2 >= 0) {
-        echo $time2;
-    ?>
-        <option value="<?php echo $time2 ?>"><?php echo $time2 ?>:00</option>
-    <?php
+                                <select name="saat2" id="saat2" style="width: 100%;">
+                                    <?php
+                                    $time2 = 1;
+                                    while ($time2 <= 24 and $time2 >= 1) {
+                                        echo $time2;
+                                    ?>
+                                        <option value="<?php echo $time2 ?>"><?php echo $time2 ?>:00</option>
+                                    <?php
 
-        $time2++;
-    }
+                                        $time2++;
+                                    }
 
-    ?>
-    < </td>        
+                                    ?>
+                                    < </td>
 
                             <td>
 
-                                    <input onclick="dateConstraint()" class="input" id="routeDate" type="date" name="date" value="<?php echo $date ?>"></input>
-                                
+                                <input onclick="dateConstraint()" class="input" id="routeDate" type="date" name="date" value="<?php echo $date ?>"></input>
+
                             </td>
                             <script>
                                 function dateConstraint() {
@@ -179,7 +179,7 @@ $num3 = mysqli_num_rows($sql);
                             </select>
 
                             <td>
-                                <input class ="input" type="number" id="price" name="price" style="width:50%"  value="price" onkeypress="return event.charCode >= 48" min="1">
+                                <input class="input" type="number" id="price" name="price" style="width:50%" value="price" onkeypress="return event.charCode >= 48" min="1">
                             </td>
 
                         </tbody>
