@@ -9,9 +9,26 @@
 </head>
 <body>    
    
+    <?php
+session_start();
+include('dbconnect.php');
+
+if (!isset($_SESSION['loggedin'])) {
+    header('location: home.php'); //IF THERE IS NO SESSION REDIRECT TO INDEX
+} else { //IF SESSION EXISTS BUT THE VIEWER IS NOT ADMIN REDIRECT TO INDEX
+    $email = $_SESSION['email'];
+    $query = mysqli_query($conn, "select * from registeredusers where regUserEmail = '$email'");
+    $counta = mysqli_num_rows($query);
+    if ($counta) {
+        header("location:home.php");
+    }
+}
+
+
+
+?>
+    
 <?php
-    session_start();
-    include 'dbconnect.php';
 
     $number_ = $_POST['number'];
     for($i = 0; $i < $number_; $i++){
