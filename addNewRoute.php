@@ -80,6 +80,7 @@ $num3 = mysqli_num_rows($sql);
                             <th>Departure</th>
                             <th>Destination</th>
                             <th>Departure Time</th>
+                            <th>Arrivel Time</th>
                             <th>Date of the Route</th>
                             <th>Train Number</th>
                             <th>Price</th>
@@ -131,6 +132,23 @@ $num3 = mysqli_num_rows($sql);
 
                                     ?>
                                     < </td>
+
+                                    <td>
+
+<select name="saat2" id="saat2" style="width: 50%;">
+    <?php
+    $time2 = 0;
+    while ($time2 <= 24 and $time2 >= 0) {
+        echo $time2;
+    ?>
+        <option value="<?php echo $time2 ?>"><?php echo $time2 ?>:00</option>
+    <?php
+
+        $time2++;
+    }
+
+    ?>
+    < </td>        
 
                             <td>
 
