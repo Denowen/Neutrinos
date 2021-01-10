@@ -36,24 +36,13 @@ if (isset($_SESSION['loggedin'])) {
 ?>
 
 <?php
-//GET TICKET ID AND ACCORDING TO THAT ID, SELECT ATTRIBUTES FROM DATABASE AND FILL THEM.
+
 $routeId = $_GET['varname'];
-$sql = "SELECT * FROM route WHERE routeId='$routeId'";
-$query = mysqli_query($conn, $sql);
-$routeArray = mysqli_fetch_assoc($query);
-$routeId = $routeArray['routeId'];
-$startingStationTerminal = $routeArray['startingStationTerminal'];
-$destinationStationTerminal = $routeArray['destinationStationTerminal'];
-$arrivelTime = $routeArray['arrivelTime'];
-$departureTime = $routeArray['departureTime'];
-$dateOfRoute = $routeArray['dateOfRoute'];
-$trainNumber = $routeArray['trainNumber'];
-$price = $routeArray['price'];
-$count = mysqli_num_rows($query);
+
 if ($count == 0) {
     echo "no such route exist";
 }
-//END OF FILLING ATTRIBUTES
+
 
 
 
