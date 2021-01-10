@@ -1,5 +1,13 @@
 <!DOCTYPE html>
-<?php include('dbconnect.php') ?>
+<?php include 'dbconnect.php';
+    session_start();
+    $email = $_SESSION['email'];
+    //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
+    $query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
+    $counta = mysqli_num_rows($query);
+    if (!$counta) {
+        header("location:home.php");
+    } ?>
 <?php
 session_start();
 $query = "SELECT stationName FROM station ";
