@@ -1,12 +1,21 @@
 <!DOCTYPE html>
-<?php include('dbconnect.php');
- //Checks the user if admin or not
-   //$email = $_SESSION['email'];
-   //$query = mysqli_query($conn, "select * from administrators where adminEmail = '$email'");
-   //$count = mysqli_num_rows($query);
-   //if ($count!= 1) {
-   //    header("location:home.php");
-   //}
+<?php
+session_start();
+include('dbconnect.php');
+//Checks the user if admin
+
+
+if (!isset($_SESSION['loggedin'])) {
+    header('location: home.php'); //IF THERE IS NO SESSION REDIRECT TO INDEX
+} else { //IF SESSION EXISTS BUT THE VIEWER IS NOT ADMIN REDIRECT TO INDEX
+    $email = $_SESSION['email'];
+    $query = mysqli_query($conn, "select * from registeredusers where regUserEmail = '$email'");
+    $counta = mysqli_num_rows($query);
+    if ($counta) {
+        header("location:home.php");
+    }
+}
+
 
 
 ?>
@@ -52,9 +61,10 @@
                     <div class="p-ticket">
                         <a class="a2" href="allPassengers.php">See All Passengers</a>
                     </div>
-                 <div class="p-ticket">
+                    <div class="p-ticket">
                         <a class="a2" href="allTicketList.php">All Ticket List</a>
                     </div>
+                    
                 </div>
                 <div class="right2">
                     <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
