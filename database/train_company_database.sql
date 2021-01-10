@@ -6,7 +6,7 @@ userSsn VARCHAR(12) PRIMARY KEY,
 userName VARCHAR(100),
 userSurname VARCHAR(100),
 userEmail VARCHAR(100) UNIQUE,
-userPassword VARCHAR(10),
+userPassword VARCHAR(40),
 recoveryCode INT(4));
 
 /*Registered User Table(Possible customer)*/
@@ -15,7 +15,7 @@ regUserName VARCHAR(100) REFERENCES Users(userName),
 regUserSurname VARCHAR(100) REFERENCES Users(userSurname),
 regUserSsn VARCHAR(12) PRIMARY KEY REFERENCES Users(userSsn) ,
 regUserEmail VARCHAR(100) UNIQUE REFERENCES Users(userEmail),
-regUserPassword VARCHAR(10) REFERENCES Users(userPassword),
+regUserPassword VARCHAR(40) REFERENCES Users(userPassword),
 regUserBirthdate DATE,
 regUserTelephoneNumber VARCHAR(20));
 
@@ -25,7 +25,7 @@ adminSsn VARCHAR(12) PRIMARY KEY REFERENCES Users(userSsn),
 adminName VARCHAR(100) REFERENCES Users(userName) ,
 adminSurname VARCHAR(100) REFERENCES Users(userSurname),
 adminEmail VARCHAR(100) UNIQUE REFERENCES Users(userEmail),
-adminPassword VARCHAR(10)  REFERENCES Users(userPassword) );
+adminPassword VARCHAR(40)  REFERENCES Users(userPassword) );
 
 /*Payment Table*/
 CREATE TABLE Payment(
