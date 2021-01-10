@@ -41,30 +41,30 @@
 
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="addNewRoute.php">Add new route</a>
+                        <a class="a2" href="addNewRoute.php">Yeni Rota Ekle</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allRouteList.php">All route list</a>
+                        <a class="a2" href="allRouteList.php">Rotaları Listele</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allPassengers.php">See All Passengers</a>
+                        <a class="a2" href="allPassengers.php">Yolcuları Listele</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allTicketList.php">All Ticket List</a>
+                        <a class="a2" href="allTicketList.php">Biletleri Listele</a>
                     </div>
                 </div>
                 <div class="right2">
                     <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
                         <thead>
                             <th>PNR</th>
-                            <th>Passenger Name</th>
-                            <th>Passenger Surname</th>
-                            <th>Passenger Ssn</th>
-                            <th>Start Terminal</th>
-                            <th>Destination Terminal</th>
-                            <th>Dep. Time</th>
-                            <th>Date of the Route</th>
-                            <th>Seat Num</th>
+                            <th>Yolcu Adı</th>
+                            <th>Yolcu Soyadı</th>
+                            <th>Yolcu TCKN</th>
+                            <th>Kalkış Yeri</th>
+                            <th>Varış Yeri</th>
+                            <th>Kalkış Saati</th>
+                            <th>Kalkış Günü</th>
+                            <th>Koltuk Numarası</th>
                         </thead>
                         <tbody>
                             <?php
