@@ -103,8 +103,8 @@ if ($count == 0) {
                             <td>
                                 <select name="saat" id="saat" style="width: 100%;">
                                     <?php
-                                    $time1 = 0;
-                                    while ($time1 <= 24 and $time1 >= 0) {
+                                    $time1 = 1;
+                                    while ($time1 <= 24 and $time1 >= 1) {
                                         echo $time1;
                                     ?>
                                         <option value="<?php echo $time1 ?>"><?php echo $time1 ?>:00</option>
@@ -118,8 +118,8 @@ if ($count == 0) {
                             <td>
                             <select name="saat2" id="saat2" style="width: 100%;">
                                     <?php
-                                    $time2 = 0;
-                                    while ($time2 <= 24 and $time2 >= 0) {
+                                    $time2 = 1;
+                                    while ($time2 <= 24 and $time2 >= 1) {
                                         echo $time2;
                                     ?>
                                         <option value="<?php echo $time2 ?>"><?php echo $time2 ?>:00</option>
