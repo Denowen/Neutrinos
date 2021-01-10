@@ -64,6 +64,9 @@ if ($count == 0) {
                     <div class="p-ticket">
                         <a class="a2" href="allPassengers.php">See All Passengers</a>
                     </div>
+                    <div class="p-ticket">
+                        <a class="a2" href="allTicketList.php">All Ticket List</a>
+                    </div>
                 </div>
                 <div class="right2">
                 <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
