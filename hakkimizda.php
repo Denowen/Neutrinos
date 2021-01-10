@@ -18,7 +18,7 @@
     //QUERY THAT CHECKS IF THE VIEWER IS AN ADMIN
     $query = mysqli_query($conn, "select * from registeredusers where regUserEmail = '$email'");
     $counta = mysqli_num_rows($query);
-    if (!$counta) {
+    if (!$counta && $email != null) {
         header("location:admin.php");
     } 
 
