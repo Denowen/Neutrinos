@@ -4,11 +4,13 @@ session_start();
 include('dbconnect.php');
 
 
-if (isset($_POST['login'])) {
+
+if(isset($_POST['login'])){
     $email = mysqli_real_escape_string($conn, $_POST['email']);
     $password = mysqli_real_escape_string($conn, $_POST['password']);
 
     $pasword = md5($password);
+
 
     $query1 = "SELECT * FROM registeredusers WHERE regUserEmail='$email' AND regUserPassword='$pasword'";
     $query2 = "SELECT * FROM administrators WHERE adminEmail='$email' AND adminPassword='$password'";
@@ -16,21 +18,21 @@ if (isset($_POST['login'])) {
     $result1 = mysqli_query($conn, $query1);
     $result2 = mysqli_query($conn, $query2);
 
-    if (mysqli_num_rows($result1) == 1) {
-        $_SESSION['loggedin'] = "You logged in";
-        $_SESSION['email'] = $email;
+    if(mysqli_num_rows($result1) ==1 and mysqli_num_rows($result2) == 0){
+        $_SESSION['email']=$email;
         header('location: home.php');
-    } else if (mysqli_num_rows($result2) == 1) {
-        $_SESSION['loggedin'] = $email;
-        $_SESSION['success'] = "You logged in";
+    } else if (mysqli_num_rows($result2) == 1){
+        $_SESSION['email']=$email;
         header('location: admin.php');
-    } else {
-
-        echo ("<br>wrong id pass");
+    }else {echo '<script type="text/javascript">'; 
+echo 'alert("Parola veya Email Yanlış! Lütfen Tekrar Giriniz.");'; 
+echo 'window.location.href = "giris.php";';
+echo '</script>';
     }
+
 }
 
-if (isset($_POST['register'])) {
+if(isset($_POST['register'])){
     $fname = mysqli_real_escape_string($conn, $_POST['fname']);
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
@@ -40,7 +42,7 @@ if (isset($_POST['register'])) {
     $tel = mysqli_real_escape_string($conn, $_POST['tel']);
     $maill = $_POST['email'];
 
-
+    
     $email_check = "SELECT * FROM registeredusers WHERE regUserEmail='$email'";
     $result = mysqli_query($conn, $email_check);
     $user = mysqli_fetch_assoc($result);
