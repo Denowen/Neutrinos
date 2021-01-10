@@ -8,12 +8,12 @@ $saat = $_POST['saat'];
 $trainNumber = $_POST['trainNumber'];
 $date = $_POST['date'];
 $price = $_POST['price'];
+$saat2 = $_POST['saat2'];
 
 $routeId = "SELECT max(routeId) from route";
 $route = mysqli_query($conn, $routeId);
 $row = mysqli_fetch_array($route);
 $row[0] += 1;
-$saat2 = $saat + 2;
 
 
 
