@@ -67,6 +67,12 @@ echo '</script>';
         $query = "SELECT * FROM Route WHERE dateOfRoute = '$sdate_' and startingStationTerminal = '$nereden_' and destinationStationTerminal = '$nereye_'";
         $result = mysqli_query($conn, $query);
         $num = mysqli_num_rows($result);
+        if(($num == 0)){
+            echo '<script type="text/javascript">'; 
+    echo 'alert("girdiğiniz tarihe uygun rota bulunamadı");'; 
+    echo 'window.location.href = "home.php";';
+    echo '</script>';
+        }
     }else{
         
     }
