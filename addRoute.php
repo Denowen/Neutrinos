@@ -23,4 +23,5 @@ if (empty($nereden) || empty($nereye) || empty($saat) || empty($trainNumber) || 
 
    $query = "INSERT INTO route VALUES('$row[0]','$nereden', '$nereye', '$saat:00', '$saat2:00', '$date', '$trainNumber', '$price')";
    $result = mysqli_query($conn, $query);
+   header("location: admin.php");
 }
