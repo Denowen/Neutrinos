@@ -132,6 +132,12 @@ if ($count == 0) {
                             </td>
                             <td>
                                 <input onclick="dateConstraint()" class="input" id="routeDate" type="date" name="date" value="<?php echo $date ?>"></input>
+                        <script>
+                                    function dateConstraint() {
+                                        var today = new Date().toISOString().split('T')[0];
+                                        document.getElementsByName("date")[0].setAttribute('min', today);
+                                    }
+                                </script>
                             </td>
 
                             <td><?php
