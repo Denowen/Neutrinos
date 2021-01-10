@@ -1,7 +1,26 @@
 <!DOCTYPE html>
+
 <?php
 session_start();
 include('dbconnect.php');
+
+if (!isset($_SESSION['loggedin'])) {
+    header('location: home.php'); //IF THERE IS NO SESSION REDIRECT TO INDEX
+} else { //IF SESSION EXISTS BUT THE VIEWER IS NOT ADMIN REDIRECT TO INDEX
+    $email = $_SESSION['email'];
+    $query = mysqli_query($conn, "select * from registeredusers where regUserEmail = '$email'");
+    $counta = mysqli_num_rows($query);
+    if ($counta) {
+        header("location:home.php");
+    }
+}
+
+
+
+?>
+
+<?php
+
 
 if (isset($_SESSION['loggedin'])) {
     $email = $_SESSION['email'];
