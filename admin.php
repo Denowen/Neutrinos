@@ -1,29 +1,5 @@
 <!DOCTYPE html>
-<?php
-session_start();
-include('dbconnect.php');
-//Checks the user if admin
-
-
-if (!isset($_SESSION['loggedin'])) {
-    header('location: home.php'); //IF THERE IS NO SESSION REDIRECT TO INDEX
-} else { //IF SESSION EXISTS BUT THE VIEWER IS NOT ADMIN REDIRECT TO INDEX
-    $email = $_SESSION['email'];
-    $query = mysqli_query($conn, "select * from registeredusers where regUserEmail = '$email'");
-    $counta = mysqli_num_rows($query);
-    if ($counta) {
-        header("location:home.php");
-    }
-}
-
-
-
-?>
-
-
-
-
-
+<?php include('dbconnect.php') ?>
 <html lang="en">
 
 <head>
@@ -65,12 +41,7 @@ if (!isset($_SESSION['loggedin'])) {
                     <div class="p-ticket">
                         <a class="a2" href="allPassengers.php">See All Passengers</a>
                     </div>
-                    <div class="p-ticket">
-                        <a class="a2" href="allTicketList.php">All Ticket List</a>
-                    </div>
                 </div>
-
-
                 <div class="right2" style="justify-content:center; align-items:center; color:white">
                     <h2>Admin Paneline Hoşgeldiniz!</h2>
                 </div>

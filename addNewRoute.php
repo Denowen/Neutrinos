@@ -1,27 +1,7 @@
 <!DOCTYPE html>
+<?php include('dbconnect.php') ?>
 <?php
 session_start();
-include('dbconnect.php');
-//Checks the user if admin
-
-
-if (!isset($_SESSION['loggedin'])) {
-    header('location: home.php'); //IF THERE IS NO SESSION REDIRECT TO INDEX
-} else { //IF SESSION EXISTS BUT THE VIEWER IS NOT ADMIN REDIRECT TO INDEX
-    $email = $_SESSION['email'];
-    $query = mysqli_query($conn, "select * from registeredusers where regUserEmail = '$email'");
-    $counta = mysqli_num_rows($query);
-    if ($counta) {
-        header("location:home.php");
-    }
-}
-
-
-
-?>
-
-<?php
-
 $query = "SELECT stationName FROM station ";
 $result = mysqli_query($conn, $query);
 $num = mysqli_num_rows($result);
@@ -71,9 +51,6 @@ $num3 = mysqli_num_rows($sql);
                     </div>
                     <div class="p-ticket">
                         <a class="a2" href="allPassengers.php">See All Passengers</a>
-                    </div>
-                    <div class="p-ticket">
-                        <a class="a2" href="allTicketList.php">All Ticket List</a>
                     </div>
                 </div>
                 <form class="right2" style="flex-direction: column;" action="addRoute.php" method="post">
@@ -133,12 +110,12 @@ $num3 = mysqli_num_rows($sql);
                                     }
 
                                     ?>
-
                                     < </td>
 
                             <td>
-                                <input onclick="dateConstraint()" class="input" id="routeDate" type="date" name="date" value="<?php echo $date ?>"></input>
 
+                                    <input onclick="dateConstraint()" class="input" id="routeDate" type="date" name="date" value="<?php echo $date ?>"></input>
+                                
                             </td>
                             <script>
                                 function dateConstraint() {
@@ -164,7 +141,7 @@ $num3 = mysqli_num_rows($sql);
                             </select>
 
                             <td>
-                                <input class="input" type="number" id="price" name="price" style="width:50%" value="price" onkeypress="return event.charCode >= 48" min="1">
+                                <input class ="input" type="number" id="price" name="price" style="width:50%"  value="price">
                             </td>
 
                         </tbody>

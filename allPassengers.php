@@ -1,23 +1,5 @@
 <!DOCTYPE html>
-<?php
-session_start();
-include('dbconnect.php');
-
-if (!isset($_SESSION['loggedin'])) {
-    header('location: home.php'); //IF THERE IS NO SESSION REDIRECT TO INDEX
-} else { //IF SESSION EXISTS BUT THE VIEWER IS NOT ADMIN REDIRECT TO INDEX
-    $email = $_SESSION['email'];
-    $query = mysqli_query($conn, "select * from registeredusers where regUserEmail = '$email'");
-    $counta = mysqli_num_rows($query);
-    if ($counta) {
-        header("location:home.php");
-    }
-}
-
-
-
-?>
-
+<?php include('dbconnect.php') ?>
 <html lang="en">
 
 <head>
@@ -38,7 +20,7 @@ if (!isset($_SESSION['loggedin'])) {
             </div>
             <div class="right">
                 <div class="list">
-
+                    
                     <a href="signout.php">Çıkış Yap</a>
                 </div>
             </div>
@@ -46,9 +28,9 @@ if (!isset($_SESSION['loggedin'])) {
 
         <div class="main">
             <div class="rows">
-                <div class="left2">
+            <div class="left2">
                     <div class="title">
-                        <h5><a class="a2" href="admin.php" style="font-size: 32px; text-decoration: none">Admin Paneli</a></h5>
+                      <h5><a class="a2"  href="admin.php" style="font-size: 32px; text-decoration: none">Admin Paneli</a></h5>
 
                     </div>
                     <div class="p-ticket">
@@ -59,9 +41,6 @@ if (!isset($_SESSION['loggedin'])) {
                     </div>
                     <div class="p-ticket">
                         <a class="a2" href="allPassengers.php">See All Passengers</a>
-                    </div>
-                    <div class="p-ticket">
-                        <a class="a2" href="allTicketList.php">All Ticket List</a>
                     </div>
                 </div>
                 <div class="right2">
@@ -74,28 +53,27 @@ if (!isset($_SESSION['loggedin'])) {
                             <th>Departure Time</th>
                             <th>Date of the Route</th>
                             <th>Train Number</th>
-                            <th>Price</th>
                         </thead>
-                        <tbody>
+                        <tbody >
                             <?php
                             //PRINT ALL ROUTES
                             $query1 = mysqli_query($conn, "SELECT * FROM route");
-                            while ($row = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
-                                $routeId = $row['routeId'];
+                            while($row = mysqli_fetch_array($query1, MYSQLI_ASSOC)){
+                                $routeId =$row['routeId'];
 
-                                echo
-                                    "<td> " . $row['routeId'] . " </td> "
-                                        . "<td> " . $row['startingStationTerminal'] . " </td> "
-                                        . "<td>" . $row['destinationStationTerminal'] . "</td>"
-                                        . "<td> " . $row['arrivelTime'] . " </td> "
-                                        . "<td>" . $row['departureTime'] . "</td>"
-                                        . "<td>" . $row['dateOfRoute'] . "</td>"
-                                        . "<td> " . $row['trainNumber'] . " </td> "
-                                        . "<td> " . $row['price'] . " </td> "
-                                        . "<form method='post' action='seePassengers.php?varname=$routeId'>"
-                                        . "<td> <button type='submit' class='btn' name='acceptBooking'>See Passengers</button></a></td>"
-                                        . "</form>"
-                                        . "</tr>";
+                                echo 
+                                 "<td> " . $row['routeId'] . " </td> "
+                                . "<td> " . $row['startingStationTerminal'] . " </td> "
+                                . "<td>" . $row['destinationStationTerminal'] . "</td>"
+                                . "<td> " . $row['arrivelTime'] . " </td> "
+                                . "<td>" . $row['departureTime'] . "</td>"
+                                . "<td>" . $row['dateOfRoute'] . "</td>"
+                                . "<td> " . $row['trainNumber'] . " </td> "
+                                . "<form method='post' action='seePassengers.php?varname=$routeId'>"
+                                . "<td> <button type='submit' class='btn' name='acceptBooking'>See Passengers</button></a></td>"
+                                . "</form>"
+                                . "</tr>";
+                                
                             }
                             ?>
                         </tbody>
