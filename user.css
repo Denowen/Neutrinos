@@ -24,7 +24,7 @@
 }
 .title{
     display: flex;
-    margin-bottom:12rem;
+    margin-bottom:7rem;
     color: rgb(50 239 239 / 68%);
 }
 .right2{
@@ -43,6 +43,7 @@
     align-items: center;
     margin-bottom: 1rem;
     border-radius: 2rem;
+    margin-top: 3rem;
 }
 .a2{
     font-size: 20px;

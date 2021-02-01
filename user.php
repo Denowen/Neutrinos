@@ -30,6 +30,10 @@
         $result = mysqli_query($conn, $query);
         $num = mysqli_num_rows($result);
 
+        $query9 = "SELECT userSsn, userName, userSurname, userEmail FROM users WHERE userEmail='$email'";
+        $result9 = mysqli_query($conn, $query9);
+        $num9 = mysqli_num_rows($result9);
+
    ?>
 
     <div class="page">
@@ -53,7 +57,37 @@
                     <div class="title">
                         <h1>Biletlerim</h1>
                     </div>
+                    <table cellpadding="20" style=" display: flex;color: rgb(50 239 239 / 68%);">
+
+                    <?php
+                    $i9 = 0;
                     
+
+                        echo"<tr>";
+                        echo "<th>Kimlik No</th>";
+                        echo "<th>İsim</th>";
+                        echo "<th>Soyisim</th>";
+                        echo "<th>Email</th>";
+                        echo "</tr>";
+
+                        while ($i9 < $num9) {
+                            while ($count = mysqli_fetch_array($result9)) {
+                                ?>
+
+                                <tr>
+                                    <td><?php echo $count['userSsn'] ?></td>
+                                    <td><?php echo $count['userName'] ?></td>
+                                    <td><?php echo $count['userSurname'] ?></td>
+                                    <td><?php echo $count['userEmail'] ?></td>
+                                </tr>
+
+            <?php
+            $i9++;
+        }
+    }
+
+?>
+                </table>
                     <div class="p-ticket">
                         <a class="a2" href="user.php">Biletlerim</a>
                     </div>
