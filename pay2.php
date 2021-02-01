@@ -59,7 +59,7 @@
       $query3 = "INSERT INTO buy VALUES('${"pnr$i"}', '0', '$count[0]', '$route1_', '$price', '$passType_', '${"seatNum$i"}')";
       $result3 = mysqli_query($conn, $query3);
     }else{
-      ${"pnr$i"} = "${"ssn$i"}"."$route1_"."$i";
+      ${"pnr$i"} = "${"ssn$i2"}"."$route1_"."$i";
       $_SESSION[${"pnr$i"}] = ${"pnr$i"};
       $query4 = "INSERT INTO ticket VALUES('${"pnr$i"}', '$count[0]','${"isim$i2"}','${"soyisim$i2"}','${"ssn$i2"}', '$price2', '$route2_', '$passType_', '${"seatNum$i"}')";
       $result4 = mysqli_query($conn, $query4);

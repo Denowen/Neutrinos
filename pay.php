@@ -30,9 +30,9 @@
                 <div class="list">
                     <a href="home.php">Anasayfa</a>
                     <a href="hakkimizda.php">Hakkımızda</a>
-                    <a href="kayit.php">İletişim</a>
-                    <a href="contact.php">Profilim</a>
-                    <a href="giris.php">Çıkış Yap</a>
+                    <a href="contact.php">İletişim</a>
+                    <a href="user.php">Profilim</a>
+                    <a href="signout.php">Çıkış Yap</a>
                 </div>
             </div>
         </div>

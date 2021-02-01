@@ -6,16 +6,17 @@ include 'dbconnect.php';
 $mail = $_POST['mail'];
 $kod = $_POST['number'];
 $sifre = $_POST['password'];
+$pasword = md5($sifre);
 
 $randomNumber = rand(1000,9999); 
 
-$sql = "UPDATE users SET userPassword='$sifre' WHERE userEmail='$mail'";
+$sql = "UPDATE users SET userPassword='$pasword' WHERE userEmail='$mail'";
 $resultsql = mysqli_query($conn, $sql);
 
-$sql2 = "UPDATE adminstrators SET adminPassword='$sifre' WHERE adminEmail='$mail'";
+$sql2 = "UPDATE administrators SET adminPassword='$pasword' WHERE adminEmail='$mail'";
 $resultsql2 = mysqli_query($conn, $sql2);
 
-$sql3 = "UPDATE adminstrators SET regUserPassword='$sifre' WHERE regUserEmail='$mail'";
+$sql3 = "UPDATE registeredusers SET regUserPassword='$pasword' WHERE regUserEmail='$mail'";
 $resultsql3 = mysqli_query($conn, $sql3);
 
 $query2 = "SELECT recoveryCode FROM users WHERE userEmail = '$mail'";

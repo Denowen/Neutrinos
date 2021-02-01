@@ -117,6 +117,7 @@
                                        c += '<label for="ssn' + i + '" style="margin-top: 1rem;">' + (i+1) + '.Kimlik Numarası</label>';
                                        c += '<input required name ="ssn' + i + '" id="ssn' + i + '"  type="number" oninput="if(value.length>11)value=value.slice(0,11)"/>';
 
+
                                    }
                                    document.getElementById("ans").innerHTML=c;
                                 }
