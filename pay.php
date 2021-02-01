@@ -51,12 +51,12 @@
                 <form class="a-row" action = "pay2.php" method = "post">
                 <div class = "d-row">
                     <label for="cardnumber" style="padding-right: 1rem">Kart Numarası</label>
-                    <input type="number" required id="cardnumber"  oninput="if(value.length>16)value=value.slice(0,16)" min="1000000000000000" name="cardnumber" style="height: 56%;" />
+                    <input type="text" pattern="[0-9]{16}" title="Lütfen 16 haneli Kart Numaranızı giriniz." required id="cardnumber" name="cardnumber" style="height: 56%;" />
                 </div>
 
                 <div class = "d-row">
                     <label for="cvv" style="padding-right: 1rem">Güvenlik Kodu</label>
-                    <input type="number" required id="cvv" oninput="if(value.length>3)value=value.slice(0,3)" name="cvv" style="height: 56%;" />
+                    <input type="text"pattern="[0-9]{3}" title="Lütfen 3 haneli Güvenlik Kodunuzu giriniz." required id="cvv" name="cvv" style="height: 56%;" />
                 </div>
 
                 <div class = "d-row">

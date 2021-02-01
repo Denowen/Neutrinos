@@ -47,7 +47,7 @@ echo '</script>';
     $_SESSION['nereye'] = $nereye_;
     $_SESSION['sdate'] = $sdate_;
     $_SESSION['edate'] = $edate_;
-    
+    $today =  date('Y-m-d');
     
     
     if (isset($_SESSION['email'])) {
@@ -59,14 +59,26 @@ echo '</script>';
         }
 
     if ($way_ == "çift") {
+        if(empty($_POST['edate'])){
+            $query2 = "SELECT * FROM Route WHERE  startingStationTerminal = '$nereye_' and destinationStationTerminal = '$nereden_' and dateOfRoute >= '$today' ";
+            $result2 = mysqli_query($conn, $query2);
+            $num2 = mysqli_num_rows($result2);
+        }else{
         $query2 = "SELECT * FROM Route WHERE dateOfRoute = '$edate_' and startingStationTerminal = '$nereye_' and destinationStationTerminal = '$nereden_'";
         $result2 = mysqli_query($conn, $query2);
         $num2 = mysqli_num_rows($result2);
     }
+    }
     if ($way_ == 'tek' || $way_ == 'çift') {
-        $query = "SELECT * FROM Route WHERE dateOfRoute = '$sdate_' and startingStationTerminal = '$nereden_' and destinationStationTerminal = '$nereye_'";
+        if(empty($_POST['sdate'])){
+        $query = "SELECT * FROM Route WHERE startingStationTerminal = '$nereden_' and destinationStationTerminal = '$nereye_' and dateOfRoute >= '$today'";
         $result = mysqli_query($conn, $query);
         $num = mysqli_num_rows($result);
+        }else{
+            $query = "SELECT * FROM Route WHERE dateOfRoute = '$sdate_' and startingStationTerminal = '$nereden_' and destinationStationTerminal = '$nereye_'";
+            $result = mysqli_query($conn, $query);
+            $num = mysqli_num_rows($result);
+        }
         if(($num == 0)){
             echo '<script type="text/javascript">'; 
     echo 'alert("girdiğiniz tarihe uygun rota bulunamadı");'; 

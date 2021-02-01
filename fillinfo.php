@@ -111,11 +111,11 @@
                                    for(i = 0; i < b; i++){
 
                                        c += '<label for="isim' + i + '" style="margin-top: 1rem;">' + (i+1) + '.İsim</label>';
-                                       c += '<input required name ="isim' + i + '" id="isim' + i + '"  type="text"/>';
+                                       c += '<input required name ="isim' + i + '"  id="isim' + i + '"  type="text"/>';
                                        c += '<label for="soyisim' + i + '" style="margin-top: 1rem;">' + (i+1) + '.Soyisim</label>';
                                        c += '<input required name ="soyisim' + i + '" id="soyisim' + i + '"  type="text"/>';
                                        c += '<label for="ssn' + i + '" style="margin-top: 1rem;">' + (i+1) + '.Kimlik Numarası</label>';
-                                       c += '<input required name ="ssn' + i + '" id="ssn' + i + '"  type="number" oninput="if(value.length>11)value=value.slice(0,11)"/>';
+                                       c += '<input required name ="ssn' + i + '" pattern="[0-9]{11}" title="Lütfen 11 haneli TC Kimlik Numaranızı giriniz." id="ssn' + i + '"  type="text" />';
 
 
                                    }

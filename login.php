@@ -24,7 +24,6 @@ if(isset($_POST['login'])){
         header('location: admin.php');
     }else {echo '<script type="text/javascript">'; 
 echo 'alert("Parola veya Email Yanlış! Lütfen Tekrar Giriniz.");'; 
-echo $pasword; 
 echo 'window.location.href = "giris.php";';
 echo '</script>';
     }
@@ -35,6 +34,15 @@ if(isset($_POST['register'])){
     $fname = mysqli_real_escape_string($conn, $_POST['fname']);
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $query3 = "SELECT * FROM users WHERE userEmail='$email'";
+    $result3 = mysqli_query($conn, $query3);
+    if(mysqli_num_rows($result3) >=1){
+        echo '<script type="text/javascript">'; 
+echo 'alert("Email sistemde kayıtlı. Lütfen başka bir email deneyiniz!");'; 
+echo 'window.location.href = "kayit.php";';
+echo '</script>';
+    }else{
+
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $ssn = mysqli_real_escape_string($conn, $_POST['ssn']);
     $bdate = mysqli_real_escape_string($conn, $_POST['bdate']);
@@ -60,4 +68,5 @@ if(isset($_POST['register'])){
 
     
     header('location: giris.php');
+}
 }

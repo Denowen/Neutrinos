@@ -56,7 +56,7 @@
                         </div>
                         <div class="d-row">
                             <label for="ssn" style="padding-right: 1%;">TC Kimlik No</label>
-                            <input type="number" required id="ssn" oninput="if(value.length>11)value=value.slice(0,11)" name="ssn" style="height: 56%;" min="1"; />
+                            <input type="text" pattern="[0-9]{11}" title="Lütfen 11 haneli TC Kimlik Numaranızı giriniz." required id="ssn" name="ssn" style="height: 56%;" min="1"; />
                         </div>
                         <div class="d-row">
                             <label for="date">Doğum Tarihi</label>
@@ -70,7 +70,7 @@
                         </div>
                         <div class="d-row">
                             <label for="tel" style="padding-right: 24%;">Cep No</label>
-                            <input type="number" required id="tel" oninput="if(value.length>11)value=value.slice(0,11)" name="tel" style="height: 55%;" />
+                            <input type="text" pattern="[0-9]{11}" title="Lütfen 11 haneli Telefon Numaranızı giriniz." required id="tel" name="tel" style="height: 55%;" />
                         </div>
                         <div class="b-row">
                             <div class="reset">
