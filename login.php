@@ -6,8 +6,8 @@ include('dbconnect.php');
 
 
 if(isset($_POST['login'])){
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
     $pasword = md5($password);
 
     $query1 = "SELECT * FROM users WHERE userEmail='$email' AND userPassword='$pasword'";
