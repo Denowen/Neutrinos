@@ -65,22 +65,24 @@
                     <?php
                     $i9 = 0;
                     
-
-                        echo"<tr>";
-                        echo "<th>Kimlik No</th>";
-                        echo "<th>İsim</th>";
-                        echo "<th>Soyisim</th>";
-                        echo "<th>Email</th>";
-                        echo "</tr>";
-
                         while ($i9 < $num9) {
                             while ($count = mysqli_fetch_array($result9)) {
                                 ?>
 
                                 <tr>
+                                    <th><?php echo "<th>Kimlik No:</th>"; ?></th>
                                     <td><?php echo $count['userSsn'] ?></td>
+                                </tr>
+                                <tr>    
+                                    <th><?php echo "<th>İsim:</th>"; ?></th>
                                     <td><?php echo $count['userName'] ?></td>
+                                </tr>
+                                <tr>    
+                                    <th><?php echo "<th>Soyisim:</th>"; ?></th>
                                     <td><?php echo $count['userSurname'] ?></td>
+                                </tr>
+                                <tr>    
+                                    <th><?php echo "<th>Email:</th>"; ?></th>
                                     <td><?php echo $count['userEmail'] ?></td>
                                 </tr>
 
