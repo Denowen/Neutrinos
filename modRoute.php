@@ -35,7 +35,8 @@ if (empty($saat) || empty($date) ||  empty($price)) {
    $i = 0;
    while($i < $num2){
    while($row = mysqli_fetch_array($result2)){
-   $to_email = $row[$i];
+   $to_email = $row[0];
+   $i++;
    $subject = "::📅 Yolculuğunuza bir güncelleme geldi. ::";
    $body = "Yolculuğunuzun kalkış saati $saat:00, varış saati $saat2:00, ve tarihi $date olarak güncellenmiştir. Detaylara profilinizden ulaşabilirsiniz. :) ";
    $headers = "From: neutrinos.turizm@gmail.com";
@@ -44,7 +45,7 @@ if (empty($saat) || empty($date) ||  empty($price)) {
    } else {
         echo "Email sending failed...";
     }
-    $i++;
+    
 
    }
    
