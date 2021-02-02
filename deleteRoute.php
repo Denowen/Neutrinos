@@ -16,7 +16,7 @@ $query2 = "SELECT r.regUserEmail FROM ticket t, registeredusers r WHERE t.reguse
    $i = 0;
    while($i < $num2){
    while($row = mysqli_fetch_array($result2)){
-   $to_email = $row[$i];
+   $to_email = $row[0];
    $subject = "::❌ Yolculuğunuz iptal edildi ::";
    $body = "Yolculuğunuz iptal edilmiştir. Bilet ödemeleriniz ödeme yaptığınız banka hesabınıza iade edilmiştir. Başka yolculuklarda görüşmek üzere. ";
    $headers = "From: neutrinos.turizm@gmail.com";
