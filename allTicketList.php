@@ -52,6 +52,9 @@
                     <div class="p-ticket">
                         <a class="a2" href="allTicketList.php">Biletleri Listele</a>
                     </div>
+                    <div class="p-ticket">
+                        <a class="a2" href="addNewTrain.php">Yeni Tren Ekle</a>
+                    </div>
                 </div>
                 <div class="right2">
                     <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
