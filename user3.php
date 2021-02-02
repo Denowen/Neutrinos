@@ -29,10 +29,6 @@
 
    $email = $_SESSION['email'];
 
-   $query = "SELECT b.reservationId, r.startingStationTerminal, r.destinationStationTerminal, r.departureTime, r.dateOfRoute FROM registeredusers a, reserve b, route r WHERE a.regUserEmail='$email' and a.regUserSsn=b.regUserSsn and b.routeId=r.routeId";
-        $result = mysqli_query($conn, $query);
-        $num = mysqli_num_rows($result);
-
 
         $query9 = "SELECT regUserSsn, regUserName, regUserSurname, regUserEmail, regUserBirthdate, regUserTelephoneNumber FROM registeredusers WHERE regUserEmail='$email'";
         $result9 = mysqli_query($conn, $query9);
@@ -107,67 +103,30 @@
                     <div class="p-ticket">
                         <a class="a2" href="user2.php">Rezervasyonlarım</a>
                     </div>
-                    <div class="p-ticket">
-                        <a class="a2" href="user3.php">Profilimi Düzenle</a>
-                    </div>
                 </div>
-                <form class="right2" style="flex-direction: column;" action="reserve2.php" method="post">
+                <form class="right2" style="flex-direction: column;" action="editProfile.php" method="post">
                     
-                <table cellpadding="40" style=" display: flex;color: rgb(50 239 239 / 68%);flex: 2;">
+                <table cellpadding="100" style=" display: flex;color: rgb(50 239 239 / 68%);flex: 2;">
+                    
+                    <tr>
+                    <th>Telefon Numarası:</th>
+                    <td><input type="tel" pattern="[0-9]{11}" title="Lütfen 11 haneli Telefon Numaranızı giriniz." required id="tel3" name="tel3" style="height: 55%;" /></td>
+                    </tr>
+                    <tr>
+                    <th>Email:</th>
+                    <td><input type="email" required id="email3" name="email3" style="height: 100%;" /></td>
+                    </tr>
 
-<?php
-$i = 0;
 
-    echo"<tr>";
-    echo "<th>Rezervasyon Numarası</th>";
-    echo "<th>Nereden</th>";
-    echo "<th>Nereye</th>";
-    echo "<th>Saat</th>";
-    echo "<th>Tarih</th>";
-    echo "</tr>";
+                </table>
 
-    while ($i < $num) {
-        while ($count = mysqli_fetch_array($result)) {
-            ?>
-
-            <tr>
-                <td><?php echo $count['reservationId'] ?></td>
-                <td><?php echo $count['startingStationTerminal'] ?></td>
-                <td><?php echo $count['destinationStationTerminal'] ?></td>
-                <td><?php echo $count['departureTime'] ?></td>
-                <td><?php echo $count['dateOfRoute'] ?></td>
-                <td><input type="radio" onclick="deneme()"  name="drop" value= '<?php echo $count['reservationId'] ?>' /></td>
-            </td>
-            </tr>
-
-<?php
-$i++;
-}
-}
-
-?>
-</table>
-
-<div id="id1" class="buton" style="display: none; justify-content: flex-end;">
-                    <input type="submit" name ='buton' value="İptal Et" style="background-color: #E5FFCC;
+<div id="id1" class="buton">
+                    <input type="submit" name ='buton' value="Kaydet" style="background-color: #E5FFCC;
                                border-radius: 1rem;
                                border-color: green;
                                width: 6rem;
                                height: 2rem;"/>
                 </div>
-                <div id="id2" class="buton" style="display: none; justify-content: flex-end;">
-                    <input type="submit" name ='buton' value="Satın Al" style="background-color: #E5FFCC;
-                               border-radius: 1rem;
-                               border-color: green;
-                               width: 6rem;
-                               height: 2rem;"/>
-                </div>
-                <script>
-                                function deneme(){
-                                    document.getElementById("id1").style.display = "flex";
-                                    document.getElementById("id2").style.display = "flex";
-                                }
-                                </script>
 
                 </form>
             </div>

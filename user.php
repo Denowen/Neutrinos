@@ -30,7 +30,7 @@
         $result = mysqli_query($conn, $query);
         $num = mysqli_num_rows($result);
 
-        $query9 = "SELECT userSsn, userName, userSurname, userEmail FROM users WHERE userEmail='$email'";
+        $query9 = "SELECT regUserSsn, regUserName, regUserSurname, regUserEmail, regUserBirthdate, regUserTelephoneNumber FROM registeredusers WHERE regUserEmail='$email'";
         $result9 = mysqli_query($conn, $query9);
         $num9 = mysqli_num_rows($result9);
 
@@ -66,21 +66,29 @@
                             while ($count = mysqli_fetch_array($result9)) {
                                 ?>
 
-                                <tr>
+<tr>
                                     <th><?php echo "<th>Kimlik No:</th>"; ?></th>
-                                    <td><?php echo $count['userSsn'] ?></td>
+                                    <td><?php echo $count['regUserSsn'] ?></td>
                                 </tr>
                                 <tr>    
                                     <th><?php echo "<th>İsim:</th>"; ?></th>
-                                    <td><?php echo $count['userName'] ?></td>
+                                    <td><?php echo $count['regUserName'] ?></td>
                                 </tr>
                                 <tr>    
                                     <th><?php echo "<th>Soyisim:</th>"; ?></th>
-                                    <td><?php echo $count['userSurname'] ?></td>
+                                    <td><?php echo $count['regUserSurname'] ?></td>
                                 </tr>
                                 <tr>    
                                     <th><?php echo "<th>Email:</th>"; ?></th>
-                                    <td><?php echo $count['userEmail'] ?></td>
+                                    <td><?php echo $count['regUserEmail'] ?></td>
+                                </tr>
+                                <tr>    
+                                    <th><?php echo "<th>Doğum Tarihi:</th>"; ?></th>
+                                    <td><?php echo $count['regUserBirthdate'] ?></td>
+                                </tr>
+                                <tr>    
+                                    <th><?php echo "<th>Telefon Numarası:</th>"; ?></th>
+                                    <td><?php echo $count['regUserTelephoneNumber'] ?></td>
                                 </tr>
 
             <?php
@@ -97,7 +105,7 @@
                         <a class="a2" href="user2.php">Rezervasyonlarım</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="editProfile.php">Profilimi Düzenle</a>
+                        <a class="a2" href="user3.php">Profilimi Düzenle</a>
                     </div>
                     
                 </div>
@@ -131,7 +139,7 @@
                                     <td><?php echo $count['departureTime'] ?></td>
                                     <td><?php echo $count['dateOfRoute'] ?></td>
                                     <td><?php echo $count['seatNumber'] ?></td>
-                                    <td><input type="radio" name="cancel" value= '<?php echo $count['PNR'] ?>' /></td>
+                                    <td><input type="radio" onclick="deneme()" name="cancel" value= '<?php echo $count['PNR'] ?>' /></td>
                                 </td>
                                 </tr>
 
@@ -142,15 +150,20 @@
 
 ?>
                 </table>
-                <div class="buton" style="display: flex; justify-content: flex-end;">
+                <div class="buton" id="buton" style="display: none; justify-content: flex-end;">
                     <input type="submit" name ='İptal Et' value="İptal Et" style="background-color: #E5FFCC;
                                border-radius: 1rem;
                                border-color: green;
                                width: 6rem;
                                height: 2rem;"/>
                 </div>
+                <script>
+                                function deneme(){
+                                    document.getElementById("buton").style.display = "flex";
+                                                                   }
+                                </script>
                 </form>
-            </div>
+                           </div>
 
         </div>
 
