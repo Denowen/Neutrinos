@@ -34,17 +34,26 @@ if(isset($_POST['register'])){
     $fname = mysqli_real_escape_string($conn, $_POST['fname']);
     $lname = mysqli_real_escape_string($conn, $_POST['lname']);
     $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $ssn = mysqli_real_escape_string($conn, $_POST['ssn']);
     $query3 = "SELECT * FROM users WHERE userEmail='$email'";
     $result3 = mysqli_query($conn, $query3);
+    $query4 = "SELECT * FROM users WHERE userSsn='$ssn'";
+    $result4 = mysqli_query($conn, $query4);
+    
     if(mysqli_num_rows($result3) >=1){
         echo '<script type="text/javascript">'; 
 echo 'alert("Email sistemde kayıtlı. Lütfen başka bir email deneyiniz!");'; 
 echo 'window.location.href = "kayit.php";';
 echo '</script>';
+    }else if(mysqli_num_rows($result4) >=1){
+        echo '<script type="text/javascript">'; 
+    echo 'alert("TC Kimlik Numarası sistemde kayıtlı. Lütfen başka bir TC Kimlik Numarası deneyiniz!");'; 
+    echo 'window.location.href = "kayit.php";';
+    echo '</script>';
     }else{
 
     $password = mysqli_real_escape_string($conn, $_POST['password']);
-    $ssn = mysqli_real_escape_string($conn, $_POST['ssn']);
+    
     $bdate = mysqli_real_escape_string($conn, $_POST['bdate']);
     $tel = mysqli_real_escape_string($conn, $_POST['tel']);
     $maill = $_POST['email'];
