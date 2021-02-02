@@ -11,7 +11,7 @@ if(isset($_POST['login'])){
     $pasword = md5($password);
 
     $query1 = "SELECT * FROM users WHERE userEmail='$email' AND userPassword='$pasword'";
-    $query2 = "SELECT * FROM administrators WHERE adminEmail='$email' AND adminPassword='$pasword'";
+    $query2 = "SELECT * FROM administrators WHERE adminEmail='$email' AND adminPassword='$password'";
 
     $result1 = mysqli_query($conn, $query1);
     $result2 = mysqli_query($conn, $query2);
