@@ -96,6 +96,9 @@
                     <div class="p-ticket">
                         <a class="a2" href="user2.php">Rezervasyonlarım</a>
                     </div>
+                    <div class="p-ticket">
+                        <a class="a2" href="editProfile.php">Profilimi Düzenle</a>
+                    </div>
                     
                 </div>
                 <form class="right2" style="flex-direction: column;" action="cancelAndDrop.php" method="post">
