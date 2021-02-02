@@ -55,6 +55,9 @@
                     <div class="p-ticket">
                         <a class="a2" href="allTicketList.php">Biletleri Listele</a>
                     </div>
+                    <div class="p-ticket">
+                        <a class="a2" href="addNewTrain.php">Yeni Tren Ekle</a>
+                    </div>
                 </div>
                 <div class="right2" style="justify-content:center; align-items:center; color:white">
                     <h2>Admin Paneline Hoşgeldiniz!</h2>
