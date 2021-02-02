@@ -81,7 +81,7 @@ echo '</script>';
         }
         if(($num == 0)){
             echo '<script type="text/javascript">'; 
-    echo 'alert("girdiğiniz tarihe uygun rota bulunamadı");'; 
+    echo 'alert("Rota bulunamadı!");'; 
     echo 'window.location.href = "home.php";';
     echo '</script>';
         }
