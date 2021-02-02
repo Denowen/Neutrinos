@@ -57,7 +57,12 @@ if (!$counta) {
                         <a class="a2" href="allTicketList.php">Biletleri Listele</a>
                     </div>
                 </div>
-                <div class="right2">
+                <div class="right2" style="flex-direction: column;">
+                <h1 style="
+    display: flex;
+    justify-content: center;
+    color: white;
+">Geçmiş Seferler</h1>
                     <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
                         <thead>
                             <th>Id</th>
@@ -71,8 +76,45 @@ if (!$counta) {
                         </thead>
                         <tbody>
                             <?php
-                            //PRINT ALL ROUTES
-                            $query1 = mysqli_query($conn, "SELECT * FROM route");
+                            $today =  date('Y-m-d');
+                            $query1 = mysqli_query($conn, "SELECT * FROM route WHERE dateOfRoute < '$today'");
+                            while ($row = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
+                                $routeId = $row['routeId'];
+
+                                echo "<td> " . $row['routeId'] . " </td> "
+                                    . "<td> " . $row['startingStationTerminal'] . " </td> "
+                                    . "<td>" . $row['destinationStationTerminal'] . "</td>"
+                                    . "<td>" . $row['departureTime'] . "</td>"
+                                    . "<td> " . $row['arrivelTime'] . " </td> "
+                                    . "<td>" . $row['dateOfRoute'] . "</td>"
+                                    . "<td> " . $row['trainNumber'] . " </td> "
+                                    . "<td> " . $row['price'] . " </td> "
+                                    . "</tr>";
+                            }
+                            ?>
+                        </tbody>
+                    </table>
+
+                    <h1 style="
+    display: flex;
+    justify-content: center;
+    color: white;
+">Güncel Seferler</h1>
+                    <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
+                        <thead>
+                            <th>Id</th>
+                            <th>Kalkış</th>
+                            <th>Varış</th>
+                            <th>Kalkış Saati</th>
+                            <th>Varış Saati</th>
+                            <th>Kalkış Günü</th>
+                            <th>Tren Numarası</th>
+                            <th>Ücret</th>
+                        </thead>
+                        <tbody>
+                            <?php
+                            $today =  date('Y-m-d');
+                            $query1 = mysqli_query($conn, "SELECT * FROM route WHERE dateOfRoute >= '$today'");
                             while ($row = mysqli_fetch_array($query1, MYSQLI_ASSOC)) {
                                 $routeId = $row['routeId'];
 
