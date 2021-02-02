@@ -72,6 +72,9 @@ $num3 = mysqli_num_rows($sql);
                     <div class="p-ticket">
                         <a class="a2" href="allTicketList.php">Biletleri Listele</a>
                     </div>
+                    <div class="p-ticket">
+                        <a class="a2" href="addNewTrain.php">Yeni Tren Ekle</a>
+                    </div>
                 </div>
                 <form class="right2" style="flex-direction: column;" action="addRoute.php" method="post">
                     <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
