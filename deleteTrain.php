@@ -48,6 +48,8 @@ $result5 = mysqli_query($conn, $query5);
 $query = "DELETE FROM train WHERE trainNumber='$trainNumber'";
 $result = mysqli_query($conn, $query);
 
+$query6 = "DELETE FROM seatandclass WHERE trainNumber='$trainNumber'";
+$result6 = mysqli_query($conn, $query6);
 
 
 header("Location:allTrains.php");
