@@ -56,13 +56,22 @@ if ($count == 0) {
                         <a class="a2" href="addNewRoute.php">Yeni Rota Ekle</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allRouteList.php">Rotaları Listele</a>
+                        <a class="a2" href="allRouteList.php">Güncel Rotalar</a>
+                    </div>
+                    <div class="p-ticket">
+                        <a class="a2" href="allRouteList2.php">Geçmiş Rotalar</a>
                     </div>
                     <div class="p-ticket">
                         <a class="a2" href="allPassengers.php">Yolcuları Listele</a>
                     </div>
                     <div class="p-ticket">
                         <a class="a2" href="allTicketList.php">Biletleri Listele</a>
+                    </div>
+                    <div class="p-ticket">
+                        <a class="a2" href="addNewTrain.php">Yeni Tren Ekle</a>
+                    </div>
+                    <div class="p-ticket">
+                        <a class="a2" href="allTrains.php">Trenleri Listele</a>
                     </div>
                 </div>
                 <form class="right2" action="modRoute.php" method="post">

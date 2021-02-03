@@ -55,7 +55,10 @@ if ($count == 0) {
                         <a class="a2" href="addNewRoute.php">Yeni Rota Ekle</a>
                     </div>
                     <div class="p-ticket">
-                        <a class="a2" href="allRouteList.php">Rotaları Listele</a>
+                        <a class="a2" href="allRouteList.php">Güncel Rotalar</a>
+                    </div>
+                    <div class="p-ticket">
+                        <a class="a2" href="allRouteList2.php">Geçmiş Rotalar</a>
                     </div>
                     <div class="p-ticket">
                         <a class="a2" href="allPassengers.php">Yolcuları Listele</a>
