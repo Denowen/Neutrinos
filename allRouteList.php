@@ -66,33 +66,8 @@ if (!$counta) {
     justify-content: center;
     color: white;
 ">Geçmiş Seferler</h1>
-                    <script>
-                        function searchFilterFunction() {
-                            var input, filter, table, tr, td, i, txtValue;
-                            input = document.getElementById("input");
-                            filter = input.value.toUpperCase();
-                            table = document.getElementById("table");
-                            tr = table.getElementsByTagName("tr");
-                            for (i = 0; i < tr.length; i++) {
-                                td = tr[i].getElementsByTagName("td")[0];
-                                td1 = tr[i].getElementsByTagName("td")[1];
-                                td6 = tr[i].getElementsByTagName("td")[6];
-                                if (td) {
-                                    txtValue = td.textContent || td.innerText;
-                                    txtValue1 = td1.textContent || td1.innerText;
-                                    txtValue6 = td6.textContent || td6.innerText;
-
-                                    if (txtValue.toUpperCase().indexOf(filter) > -1 || txtValue1.toUpperCase().indexOf(filter) > -1 ||
-                                        txtValue6.toUpperCase().indexOf(filter) > -1) {
-                                        tr[i].style.display = "";
-                                    } else {
-                                        tr[i].style.display = "none";
-                                    }
-                                }
-                            }
-                        }
-                    </script>
-                    <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
+                    
+                    <table id = "tablez" cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
                         <th><input type="text" id="input" onkeyup="searchFilterFunction()" placeholder="Search for usernames.." title="Type in a username" /></th>
                         <thead>
                             <th>Id</th>
@@ -130,8 +105,8 @@ if (!$counta) {
     justify-content: center;
     color: white;
 ">Güncel Seferler</h1>
-                    <table cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
-                        <th><input type="text" id="input" onkeyup="searchFilterFunction()" placeholder="Search for usernames.." title="Type in a username" /></th>
+                    <table id = "tablez1" cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
+                        <th><input type="text" id="input1" onkeyup="searchFilterFunction2()" placeholder="Search for usernames.." title="Type in a username" /></th>
                         <thead>
                             <th>Id</th>
                             <th>Kalkış</th>
@@ -168,6 +143,59 @@ if (!$counta) {
                             ?>
                         </tbody>
                     </table>
+                    <script>
+                        function searchFilterFunction() {
+                            var input, filter, table, tr, td, i, txtValue;
+                            input = document.getElementById("input");
+                            filter = input.value.toUpperCase();
+                            table = document.getElementById("tablez");
+                            tr = table.getElementsByTagName("tr");
+                            for (i = 0; i < tr.length; i++) {
+                                td = tr[i].getElementsByTagName("td")[0];
+                                td1 = tr[i].getElementsByTagName("td")[1];
+                                td6 = tr[i].getElementsByTagName("td")[6];
+                                if (td) {
+                                    txtValue = td.textContent || td.innerText;
+                                    txtValue1 = td1.textContent || td1.innerText;
+                                    txtValue6 = td6.textContent || td6.innerText;
+                                    
+
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1 || txtValue1.toUpperCase().indexOf(filter) > -1 ||
+                                        txtValue6.toUpperCase().indexOf(filter) > -1) {
+                                        tr[i].style.display = "";
+                                    } else {
+                                        tr[i].style.display = "none";
+                                    }
+                                }
+                            }
+                        }
+                        function searchFilterFunction2() {
+                            var input, filter, table, tr, td, i, txtValue;
+                            input = document.getElementById("input1");
+                            filter = input.value.toUpperCase();
+                            table = document.getElementById("tablez1");
+                            tr = table.getElementsByTagName("tr");
+                            for (i = 0; i < tr.length; i++) {
+                                td = tr[i].getElementsByTagName("td")[0];
+                                td1 = tr[i].getElementsByTagName("td")[1];
+                                td6 = tr[i].getElementsByTagName("td")[6];
+                                if (td) {
+                                    txtValue = td.textContent || td.innerText;
+                                    txtValue1 = td1.textContent || td1.innerText;
+                                    txtValue6 = td6.textContent || td6.innerText;
+                                    
+
+                                    if (txtValue.toUpperCase().indexOf(filter) > -1 || txtValue1.toUpperCase().indexOf(filter) > -1 ||
+                                        txtValue6.toUpperCase().indexOf(filter) > -1) {
+                                        tr[i].style.display = "";
+                                    } else {
+                                        tr[i].style.display = "none";
+                                    }
+                                }
+                            }
+                        }
+                    </script>
+                    
                 </div>
             </div>
 
