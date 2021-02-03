@@ -71,7 +71,7 @@ if (!$counta) {
 ">Geçmiş Seferler</h1>
                     
                     <table id = "tablez" cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
-                        <th><input type="text" id="input" onkeyup="searchFilterFunction()" placeholder="Search for usernames.." title="Type in a username" /></th>
+                        <th><input type="text" id="input" onkeyup="searchFilterFunction()" placeholder="id, kalkış veya tren numarası giriniz" title="id, kalkış veya tren numarası giriniz" /></th>
                         <thead>
                             <th>Id</th>
                             <th>Kalkış</th>
@@ -109,7 +109,7 @@ if (!$counta) {
     color: white;
 ">Güncel Seferler</h1>
                     <table id = "tablez1" cellpadding="20" style="color: rgb(50 239 239 / 68%);flex: 2;">
-                        <th><input type="text" id="input1" onkeyup="searchFilterFunction2()" placeholder="Search for usernames.." title="Type in a username" /></th>
+                        <th><input type="text" id="input1" onkeyup="searchFilterFunction2()" placeholder="id, kalkış veya tren numarası giriniz" title="id, kalkış veya tren numarası giriniz" /></th>
                         <thead>
                             <th>Id</th>
                             <th>Kalkış</th>
