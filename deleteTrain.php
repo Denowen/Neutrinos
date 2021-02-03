@@ -32,7 +32,11 @@ while($i1<$num4){
           $subject = "::🙁 Yolculuğunuz iptal edildi. ::";
           $body = "Yolculuğunuz iptal edilmiştir. Bilet ödemeleriniz ödeme yaptığınız banka hesabınıza iade edilmiştir. Başka yolculuklarda görüşmek üzere. ";
           $headers = "From: neutrinos.turizm@gmail.com";
-         
+         if (mail($to_email, $subject, $body, $headers)) {
+            echo "Email successfully sent to $to_email...";
+        } else {
+            echo "Email sending failed...";
+        }
          }
    
              }
