@@ -54,7 +54,7 @@ $result5 = mysqli_query($conn, $query5);
 $query = "DELETE FROM train WHERE trainNumber='$trainNumber'";
 $result = mysqli_query($conn, $query);
 
-$query6 = "DELETE FROM seatandclass WHERE trainNumber='$trainNumber'";
+$query6 = "DELETE FROM seatandclass WHERE trainNo='$trainNumber'";
 $result6 = mysqli_query($conn, $query6);
 
 
