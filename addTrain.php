@@ -33,7 +33,7 @@ if (empty($trainNumber) || empty($kapasite)) {
         $row2[0] += 1;
         
         $count2 = 0;
-        $count3 = 0;
+        $count3 = 1;
         while($count2 < $kapasite) {
 
             if($count2 < ($kapasite/2) ){
