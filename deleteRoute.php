@@ -35,7 +35,7 @@ $query2 = "SELECT r.regUserEmail FROM ticket t, registeredusers r WHERE t.reguse
    $result8 = mysqli_query($conn, $query8);
    $query9 = "DELETE FROM buy WHERE routeId='$routeId'";
    $result9 = mysqli_query($conn, $query9);
-   $query0 = "DELETE FROM buy WHERE routeId='$routeId'";
+   $query0 = "DELETE FROM reserve WHERE routeId='$routeId'";
    $result0 = mysqli_query($conn, $query0);
 
 header("Location:allRouteList.php");
