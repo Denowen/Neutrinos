@@ -60,13 +60,11 @@
                         </div>
                         <div class="d-row">
                             <label for="date">Doğum Tarihi</label>
-                            <input onclick="dateConstraint()" class="input" required id="bdate" type="date" name="bdate" style="height: 100%; width: 64%;"></input>
-                            <script>
-                                function dateConstraint() {
-                                    var today = new Date().toISOString().split('T')[0];
-                                    document.getElementsByName("bdate")[0].setAttribute('max', today);
-                                }
-                            </script>
+                            <input type="date" class="input" required id="bdate" name="bdate" max="<?php
+$today = date_create(date('Y-m-d'));
+date_sub($today,date_interval_create_from_date_string("18 year"));
+echo date_format($today,"Y-m-d");
+?>" style="height: 100%; width: 64%;"/>
                         </div>
                         <div class="d-row">
                             <label for="tel" style="padding-right: 24%;">Cep No</label>
