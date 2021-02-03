@@ -77,7 +77,10 @@ if (empty($trainNumber) || empty($kapasite)) {
 
         }
       
-        header("location: admin.php");
+        echo '<script type="text/javascript">'; 
+echo 'alert("Tren başarıyla eklendi");'; 
+echo 'window.location.href = "admin.php";';
+echo '</script>';
     } else
         echo '<script type="text/javascript">';
     echo 'alert("Yanlış bilgi girdiniz.");';
