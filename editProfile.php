@@ -14,7 +14,7 @@ $resultsql = mysqli_query($conn, $sql);
 $sql3 = "UPDATE registeredusers SET regUserEmail='$mail3' WHERE regUserEmail='$email'";
 $resultsql3 = mysqli_query($conn, $sql3);
 
-$sql2 = "UPDATE registeredusers SET regUserTelephoneNumber='$tel3' WHERE regUserEmail='$email'";
+$sql2 = "UPDATE registeredusers SET regUserTelephoneNumber='$tel3' WHERE regUserEmail='$mail3'";
 $resultsql2 = mysqli_query($conn, $sql2);
 
 
