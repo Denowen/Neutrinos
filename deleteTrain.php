@@ -23,8 +23,44 @@ while($i1<$num4){
           while($row1 = mysqli_fetch_array($result2)){
           $to_email = $row1[0];
            $i++; 
+          $query5 = "DELETE FROM ticket WHERE routeId='$routeId'";
+          $result5 = mysqli_query($conn, $query5);
           $subject = "::🙁 Yolculuğunuz iptal edildi. ::";
           $body = "Yolculuğunuz iptal edilmiştir. Bilet ödemeleriniz ödeme yaptığınız banka hesabınıza iade edilmiştir. Başka yolculuklarda görüşmek üzere. ";
+          $headers = "From: neutrinos.turizm@gmail.com";
+          if (mail($to_email, $subject, $body, $headers)) {
+             echo "Email successfully sent to $to_email...";
+          } else {
+             echo "Email sending failed...";
+          }
+   
+
+         }
+   
+             }
+       
+          }
+
+
+}
+
+$i2=0;
+while($i2<$num4){
+     while($row3 = mysqli_fetch_array($result4)){
+          $routeId = $row3[0];
+          $i2++; 
+          $query2 = "SELECT r.regUserEmail FROM reserve t, registeredusers r WHERE t.reguserSsn = r.regUserSsn and t.routeId = '$routeId'";
+          $result2 = mysqli_query($conn, $query2);
+          $num2 = mysqli_num_rows($result2);
+          $i = 0;
+          while($i < $num2){
+          while($row1 = mysqli_fetch_array($result2)){
+          $to_email = $row1[0];
+           $i++; 
+           $query5 = "DELETE FROM reserve WHERE routeId='$routeId'";
+          $result5 = mysqli_query($conn, $query5);
+          $subject = "::🙁 Rezervasyonunuz iptal edildi. ::";
+          $body = "Rezervasyonunuz iptal edilmiştir. Başka yolculuklarda görüşmek üzere. ";
           $headers = "From: neutrinos.turizm@gmail.com";
           if (mail($to_email, $subject, $body, $headers)) {
              echo "Email successfully sent to $to_email...";
