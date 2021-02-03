@@ -24,7 +24,7 @@ while($i1<$num4){
           $query8 = "DELETE FROM buy WHERE routeId='$routeId'";
           $result8 = mysqli_query($conn, $query8);
           $query9 = "DELETE FROM reserve WHERE routeId='$routeId'";
-          $result9 = mysqli_query($conn, $query);
+          $result9 = mysqli_query($conn, $query9);
           while($i < $num2){
           while($row1 = mysqli_fetch_array($result2)){
           $to_email = $row1[0];
